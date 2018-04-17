@@ -23,11 +23,11 @@ def main():
             temp.append(vak.vanVakNaarId[college])
         persoon.vakken = temp
    
-    for vak2 in vakkenLijst:
+    for college in vakkenLijst:
         for persoon in studentenLijst:
-            if vak2.id in persoon.vakken:
-                vak2.studenten.append(persoon.studentnummer)
-        vak2.aantalStudenten = len(vak2.studenten)
+            if college.id in persoon.vakken:
+                college.studenten.append(persoon.studentnummer)
+        college.aantalStudenten = len(college.studenten)
 
 if __name__ == "__main__":
     main()
