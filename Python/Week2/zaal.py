@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Apr 17 10:14:56 2018
-
-@author: Nadja
-"""
-
 
 class Zaal(object):
     """

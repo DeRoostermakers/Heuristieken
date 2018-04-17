@@ -13,8 +13,12 @@ def main():
 
     # rooster
     rooster = {"maandag" : copy.deepcopy(dag), "dinsdag" : copy.deepcopy(dag), "woensdag" : copy.deepcopy(dag), "donderdag" : copy.deepcopy(dag), "vrijdag" : copy.deepcopy(dag)}
-
-    print(rooster["maandag"][1])
+    
+    for stud in student.studentenLijst:
+        for vak2 in stud.vakken:
+            vak2 = vak.vanVakNaarId[vak2]
+            
+    
 
 if __name__ == "__main__":
     main()
