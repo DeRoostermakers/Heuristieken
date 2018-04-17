@@ -7,6 +7,12 @@ class Student(object):
         self.studentnummer = studentnummer
         self.vakken = vakken
 
+    def __str__(self):
+        return self.studentnummer
+
+    def __repr__(self):
+        return self.studentnummer
+
 studentenLijst = []
 
 with open('studentenenvakken.csv', 'r', encoding="latin-1") as csvfile:
@@ -15,7 +21,7 @@ with open('studentenenvakken.csv', 'r', encoding="latin-1") as csvfile:
         studentVakken = []
         for vak in row[3:]:
             if vak != "":
-                studentVakken.append(vak) 
+                studentVakken.append(vak)
         studentenLijst.append(Student(row[0], row[1], row[2], studentVakken))
 
 # discard first row with Excel variable names
