@@ -17,7 +17,7 @@ def main():
     for stud in student.studentenLijst:
         for vak2 in stud.vakken:
             vak2 = vak.vanVakNaarId[vak2]
-            
+        print(stud.vakken)            
     
 
 if __name__ == "__main__":
