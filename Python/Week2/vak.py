@@ -2,7 +2,7 @@ import csv
 
 with open('vakken.csv') as csvFile:
     readCSV = csv.reader(csvFile, delimiter=';')
-    print(readCSV)
+
 
     class Vak(object):
         """docstring for [object Object]."""
@@ -29,3 +29,4 @@ with open('vakken.csv') as csvFile:
             vakkenlijst.append(Vak(counter, row[0], row[1], row[2], row[3], row[4], row[5]))
             vanVakNaarId[row[0]] = counter
         counter += 1
+    csvFile.close()
