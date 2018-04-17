@@ -2,7 +2,10 @@ import csv
 
 with open('vakken.csv') as csvFile:
     readCSV = csv.reader(csvFile, delimiter=';')
-    print(readCSV)
+
+    for row in readCSV:
+        print(row)
+
 
 class Vak(object):
     """docstring for [object Object]."""
