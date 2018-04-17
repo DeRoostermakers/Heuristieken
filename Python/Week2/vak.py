@@ -1,13 +1,8 @@
 import csv
 
-vakkenlijst = []
-
 with open('vakken.csv') as csvFile:
     readCSV = csv.reader(csvFile, delimiter=';')
     print(readCSV)
-
-
-
 
     class Vak(object):
         """docstring for [object Object]."""
@@ -25,8 +20,12 @@ with open('vakken.csv') as csvFile:
         def __str__(self):
             return self.naam
 
-    for row in readCSV:
-        vakkenlijst.append(Vak(1, row[0], row[1], row[2], row[3], row[4], row[5]))
 
-    for vak in vakkenlijst:
-        print(vak)
+    counter = -1
+    vakkenlijst = []
+    vanVakNaarId = {}
+    for row in readCSV:
+        if counter != -1:
+            vakkenlijst.append(Vak(counter, row[0], row[1], row[2], row[3], row[4], row[5]))
+            vanVakNaarId[row[0]] = counter
+        counter += 1
