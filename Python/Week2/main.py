@@ -1,10 +1,16 @@
-import student
-import vak
-import zaal
+"""
+Hoofdbestand Heuristieken
+
+Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
+"""
+
+import student as studentClass
+import zaal as zaalClass
 import copy
 
-studentenLijst = student.studentenLijst
-vakkenLijst = vak.vakkenlijst
+# initialiseer lijsten met data
+studentenLijst = studentClass.studentenLijst
+vakkenLijst = studentClass.vakkenLijst
 
 def main():
 
@@ -12,22 +18,11 @@ def main():
     idNaarTijdslot = {1 : "9:00-11:00", 2 : "11:00-13:00", 3 : "15:00-17:00", 4 : "17:00-19:00"}
 
     # dict met alle zalen per dag
-    dag = {1 : zaal.zaalLijst[:], 2 : zaal.zaalLijst[:], 3 : zaal.zaalLijst[:], 4 : zaal.zaalLijst[:]}
+    dag = {1 : zaalClass.zaalLijst[:], 2 : zaalClass.zaalLijst[:], 3 : zaalClass.zaalLijst[:], 4 : zaalClass.zaalLijst[:]}
 
-    # rooster
+    # weekrooster met tijdslots en zalen
     rooster = {"maandag" : copy.deepcopy(dag), "dinsdag" : copy.deepcopy(dag), "woensdag" : copy.deepcopy(dag), "donderdag" : copy.deepcopy(dag), "vrijdag" : copy.deepcopy(dag)}
 
-    for persoon in studentenLijst:
-        temp = []
-        for college in persoon.vakken:    
-            temp.append(vak.vanVakNaarId[college])
-        persoon.vakken = temp
-   
-    for college in vakkenLijst:
-        for persoon in studentenLijst:
-            if college.id in persoon.vakken:
-                college.studenten.append(persoon.studentnummer)
-        college.aantalStudenten = len(college.studenten)
 
 if __name__ == "__main__":
     main()
