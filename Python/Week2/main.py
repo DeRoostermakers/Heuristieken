@@ -3,6 +3,9 @@ import vak
 import zaal
 import copy
 
+studentenLijst = student.studentenLijst
+vakkenLijst = vak.vakkenlijst
+
 def main():
 
     # dict om id van tijdsloten om te zetten naar tijd
@@ -14,21 +17,17 @@ def main():
     # rooster
     rooster = {"maandag" : copy.deepcopy(dag), "dinsdag" : copy.deepcopy(dag), "woensdag" : copy.deepcopy(dag), "donderdag" : copy.deepcopy(dag), "vrijdag" : copy.deepcopy(dag)}
 
-    for stud in student.studentenLijst:
+    for persoon in studentenLijst:
         temp = []
-        for vak2 in stud.vakken:
-<<<<<<< HEAD
-            vak2 = vak.vanVakNaarId[vak2]
-        print(stud.vakken)            
-    
-=======
-            temp.append(vak.vanVakNaarId[vak2])
-        stud.vakken = temp
-        
-
-
-
->>>>>>> ae2847669be34ec8cdd81866ad330f43cface6d5
+        for college in persoon.vakken:    
+            temp.append(vak.vanVakNaarId[college])
+        persoon.vakken = temp
+   
+    for vak2 in vakkenLijst:
+        for persoon in studentenLijst:
+            if vak2.id in persoon.vakken:
+                vak2.studenten.append(persoon.studentnummer)
+        vak2.aantalStudenten = len(vak2.studenten)
 
 if __name__ == "__main__":
     main()
