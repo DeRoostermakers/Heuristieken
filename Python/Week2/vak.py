@@ -1,3 +1,9 @@
+import csv
+
+with open('vakken.csv') as csvFile:
+    readCSV = csv.reader(csvFile, delimiter=';')
+    print(readCSV)
+
 class Vak(object):
     """docstring for [object Object]."""
     def __init__(self, id, naam, hc, wc, maxWc, prac, maxPrac, aantalStudenten):
