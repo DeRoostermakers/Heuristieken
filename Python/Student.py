@@ -16,7 +16,6 @@ with open('studentenenvakken.csv', 'r', encoding="latin-1") as csvfile:
         for vak in row[3:]:
             if vak != "":
                 studentVakken.append(vak) 
-        print(studentVakken)
         studentenLijst.append(Student(row[0], row[1], row[2], studentVakken))
 
 # discard first row with Excel variable names
