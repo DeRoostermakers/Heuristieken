@@ -28,8 +28,9 @@ def main():
     # weekrooster met tijdslots en zalen
     rooster = {"maandag" : copy.deepcopy(dag), "dinsdag" : copy.deepcopy(dag), "woensdag" : copy.deepcopy(dag), "donderdag" : copy.deepcopy(dag), "vrijdag" : copy.deepcopy(dag)}
 
-    for vak in vakkenLijst:
-        print(vak.id)
+    for dag in rooster.keys():
+        print(rooster[dag][1][0])
+            
     
 def initialize():
     
