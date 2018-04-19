@@ -17,8 +17,8 @@ class Activiteit(object):
         self.nrStud = nrStud
         self.welkeStud = welkeStud
 
-        def __str__(self):
-        return self.vakId + "," + self.soort
+    def __str__(self):
+        return str(self.vakId) + "." + str(self.soort) + "." + str(self.groepnr)
 
     def __repr__(self):
-        return self.vakId + "," + self.soort
+        return str(self.vakId) + "." + str(self.soort) + "." + str(self.groepnr)

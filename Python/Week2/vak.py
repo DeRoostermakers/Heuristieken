@@ -18,10 +18,10 @@ class Vak(object):
         self.maxPrac = maxPrac
         self.aantalStudenten = 0
         self.studenten = []
+        self.dag = 0
 
     def __str__(self):
         return self.naam
 
     def __repr__(self):
         return self.naam
-
