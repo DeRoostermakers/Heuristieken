@@ -44,11 +44,11 @@ studentenLijst = studentenLijst[1:]
 # vakken in studentenlijst met id voorzien
 for student in studentenLijst:
     temp = []
-    for vak in student.vakken:    
+    for vak in student.vakken:
         temp.append(vakClass.vanVakNaarId[vak])
     student.vakken = temp
-   
-# aantal studenten per vak vastleggen    
+
+# aantal studenten per vak vastleggen
 for vak in vakkenLijst:
     for student in studentenLijst:
         if vak.id in student.vakken:

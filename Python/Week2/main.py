@@ -15,7 +15,7 @@ vakkenLijst = studentClass.vakkenLijst
 def main():
 
     # dict om id van tijdsloten om te zetten naar tijd
-    idNaarTijdslot = {1 : "9:00-11:00", 2 : "11:00-13:00", 3 : "15:00-17:00", 4 : "17:00-19:00"}
+    idNaarTijdslot = {1 : "9:00-11:00", 2 : "11:00-13:00", 3 : "13:00-15:00", 4 : "15:00-17:00"}
 
     # dict met alle zalen per dag
     dag = {1 : zaalClass.zaalLijst[:], 2 : zaalClass.zaalLijst[:], 3 : zaalClass.zaalLijst[:], 4 : zaalClass.zaalLijst[:]}
