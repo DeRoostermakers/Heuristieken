@@ -1,8 +1,4 @@
-# negeer alle python gecompileerde bestanden van NumPy
+# negeer alle van de volgende bestanden
 *.pyc
-__pycache__/
-
-
-# OS generated files #
-######################
+__pycache__
 .DS_Store
