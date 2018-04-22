@@ -1,7 +1,3 @@
-# Project files and directories
-/Heuristieken/
-/Heuristieken/code/
-
 # negeer alle van de volgende bestanden
 *.pyc
 __pycache__/
