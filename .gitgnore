@@ -1,0 +1,7 @@
+# negeer alle python gecompileerde bestanden van NumPy
+*.pyc
+
+
+# OS generated files #
+######################
+.DS_Store
