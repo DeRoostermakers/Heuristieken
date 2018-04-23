@@ -1,0 +1,4 @@
+# negeer alle van de volgende bestanden
+*.pyc
+__pycache__/
+.DS_Store
