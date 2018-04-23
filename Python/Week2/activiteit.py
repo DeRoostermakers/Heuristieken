@@ -17,7 +17,7 @@ class Activiteit(object):
         self.nrStud = nrStud
         self.welkeStud = welkeStud
 
-        def __str__(self):
+    def __str__(self):
         return self.vakId + "," + self.soort
 
     def __repr__(self):
