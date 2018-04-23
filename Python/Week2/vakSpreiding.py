@@ -1,3 +1,8 @@
+"""
+Bestand met functie die de maluspunten voor de vakspreiding berekent
+
+Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
+"""
 
 def vakSpreiding(vakkenLijst, activiteitenLijst):
     "deze functie berekent de punten voor de spreiding van de activiteiten"
@@ -15,11 +20,9 @@ def vakSpreiding(vakkenLijst, activiteitenLijst):
                             
         aantalActiviteiten = vak.hc + vak.wc + vak.prac
         
+        x = aantalActiviteiten - verdeeldAantalDagen
         
-                            
-                            
-                            
-                            
-                            
-
-
+        if x > 0:
+            malusPunten = malusPunten + x * 10
+        
+    return malusPunten
