@@ -33,19 +33,46 @@ def main():
     # start de datastructuur
     initialiseer()
 
-    i = 0
-    for activiteit in activiteitenLijst:
-        toevoegen(rooster[i], activiteit)
-        i += 1
-        
+    print(rooster)
+
     zalenInGebruik = []
     for zaalslot in rooster:
         if zaalslot.inGebruik == 1:
             zalenInGebruik.append(zaalslot)
 
-    score = scoreFunctie(vakkenLijst, activiteitenLijst, rooster, studentenLijst)
+    score = scoreFunctie(vakkenLijst, activiteitenLijst, zalenInGebruik, studentenLijst)
 
     print(score)
+
+def wissel(activiteit1, activiteit2):
+    """ Wissel twee activiteiten van tijdslot"""
+
+    zaalslot1 = None
+    zaalslot2 = None
+
+    # zoekt naar de twee bijbehorende zaalsloten
+    for zaalslot in rooster:
+        if zaalslot.activiteit == activiteit1:
+            zaalslot1 = zaalslot
+        elif zaalslot.activiteit == activiteit2:
+            zaalslot2 = zaalslot
+
+    # controleert of zaalsloten zijn gevonden
+    if zaalslot1 == None or zaalslot2 == None:
+        print("activiteit niet gevonden")
+
+    # wissel de activiteiten van zaalsloten
+    else:
+        zaalslot1.activiteit = activiteit2
+        activiteit2.dag = zaalslot1.dag
+        activiteit2.tijdslot = zaalslot1.tijdslot
+
+        zaalslot2.activiteit = activiteit1
+        activiteit1.dag = zaalslot2.dag
+        activiteit1.tijdslot = zaalslot2.tijdslot
+
+
+
 
 def toevoegen(zaalslotGewenst, activiteit):
     """ Voeg een activiteit aan een zaalslot toe."""
@@ -236,7 +263,7 @@ def extraTijdslot(studentenLijst, zaalslotLijst):
     "deze functie berekent de punten bij het gebruik van het extra tijdslot"
 
     malusPunten = 0
-    
+
     for zaal in zaalslotLijst:
         if zaal.tijdslot == 5 and zaal.inGebruik == 1:
             malusPunten += 50
@@ -246,12 +273,12 @@ def extraTijdslot(studentenLijst, zaalslotLijst):
 
 def scoreFunctie(vakkenLijst, activiteitenLijst, zaalslotLijst, studentenLijst):
     "deze functie berekent de score van een rooster"
-    
+
     malusPunten = vakSpreiding(vakkenLijst, activiteitenLijst) + zaalgrootteConflict(zaalslotLijst) + roosterConflicten(studentenLijst, zaalslotLijst) + extraTijdslot(studentenLijst, zaalslotLijst)
     score = 1000 - malusPunten
-    
+
     return score
-    
+
 
 if __name__ == "__main__":
     main()
