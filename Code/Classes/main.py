@@ -49,7 +49,11 @@ def initialiseer():
 
         # rijen van CSV inlezen en vakobject aanmaken
         for rij in leesCSV:
-            vakkenLijst.append(VakKlasse.Vak(teller, rij[0], rij[1], rij[2], rij[3], rij[4], rij[5]))
+            if rij[3] == 'nvt'
+                rij[3] = 1000
+            if rij[5] == 'nvt'
+                rij[5] = 1000
+            vakkenLijst.append(VakKlasse.Vak(teller, rij[0], int(rij[1]), int(rij[2]), int(rij[3]), int(rij[4]), int(rij[5])))
             vanVakNaarId[rij[0]] = teller
             teller += 1
 

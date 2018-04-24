@@ -24,4 +24,3 @@ class Vak(object):
 
     def __repr__(self):
         return self.naam
-
