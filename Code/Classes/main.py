@@ -59,6 +59,7 @@ def initialiseer():
                     studentVakken.append(vak)
             studentenLijst.append(StudentKlasse.Student(rij[0], rij[1], rij[2], studentVakken))
 
+    print("test")
     # vakken in studentenlijst met id voorzien
     for student in studentenLijst:
         tijdelijk = []
