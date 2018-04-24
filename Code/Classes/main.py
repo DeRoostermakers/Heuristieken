@@ -28,16 +28,8 @@ def main():
     # weekrooster met tijdslots en zalen
     rooster = {"maandag" : copy.deepcopy(dag), "dinsdag" : copy.deepcopy(dag), "woensdag" : copy.deepcopy(dag), "donderdag" : copy.deepcopy(dag), "vrijdag" : copy.deepcopy(dag)}
 
-<<<<<<< HEAD:Python/Week2/main.py
-    for dag in rooster.keys():
-        print(rooster[dag][1][0])
-            
-    
-=======
-    for vak in vakkenLijst:
-        print(vak.id)
 
->>>>>>> 9122f4f158ebcc1c8d5d393f40c0d33a8c5af36b:Code/Classes/main.py
+
 def initialiseer():
 
     # aanmaken van dict en vakkenlijst creëren
@@ -58,13 +50,13 @@ def initialiseer():
     with open('studentenenvakken.csv', 'r', encoding="latin-1") as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=",")
         next(leesCSV, None)
-        
+
         #
         for rij in leesCSV:
             studentVakken = []
             for vak in rij[3:]:
                 if vak != "":
-                    studentVakken.append(college)
+                    studentVakken.append(vak)
             studentenLijst.append(StudentKlasse.Student(rij[0], rij[1], rij[2], studentVakken))
 
     # vakken in studentenlijst met id voorzien
@@ -80,12 +72,12 @@ def initialiseer():
             if vak.id in student.vakken:
                 vak.studenten.append(student.studentnummer)
         vak.aantalStudenten = len(vak.studenten)
-    
+
     #
     with open('zalen.csv') as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=';')
         next(leesCSV, None)
-        
+
         #
         for rij in leesCSV:
             zaalLijst.append(ZaalKlasse.Zaal(rij[0], rij[1], 0, 0))
