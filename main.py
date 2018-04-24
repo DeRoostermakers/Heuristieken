@@ -39,7 +39,8 @@ def main():
 
     i = 0
     for activiteit in inTeRoosteren:
-        toevoegen(rooster[i], activiteit)
+        test = toevoegen(rooster[i], activiteit)
+        print(test)
         i += 1
 
     print(len(inGeroosterd))
