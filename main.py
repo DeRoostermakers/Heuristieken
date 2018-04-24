@@ -26,21 +26,31 @@ rooster = []
 # dagen dat er les wordt gegeven
 lesdagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
 # dict om id van tijdsloten om te zetten naar tijd
-idNaarTijdslot = {1 : "9:00-11:00", 2 : "11:00-13:00", 3 : "13:00-15:00", 4 : "15:00-17:00", 5 : "17:00 - 19:00"}
+idNaarTijdslot = {1 : "9:00-11:00", 2 : "11:00-13:00", 3: "13:00-15:00", 4: "15:00-17:00", 5: "17:00-19:00"}
 
 def main():
 
     # start de datastructuur
     initialiseer()
+<<<<<<< HEAD
 
     print(rooster)
 
+=======
+    
+    i = 0
+    for activiteit in activiteitenLijst:
+        toevoegen(rooster[i], activiteit)
+        i += 1
+        
+>>>>>>> a5e7b72088ad58eaba60751d5785dfc2ff51dba2
     zalenInGebruik = []
     for zaalslot in rooster:
         if zaalslot.inGebruik == 1:
             zalenInGebruik.append(zaalslot)
 
     score = scoreFunctie(vakkenLijst, activiteitenLijst, zalenInGebruik, studentenLijst)
+<<<<<<< HEAD
 
     print(score)
 
@@ -73,6 +83,11 @@ def wissel(activiteit1, activiteit2):
 
 
 
+=======
+    
+    print(score)
+
+>>>>>>> a5e7b72088ad58eaba60751d5785dfc2ff51dba2
 
 def toevoegen(zaalslotGewenst, activiteit):
     """ Voeg een activiteit aan een zaalslot toe."""
@@ -208,7 +223,6 @@ def zaalgrootteConflict(zaalslotLijst):
     "deze functie berekent de maluspunten voor te kleine zalen"
 
     malusPunten = 0
-
     for zaalslot in zaalslotLijst:
         verschil = zaalslot.capaciteit - zaalslot.activiteit.nrStud
         if verschil < 0:
@@ -229,7 +243,7 @@ def vakSpreiding(vakkenLijst, activiteitenLijst):
             if activiteit.vakId == vak.id:
                 if activiteit.dag not in dag:
                     dag.append(activiteit.dag)
-                    verdeeldAantalDagen =+ 1
+                    verdeeldAantalDagen += 1
 
         aantalActiviteiten = vak.hc + vak.wc + vak.prac
 
@@ -238,7 +252,6 @@ def vakSpreiding(vakkenLijst, activiteitenLijst):
         malusPunten = malusPunten + x * 10
 
     return malusPunten
-
 
 
 def roosterConflicten(studentenLijst, zaalslotLijst):
@@ -275,8 +288,13 @@ def scoreFunctie(vakkenLijst, activiteitenLijst, zaalslotLijst, studentenLijst):
     "deze functie berekent de score van een rooster"
 
     malusPunten = vakSpreiding(vakkenLijst, activiteitenLijst) + zaalgrootteConflict(zaalslotLijst) + roosterConflicten(studentenLijst, zaalslotLijst) + extraTijdslot(studentenLijst, zaalslotLijst)
+<<<<<<< HEAD
     score = 1000 - malusPunten
 
+=======
+    score = 1000 - malusPunten  
+    
+>>>>>>> a5e7b72088ad58eaba60751d5785dfc2ff51dba2
     return score
 
 

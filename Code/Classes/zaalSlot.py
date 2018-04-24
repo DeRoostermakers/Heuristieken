@@ -19,7 +19,7 @@ class ZaalSlot(object):
 
 
     def __str__(self):
-        return self.naam + "." + self.dag + "." + str(self.tijdslot)
+        return self.naam + "." + self.dag + "." + str(self.tijdslot) + "." + str(self.activiteit)
 
     def __repr__(self):
-        return self.naam + "." + self.dag + "." + str(self.tijdslot)
+        return self.naam + "." + self.dag + "." + str(self.tijdslot) + "." + str(self.activiteit)
