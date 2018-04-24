@@ -236,15 +236,9 @@ def extraTijdslot(studentenLijst, zaalslotLijst):
     "deze functie berekent de punten bij het gebruik van het extra tijdslot"
 
     malusPunten = 0
-<<<<<<< HEAD
     
     for zaal in zaalslotLijst:
         if zaal.tijdslot == 5 and zaal.inGebruik == 1:
-=======
-
-    for zaal in zaalslot:
-        if tijdslot == 5 and inGebruik:
->>>>>>> a53a0cfa8c93bf71bd749252aa70adf93f6bdaab
             malusPunten += 50
 
     return malusPunten
@@ -255,15 +249,9 @@ def scoreFunctie(vakkenLijst, activiteitenLijst, zaalslotLijst, studentenLijst):
     
     malusPunten = vakSpreiding(vakkenLijst, activiteitenLijst) + zaalgrootteConflict(zaalslotLijst) + roosterConflicten(studentenLijst, zaalslotLijst) + extraTijdslot(studentenLijst, zaalslotLijst)
     score = 1000 - malusPunten
-<<<<<<< HEAD
     
     return score
     
-    
-=======
-
-
->>>>>>> a53a0cfa8c93bf71bd749252aa70adf93f6bdaab
 
 if __name__ == "__main__":
     main()
