@@ -9,15 +9,14 @@ class Zaal(object):
     Klasse om een zaal te representeren
     """
 
-    def __init__(self, naam, capaciteit, inGebruik, vak):
+    def __init__(self, naam, capaciteit):
         self.naam = naam
         self.capaciteit = capaciteit
-        self.inGebruik = inGebruik
-        self.vak = vak
+        self.inGebruik = 0
+        self.activiteit = None
 
     def __str__(self):
         return self.naam
 
     def __repr__(self):
         return self.naam
-

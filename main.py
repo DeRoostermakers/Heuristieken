@@ -37,8 +37,19 @@ def main():
     # weekrooster met tijdslots en zalen
     rooster = {"maandag" : copy.deepcopy(dag), "dinsdag" : copy.deepcopy(dag), "woensdag" : copy.deepcopy(dag), "donderdag" : copy.deepcopy(dag), "vrijdag" : copy.deepcopy(dag)}
 
-    for activiteit in inTeRoosteren:
-        print(activiteit)
+    toevoegen(maandag, , zaalNaam, activiteit)
+
+
+def toevoegen(dag, tijdslot, zaalNaam, activiteit):
+    # zoek naar de gekozen zaal
+    for zaal in rooster[dag][tijdslot]:
+        if zaal.naam == zaalNaam:
+            if zaal.activiteit == None:
+                zaal.activiteit = activiteit
+                return True
+            else:
+                print("Zaal al bezet")
+                return False
 
 def initialiseer():
 
@@ -97,7 +108,7 @@ def initialiseer():
 
         #
         for rij in leesCSV:
-            zaalLijst.append(ZaalKlasse.Zaal(rij[0], rij[1], 0, 0))
+            zaalLijst.append(ZaalKlasse.Zaal(rij[0], rij[1]))
 
 
     # vakken omzetten naar activiteiten
