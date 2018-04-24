@@ -16,7 +16,7 @@ def vakSpreiding(vakkenLijst, activiteitenLijst):
             if activiteit.vakId == vak.id:
                 if activiteit.dag not in dag:
                     dag.append(activiteit.dag)
-                    verdeeldAantalDagen = verdeeldAantalDagen + 1                    
+                    verdeeldAantalDagen =+ 1                    
                             
         aantalActiviteiten = vak.hc + vak.wc + vak.prac
         

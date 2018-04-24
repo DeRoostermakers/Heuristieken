@@ -17,7 +17,7 @@ vanVakNaarId = {}
 
 def main():
 
-    initialize()
+    initialiseer()
 
     # dict om id van tijdsloten om te zetten naar tijd
     idNaarTijdslot = {1 : "9:00-11:00", 2 : "11:00-13:00", 3 : "13:00-15:00", 4 : "15:00-17:00", 5 : "17:00-19:00"}
@@ -38,39 +38,41 @@ def main():
         print(vak.id)
 
 >>>>>>> 9122f4f158ebcc1c8d5d393f40c0d33a8c5af36b:Code/Classes/main.py
-def initialize():
+def initialiseer():
 
     # aanmaken van dict en vakkenlijst creëren
-    counter = 0
+    teller = 0
 
     # inlezen van CSV bestand
-    with open('vakken.csv') as csvFile:
-        readCSV = csv.reader(csvFile, delimiter=';')
-        next(readCSV, None)
+    with open('vakken.csv') as csvBestand:
+        leesCSV = csv.reader(csvBestand, delimiter=';')
+        next(leesCSV, None)
 
         # rijen van CSV inlezen en vakobject aanmaken
-        for row in readCSV:
-            vakkenLijst.append(VakKlasse.Vak(counter, row[0], row[1], row[2], row[3], row[4], row[5]))
-            vanVakNaarId[row[0]] = counter
-            counter += 1
+        for rij in leesCSV:
+            vakkenLijst.append(VakKlasse.Vak(teller, rij[0], rij[1], rij[2], rij[3], rij[4], rij[5]))
+            vanVakNaarId[rij[0]] = teller
+            teller += 1
 
     # inlezen van CSV bestand
-    with open('studentenenvakken.csv', 'r', encoding="latin-1") as csvfile:
-        reader = csv.reader(csvfile, delimiter=",")
-        next(reader, None)
-        for row in reader:
+    with open('studentenenvakken.csv', 'r', encoding="latin-1") as csvBestand:
+        leesCSV = csv.reader(csvBestand, delimiter=",")
+        next(leesCSV, None)
+        
+        #
+        for rij in leesCSV:
             studentVakken = []
-            for college in row[3:]:
-                if college != "":
+            for vak in rij[3:]:
+                if vak != "":
                     studentVakken.append(college)
-            studentenLijst.append(StudentKlasse.Student(row[0], row[1], row[2], studentVakken))
+            studentenLijst.append(StudentKlasse.Student(rij[0], rij[1], rij[2], studentVakken))
 
     # vakken in studentenlijst met id voorzien
     for student in studentenLijst:
-        temp = []
+        tijdelijk = []
         for vak in student.vakken:
-            temp.append(vanVakNaarId[vak])
-        student.vakken = temp
+            tijdelijk.append(vanVakNaarId[vak])
+        student.vakken = tijdelijk
 
     # aantal studenten per vak vastleggen
     for vak in vakkenLijst:
@@ -78,12 +80,15 @@ def initialize():
             if vak.id in student.vakken:
                 vak.studenten.append(student.studentnummer)
         vak.aantalStudenten = len(vak.studenten)
-
-    with open('zalen.csv') as csvFile:
-        readCSV = csv.reader(csvFile, delimiter=';')
-        next(readCSV, None)
-        for row in readCSV:
-            zaalLijst.append(ZaalKlasse.Zaal(row[0], row[1], 0, 0))
+    
+    #
+    with open('zalen.csv') as csvBestand:
+        leesCSV = csv.reader(csvBestand, delimiter=';')
+        next(leesCSV, None)
+        
+        #
+        for rij in leesCSV:
+            zaalLijst.append(ZaalKlasse.Zaal(rij[0], rij[1], 0, 0))
 
 if __name__ == "__main__":
     main()
