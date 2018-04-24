@@ -17,15 +17,18 @@ import activiteit as ActiviteitKlasse
 import copy
 import math
 
-# initialiseer lijsten met data
+# initialiseer lijsten voor data
 studentenLijst = []
 vakkenLijst = []
 zaalLijst = []
 vanVakNaarId = {}
 inTeRoosteren = []
+inGeroosterd = []
+rooster = {}
 
 def main():
 
+    # start de datastructuur
     initialiseer()
 
     # dict om id van tijdsloten om te zetten naar tijd
@@ -35,23 +38,41 @@ def main():
     dag = {1 : zaalLijst[:], 2 : zaalLijst[:], 3 : zaalLijst[:], 4 : zaalLijst[:], 5 : zaalLijst[:]}
 
     # weekrooster met tijdslots en zalen
-    rooster = {"maandag" : copy.deepcopy(dag), "dinsdag" : copy.deepcopy(dag), "woensdag" : copy.deepcopy(dag), "donderdag" : copy.deepcopy(dag), "vrijdag" : copy.deepcopy(dag)}
+    rooster["maandag"] = copy.deepcopy(dag)
+    rooster["dinsdag"] = copy.deepcopy(dag)
+    rooster["woensdag"] = copy.deepcopy(dag)
+    rooster["donderdag"] = copy.deepcopy(dag)
+    rooster["vrijdag"] = copy.deepcopy(dag)
 
-    toevoegen(maandag, , zaalNaam, activiteit)
+    toevoegen("maandag", 1, "A1.04", inTeRoosteren[0])
+    toevoegen("maandag", 1, "A1.06", inTeRoosteren[0])
+    print(inTeRoosteren)
+    print(inGeroosterd)
+
 
 
 def toevoegen(dag, tijdslot, zaalNaam, activiteit):
-    # zoek naar de gekozen zaal
+    """ Voeg een activiteit aan een zaal toe."""
+
+    # zoek naar de gegeven zaal in de juiste dag en tijdslot
     for zaal in rooster[dag][tijdslot]:
         if zaal.naam == zaalNaam:
+            # controleer of de zaal nog niet in gebruik is en voeg vak toe
             if zaal.activiteit == None:
                 zaal.activiteit = activiteit
+                zaal.inGebruik = 1
+                activiteit.dag = dag
+                inGeroosterd.append(activiteit)
+                inTeRoosteren.remove(activiteit)
                 return True
             else:
                 print("Zaal al bezet")
                 return False
 
+
 def initialiseer():
+""" leest alle data in en creeert de verschillende lijsten
+    (studenten, activiteiten, studenten, vakken, zalen) """
 
     # aanmaken van dict en vakkenlijst creëren
     teller = 0
@@ -78,7 +99,7 @@ def initialiseer():
         leesCSV = csv.reader(csvBestand, delimiter=",")
         next(leesCSV, None)
 
-        #
+        # leest bestand en creeert studenten
         for rij in leesCSV:
             studentVakken = []
             for vak in rij[3:]:
@@ -101,12 +122,11 @@ def initialiseer():
                 vak.studenten.append(student.studentnummer)
         vak.aantalStudenten = len(vak.studenten)
 
-    #
+    # leest bestand en creert zalen
     with open('zalen.csv') as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=';')
         next(leesCSV, None)
 
-        #
         for rij in leesCSV:
             zaalLijst.append(ZaalKlasse.Zaal(rij[0], rij[1]))
 
@@ -143,6 +163,8 @@ def initialiseer():
 
 
 def studentenSplitsen(aantalStudenten, maximaal, studenten):
+    """ Split de studenten in meerdere colleges."""
+    
     # om studenten per werkcollege in op te slaan
     werkcolleges = []
 
