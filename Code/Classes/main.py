@@ -3,6 +3,7 @@ Hoofdbestand Heuristieken
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
+
 import os, sys
 directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "Code"))
@@ -65,7 +66,7 @@ def initialiseer():
                     studentVakken.append(vak)
             studentenLijst.append(StudentKlasse.Student(rij[0], rij[1], rij[2], studentVakken))
 
-    print("test")
+
     # vakken in studentenlijst met id voorzien
     for student in studentenLijst:
         tijdelijk = []
@@ -84,10 +85,53 @@ def initialiseer():
     with open('zalen.csv') as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=';')
         next(leesCSV, None)
-
-        #
         for rij in leesCSV:
             zaalLijst.append(ZaalKlasse.Zaal(rij[0], rij[1], 0, 0))
+
+
+    # vakken omzetten naar activiteiten
+    for vak in vakkenLijst:
+        # hoorcollege naar activiteiten
+        if vak.hc > 0:
+            i = vak.hc
+            while(i != 0):
+                inTeRoosteren.append(ActiviteitKlasse.Activiteit(i, 0, vak.id, 1000, vak.aantalStudenten, vak.studenten))
+                i -= 1
+
+        # werkcollege naar activiteiten
+        if vak.maxWc < vak.aantalStudenten and vak.wc > 0:
+            studPerWc = studentenSplitsen(vak.aantalStudenten, vak.maxWc, vak.studenten)
+            i = 1
+            for stud in studPerWc:
+                inTeRoosteren.append(ActiviteitKlasse.Activiteit(i, 1, vak.id, vak.maxWc,len(stud), stud))
+                i += 1
+        elif vak.wc > 0:
+            inTeRoosteren.append(ActiviteitKlasse.Activiteit(1, 1, vak.id, vak.maxWc, vak.aantalStudenten, vak.studenten))
+
+
+        # practicum naar activiteiten
+        if vak.maxPrac < vak.aantalStudenten and vak.prac > 0:
+            studPerPrac = studentenSplitsen(vak.aantalStudenten, vak.maxPrac, vak.studenten)
+            i = 1
+            for stud in studPerPrac:
+                inTeRoosteren.append(ActiviteitKlasse.Activiteit(i, 2, vak.id, vak.maxPrac,len(stud), stud))
+                i += 1
+        elif vak.prac > 0:
+            inTeRoosteren.append(ActiviteitKlasse.Activiteit(1, 2, vak.id, vak.maxPrac, vak.aantalStudenten, vak.studenten))
+
+
+def studentenSplitsen(aantalStudenten, maximaal, studenten):
+    # om studenten per werkcollege in op te slaan
+    werkcolleges = []
+
+    # berekenen hoeveel werkcolleges er moeten worden gegeven
+    aantalWc = math.ceil(aantalStudenten / maximaal)
+    studPerWc = math.ceil(aantalStudenten / aantalWc)
+
+    for i in range(0, aantalStudenten, studPerWc):
+        werkcolleges.append(studenten[i: i + studPerWc])
+
+    return werkcolleges
 
 if __name__ == "__main__":
     main()
