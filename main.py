@@ -39,6 +39,10 @@ def main():
     for activiteit in activiteitenLijst:
         toevoegen(rooster[i], activiteit)
         i += 1
+        
+    score = scoreFunctie(vakkenLijst, activiteitenLijst, rooster, studentenLijst)
+    
+    print(score)
 
 def toevoegen(zaalslotGewenst, activiteit):
     """ Voeg een activiteit aan een zaalslot toe."""
@@ -116,7 +120,7 @@ def initialiseer():
         for rij in leesCSV:
             for dag in lesdagen:
                 for i in range(1, len(idNaarTijdslot)):
-                    rooster.append(ZaalSlotKlasse.ZaalSlot(rij[0], rij[1], dag, i))
+                    rooster.append(ZaalSlotKlasse.ZaalSlot(rij[0], int(rij[1]), dag, i))
 
         # voeg zaalsloten toe voor het laatste tijdslot 17.00-19.00
         for dag in lesdagen:
@@ -135,8 +139,8 @@ def initialiseer():
         if vak.maxWc < vak.aantalStudenten and vak.wc > 0:
             studPerWc = studentenSplitsen(vak.aantalStudenten, vak.maxWc, vak.studenten)
             i = 1
-            for stud in studPerWc:
-                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 1, vak.id, vak.maxWc,len(stud), stud))
+            for studLijst in studPerWc:
+                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 1, vak.id, vak.maxWc,len(studLijst), studLijst))
                 i += 1
         elif vak.wc > 0:
             activiteitenLijst.append(ActiviteitKlasse.Activiteit(1, 1, vak.id, vak.maxWc, vak.aantalStudenten, vak.studenten))
@@ -146,8 +150,8 @@ def initialiseer():
         if vak.maxPrac < vak.aantalStudenten and vak.prac > 0:
             studPerPrac = studentenSplitsen(vak.aantalStudenten, vak.maxPrac, vak.studenten)
             i = 1
-            for stud in studPerPrac:
-                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 2, vak.id, vak.maxPrac,len(stud), stud))
+            for studLijst in studPerPrac:
+                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 2, vak.id, vak.maxPrac,len(studLijst), studLijst))
                 i += 1
         elif vak.prac > 0:
             activiteitenLijst.append(ActiviteitKlasse.Activiteit(1, 2, vak.id, vak.maxPrac, vak.aantalStudenten, vak.studenten))
@@ -232,7 +236,7 @@ def extraTijdslot(studentenLijst, zaalslotLijst):
     malusPunten = 0
     
     for zaal in zaalslot:
-        if tijdslot == 5 && inGebruik:
+        if tijdslot == 5 and inGebruik:
             malusPunten += 50
 
     return malusPunten
