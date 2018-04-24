@@ -11,11 +11,9 @@ sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 import csv
 import student as StudentKlasse
-import zaal as ZaalKlasse
 import vak as VakKlasse
 import activiteit as ActiviteitKlasse
 import zaalSlot as ZaalSlotKlasse
-import copy
 import math
 
 # initialiseer lijsten voor data
@@ -40,7 +38,12 @@ def main():
         toevoegen(rooster[i], activiteit)
         i += 1
         
-    score = scoreFunctie(vakkenLijst, activiteitenLijst, rooster, studentenLijst)
+    zalenInGebruik = []
+    for zaalslot in rooster:
+        if zaalslot.inGebruik == 1:
+            zalenInGebruik.append(zaalslot)
+        
+    score = scoreFunctie(vakkenLijst, activiteitenLijst, zalenInGebruik, studentenLijst)
     
     print(score)
 
@@ -217,10 +220,9 @@ def roosterConflicten(studentenLijst, zaalslotLijst):
     malusPunten = 0
 
     for student in studentenLijst:
-        tijslotenStudent = []
-
+        tijdslotenStudent = []
         for zaalslot in zaalslotLijst:
-            if student in zaalslot.activiteit.welkeStud:
+            if student.studentnummer in zaalslot.activiteit.welkeStud:
                 dagtijd = [zaalslot.dag, zaalslot.tijdslot]
                 if dagtijd not in tijdslotenStudent:
                     tijdslotenStudent.append(dagtijd)
@@ -235,8 +237,8 @@ def extraTijdslot(studentenLijst, zaalslotLijst):
 
     malusPunten = 0
     
-    for zaal in zaalslot:
-        if tijdslot == 5 and inGebruik:
+    for zaal in zaalslotLijst:
+        if zaal.tijdslot == 5 and zaal.inGebruik == 1:
             malusPunten += 50
 
     return malusPunten
@@ -244,8 +246,11 @@ def extraTijdslot(studentenLijst, zaalslotLijst):
 
 def scoreFunctie(vakkenLijst, activiteitenLijst, zaalslotLijst, studentenLijst):
     "deze functie berekent de score van een rooster"
+    
     malusPunten = vakSpreiding(vakkenLijst, activiteitenLijst) + zaalgrootteConflict(zaalslotLijst) + roosterConflicten(studentenLijst, zaalslotLijst) + extraTijdslot(studentenLijst, zaalslotLijst)
     score = 1000 - malusPunten
+    
+    return score
     
     
 
