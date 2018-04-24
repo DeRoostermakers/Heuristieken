@@ -35,22 +35,14 @@ def main():
     # start de datastructuur
     initialiseer()
 
-
     i = 0
     for activiteit in activiteitenLijst:
         toevoegen(rooster[i], activiteit)
         i += 1
 
-    y = 0
-    z = 0
-    for zaalslot in rooster:
-        if zaalslot.inGebruik == 1:
-            y += 1
-        if zaalslot.inGebruik == 0:
-            z +=1
+    score = scoreFunctie(vakkenLijst, activiteitenLijst, rooster, studentenLijst)
 
-    print(y)
-    print(z)
+    print(score)
 
 def toevoegen(zaalslotGewenst, activiteit):
     """ Voeg een activiteit aan een zaalslot toe."""
@@ -128,7 +120,7 @@ def initialiseer():
         for rij in leesCSV:
             for dag in lesdagen:
                 for i in range(1, len(idNaarTijdslot)):
-                    rooster.append(ZaalSlotKlasse.ZaalSlot(rij[0], rij[1], dag, i))
+                    rooster.append(ZaalSlotKlasse.ZaalSlot(rij[0], int(rij[1]), dag, i))
 
         # voeg zaalsloten toe voor het laatste tijdslot 17.00-19.00
         for dag in lesdagen:
@@ -179,6 +171,83 @@ def studentenSplitsen(aantalStudenten, maximaal, studenten):
         werkcolleges.append(studenten[i: i + studPerWc])
 
     return werkcolleges
+
+
+
+def zaalgrootteConflict(zaalslotLijst):
+    "deze functie berekent de maluspunten voor te kleine zalen"
+
+    malusPunten = 0
+
+    for zaalslot in zaalslotLijst:
+        verschil = zaalslot.capaciteit - zaalslot.activiteit.nrStud
+        if verschil < 0:
+            malusPunten = malusPunten + abs(verschil)
+
+    return malusPunten
+
+
+def vakSpreiding(vakkenLijst, activiteitenLijst):
+    "deze functie berekent de punten voor de spreiding van de activiteiten"
+
+    malusPunten = 0
+
+    for vak in vakkenLijst:
+        verdeeldAantalDagen = 0
+        dag = []
+        for activiteit in activiteitenLijst:
+            if activiteit.vakId == vak.id:
+                if activiteit.dag not in dag:
+                    dag.append(activiteit.dag)
+                    verdeeldAantalDagen =+ 1
+
+        aantalActiviteiten = vak.hc + vak.wc + vak.prac
+
+        x = aantalActiviteiten - verdeeldAantalDagen
+
+        malusPunten = malusPunten + x * 10
+
+    return malusPunten
+
+
+
+def roosterConflicten(studentenLijst, zaalslotLijst):
+    "deze functie berekent de punten bij roosterconflicten per student"
+
+    malusPunten = 0
+
+    for student in studentenLijst:
+        tijslotenStudent = []
+
+        for zaalslot in zaalslotLijst:
+            if student in zaalslot.activiteit.welkeStud:
+                dagtijd = [zaalslot.dag, zaalslot.tijdslot]
+                if dagtijd not in tijdslotenStudent:
+                    tijdslotenStudent.append(dagtijd)
+                else:
+                    malusPunten += 1
+
+    return malusPunten
+
+
+def extraTijdslot(studentenLijst, zaalslotLijst):
+    "deze functie berekent de punten bij het gebruik van het extra tijdslot"
+
+    malusPunten = 0
+
+    for zaal in zaalslot:
+        if tijdslot == 5 and inGebruik:
+            malusPunten += 50
+
+    return malusPunten
+
+
+def scoreFunctie(vakkenLijst, activiteitenLijst, zaalslotLijst, studentenLijst):
+    "deze functie berekent de score van een rooster"
+    malusPunten = vakSpreiding(vakkenLijst, activiteitenLijst) + zaalgrootteConflict(zaalslotLijst) + roosterConflicten(studentenLijst, zaalslotLijst) + extraTijdslot(studentenLijst, zaalslotLijst)
+    score = 1000 - malusPunten
+
+
 
 if __name__ == "__main__":
     main()
