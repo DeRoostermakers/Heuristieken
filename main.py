@@ -22,8 +22,7 @@ import math
 studentenLijst = []
 vakkenLijst = []
 vanVakNaarId = {}
-inTeRoosteren = []
-inGeroosterd = []
+activiteitenLijst = []
 rooster = []
 
 # dagen dat er les wordt gegeven
@@ -36,15 +35,14 @@ def main():
     # start de datastructuur
     initialiseer()
 
-
     i = 0
-    for activiteit in inTeRoosteren:
-        test = toevoegen(rooster[i], activiteit)
-        print(test)
+
+    for activiteit in activiteitenLijst:
+        toevoegen(rooster[i], activiteit)
         i += 1
 
-    print(len(inGeroosterd))
-
+    print(y)
+    print(z)
 
 def toevoegen(zaalslotGewenst, activiteit):
     """ Voeg een activiteit aan een zaalslot toe."""
@@ -58,8 +56,6 @@ def toevoegen(zaalslotGewenst, activiteit):
                 zaalslot.inGebruik = 1
                 activiteit.dag = zaalslot.dag
                 activiteit.tijdslot = zaalslot.tijdslot
-                inGeroosterd.append(activiteit)
-                inTeRoosteren.remove(activiteit)
                 return True
             else:
                 print("Zaal al bezet")
@@ -136,7 +132,7 @@ def initialiseer():
         if vak.hc > 0:
             i = vak.hc
             while(i != 0):
-                inTeRoosteren.append(ActiviteitKlasse.Activiteit(i, 0, vak.id, 1000, vak.aantalStudenten, vak.studenten))
+                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 0, vak.id, 1000, vak.aantalStudenten, vak.studenten))
                 i -= 1
 
         # werkcollege naar activiteiten
@@ -144,10 +140,10 @@ def initialiseer():
             studPerWc = studentenSplitsen(vak.aantalStudenten, vak.maxWc, vak.studenten)
             i = 1
             for stud in studPerWc:
-                inTeRoosteren.append(ActiviteitKlasse.Activiteit(i, 1, vak.id, vak.maxWc,len(stud), stud))
+                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 1, vak.id, vak.maxWc,len(stud), stud))
                 i += 1
         elif vak.wc > 0:
-            inTeRoosteren.append(ActiviteitKlasse.Activiteit(1, 1, vak.id, vak.maxWc, vak.aantalStudenten, vak.studenten))
+            activiteitenLijst.append(ActiviteitKlasse.Activiteit(1, 1, vak.id, vak.maxWc, vak.aantalStudenten, vak.studenten))
 
 
         # practicum naar activiteiten
@@ -155,10 +151,10 @@ def initialiseer():
             studPerPrac = studentenSplitsen(vak.aantalStudenten, vak.maxPrac, vak.studenten)
             i = 1
             for stud in studPerPrac:
-                inTeRoosteren.append(ActiviteitKlasse.Activiteit(i, 2, vak.id, vak.maxPrac,len(stud), stud))
+                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 2, vak.id, vak.maxPrac,len(stud), stud))
                 i += 1
         elif vak.prac > 0:
-            inTeRoosteren.append(ActiviteitKlasse.Activiteit(1, 2, vak.id, vak.maxPrac, vak.aantalStudenten, vak.studenten))
+            activiteitenLijst.append(ActiviteitKlasse.Activiteit(1, 2, vak.id, vak.maxPrac, vak.aantalStudenten, vak.studenten))
 
 
 def studentenSplitsen(aantalStudenten, maximaal, studenten):

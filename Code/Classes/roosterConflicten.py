@@ -4,7 +4,7 @@ Bestand met functie die de maluspunten voor de roosterconflicten berekent
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 
-def roosterconflicten(studentenLijst, zaalslotLijst):
+def roosterConflicten(studentenLijst, zaalslotLijst):
     "deze functie berekent de punten bij roosterconflicten per student"
 
     malusPunten = 0
