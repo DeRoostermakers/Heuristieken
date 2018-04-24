@@ -16,7 +16,8 @@ class Activiteit(object):
         self.maxStud = maxStud
         self.nrStud = nrStud
         self.welkeStud = welkeStud
-
+        self.dag = 0
+        
     def __str__(self):
         return str(self.vakId) + "." + str(self.soort) + "." + str(self.groepnr)
 
