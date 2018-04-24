@@ -42,9 +42,9 @@ def main():
     for zaalslot in rooster:
         if zaalslot.inGebruik == 1:
             zalenInGebruik.append(zaalslot)
-        
-    score = scoreFunctie(vakkenLijst, activiteitenLijst, zalenInGebruik, studentenLijst)
-    
+
+    score = scoreFunctie(vakkenLijst, activiteitenLijst, rooster, studentenLijst)
+
     print(score)
 
 def toevoegen(zaalslotGewenst, activiteit):
@@ -142,8 +142,8 @@ def initialiseer():
         if vak.maxWc < vak.aantalStudenten and vak.wc > 0:
             studPerWc = studentenSplitsen(vak.aantalStudenten, vak.maxWc, vak.studenten)
             i = 1
-            for studLijst in studPerWc:
-                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 1, vak.id, vak.maxWc,len(studLijst), studLijst))
+            for stud in studPerWc:
+                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 1, vak.id, vak.maxWc,len(stud), stud))
                 i += 1
         elif vak.wc > 0:
             activiteitenLijst.append(ActiviteitKlasse.Activiteit(1, 1, vak.id, vak.maxWc, vak.aantalStudenten, vak.studenten))
@@ -153,8 +153,8 @@ def initialiseer():
         if vak.maxPrac < vak.aantalStudenten and vak.prac > 0:
             studPerPrac = studentenSplitsen(vak.aantalStudenten, vak.maxPrac, vak.studenten)
             i = 1
-            for studLijst in studPerPrac:
-                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 2, vak.id, vak.maxPrac,len(studLijst), studLijst))
+            for stud in studPerPrac:
+                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 2, vak.id, vak.maxPrac,len(stud), stud))
                 i += 1
         elif vak.prac > 0:
             activiteitenLijst.append(ActiviteitKlasse.Activiteit(1, 2, vak.id, vak.maxPrac, vak.aantalStudenten, vak.studenten))
@@ -179,22 +179,22 @@ def studentenSplitsen(aantalStudenten, maximaal, studenten):
 
 def zaalgrootteConflict(zaalslotLijst):
     "deze functie berekent de maluspunten voor te kleine zalen"
-    
+
     malusPunten = 0
-    
+
     for zaalslot in zaalslotLijst:
         verschil = zaalslot.capaciteit - zaalslot.activiteit.nrStud
         if verschil < 0:
             malusPunten = malusPunten + abs(verschil)
-        
+
     return malusPunten
 
 
 def vakSpreiding(vakkenLijst, activiteitenLijst):
     "deze functie berekent de punten voor de spreiding van de activiteiten"
-    
+
     malusPunten = 0
-    
+
     for vak in vakkenLijst:
         verdeeldAantalDagen = 0
         dag = []
@@ -202,14 +202,14 @@ def vakSpreiding(vakkenLijst, activiteitenLijst):
             if activiteit.vakId == vak.id:
                 if activiteit.dag not in dag:
                     dag.append(activiteit.dag)
-                    verdeeldAantalDagen =+ 1                    
-                            
+                    verdeeldAantalDagen =+ 1
+
         aantalActiviteiten = vak.hc + vak.wc + vak.prac
-        
+
         x = aantalActiviteiten - verdeeldAantalDagen
-        
+
         malusPunten = malusPunten + x * 10
-        
+
     return malusPunten
 
 
@@ -236,9 +236,15 @@ def extraTijdslot(studentenLijst, zaalslotLijst):
     "deze functie berekent de punten bij het gebruik van het extra tijdslot"
 
     malusPunten = 0
+<<<<<<< HEAD
     
     for zaal in zaalslotLijst:
         if zaal.tijdslot == 5 and zaal.inGebruik == 1:
+=======
+
+    for zaal in zaalslot:
+        if tijdslot == 5 and inGebruik:
+>>>>>>> a53a0cfa8c93bf71bd749252aa70adf93f6bdaab
             malusPunten += 50
 
     return malusPunten
@@ -249,10 +255,15 @@ def scoreFunctie(vakkenLijst, activiteitenLijst, zaalslotLijst, studentenLijst):
     
     malusPunten = vakSpreiding(vakkenLijst, activiteitenLijst) + zaalgrootteConflict(zaalslotLijst) + roosterConflicten(studentenLijst, zaalslotLijst) + extraTijdslot(studentenLijst, zaalslotLijst)
     score = 1000 - malusPunten
+<<<<<<< HEAD
     
     return score
     
     
+=======
+
+
+>>>>>>> a53a0cfa8c93bf71bd749252aa70adf93f6bdaab
 
 if __name__ == "__main__":
     main()
