@@ -22,7 +22,6 @@ def vakSpreiding(vakkenLijst, activiteitenLijst):
         
         x = aantalActiviteiten - verdeeldAantalDagen
         
-        if x > 0:
-            malusPunten = malusPunten + x * 10
+        malusPunten = malusPunten + x * 10
         
     return malusPunten
