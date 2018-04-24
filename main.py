@@ -14,54 +14,49 @@ import student as StudentKlasse
 import zaal as ZaalKlasse
 import vak as VakKlasse
 import activiteit as ActiviteitKlasse
+import zaalSlot as ZaalSlotKlasse
 import copy
 import math
 
 # initialiseer lijsten voor data
 studentenLijst = []
 vakkenLijst = []
-zaalLijst = []
 vanVakNaarId = {}
 inTeRoosteren = []
 inGeroosterd = []
-rooster = {}
+rooster = []
+
+# dagen dat er les wordt gegeven
+lesdagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
+# dict om id van tijdsloten om te zetten naar tijd
+idNaarTijdslot = {1 : "9:00-11:00", 2 : "11:00-13:00", 3 : "13:00-15:00", 4 : "15:00-17:00", 5 : "17:00 - 19:00"}
 
 def main():
 
     # start de datastructuur
     initialiseer()
 
-    # dict om id van tijdsloten om te zetten naar tijd
-    idNaarTijdslot = {1 : "9:00-11:00", 2 : "11:00-13:00", 3 : "13:00-15:00", 4 : "15:00-17:00", 5 : "17:00-19:00"}
 
-    # dict met alle zalen per dag
-    dag = {1 : zaalLijst[:], 2 : zaalLijst[:], 3 : zaalLijst[:], 4 : zaalLijst[:], 5 : zaalLijst[:]}
+    i = 0
+    for activiteit in inTeRoosteren:
+        toevoegen(rooster[i], activiteit)
+        i += 1
 
-    # weekrooster met tijdslots en zalen
-    rooster["maandag"] = copy.deepcopy(dag)
-    rooster["dinsdag"] = copy.deepcopy(dag)
-    rooster["woensdag"] = copy.deepcopy(dag)
-    rooster["donderdag"] = copy.deepcopy(dag)
-    rooster["vrijdag"] = copy.deepcopy(dag)
-
-    toevoegen("maandag", 1, "A1.04", inTeRoosteren[0])
-    toevoegen("maandag", 1, "A1.06", inTeRoosteren[0])
-    print(inTeRoosteren)
-    print(inGeroosterd)
+    print(len(inGeroosterd))
 
 
-
-def toevoegen(dag, tijdslot, zaalNaam, activiteit):
-    """ Voeg een activiteit aan een zaal toe."""
+def toevoegen(zaalslotGewenst, activiteit):
+    """ Voeg een activiteit aan een zaalslot toe."""
 
     # zoek naar de gegeven zaal in de juiste dag en tijdslot
-    for zaal in rooster[dag][tijdslot]:
-        if zaal.naam == zaalNaam:
-            # controleer of de zaal nog niet in gebruik is en voeg vak toe
-            if zaal.activiteit == None:
-                zaal.activiteit = activiteit
-                zaal.inGebruik = 1
-                activiteit.dag = dag
+    for zaalslot in rooster:
+        if zaalslot == zaalslotGewenst:
+            # controleer of het zaalslot nog niet in gebruik is en voeg vak toe
+            if zaalslot.activiteit == None:
+                zaalslot.activiteit = activiteit
+                zaalslot.inGebruik = 1
+                activiteit.dag = zaalslot.dag
+                activiteit.tijdslot = zaalslot.tijdslot
                 inGeroosterd.append(activiteit)
                 inTeRoosteren.remove(activiteit)
                 return True
@@ -71,9 +66,7 @@ def toevoegen(dag, tijdslot, zaalNaam, activiteit):
 
 
 def initialiseer():
-""" leest alle data in en creeert de verschillende lijsten
-    (studenten, activiteiten, studenten, vakken, zalen) """
-
+    """ Leest de data in en maakt de benodigde lijsten."""
     # aanmaken van dict en vakkenlijst creëren
     teller = 0
 
@@ -122,14 +115,19 @@ def initialiseer():
                 vak.studenten.append(student.studentnummer)
         vak.aantalStudenten = len(vak.studenten)
 
-    # leest bestand en creert zalen
+    # leest bestand en creert zaalsloten
     with open('zalen.csv') as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=';')
         next(leesCSV, None)
-
+        # leest elke zaal en maakt per dag en tijdslot een zaalslot
         for rij in leesCSV:
-            zaalLijst.append(ZaalKlasse.Zaal(rij[0], rij[1]))
+            for dag in lesdagen:
+                for i in range(1, len(idNaarTijdslot)):
+                    rooster.append(ZaalSlotKlasse.ZaalSlot(rij[0], rij[1], dag, i))
 
+        # voeg zaalsloten toe voor het laatste tijdslot 17.00-19.00
+        for dag in lesdagen:
+            rooster.append(ZaalSlotKlasse.ZaalSlot("C0.110", 110, dag, 5))
 
     # vakken omzetten naar activiteiten
     for vak in vakkenLijst:
@@ -164,7 +162,7 @@ def initialiseer():
 
 def studentenSplitsen(aantalStudenten, maximaal, studenten):
     """ Split de studenten in meerdere colleges."""
-    
+
     # om studenten per werkcollege in op te slaan
     werkcolleges = []
 
