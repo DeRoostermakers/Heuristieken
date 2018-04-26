@@ -5,10 +5,6 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 import os, sys
 import csv
-import student as StudentKlasse
-import vak as VakKlasse
-import activiteit as ActiviteitKlasse
-import zaalSlot as ZaalSlotKlasse
 import math
 
 # intialiseer paden naar andere klasses en algoritmes
@@ -16,6 +12,11 @@ directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "Code"))
 sys.path.append(os.path.join(directory, "Code", "Classes"))
 sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
+
+import student as StudentKlasse
+import vak as VakKlasse
+import activiteit as ActiviteitKlasse
+import zaalSlot as ZaalSlotKlasse
 
 # initialiseer lijsten voor data
 studentenLijst = []
@@ -117,7 +118,7 @@ def initialiseer():
     teller = 0
 
     # inlezen van CSV bestand van vakken
-    with open('vakken.csv') as csvBestand:
+    with open('Data/vakken.csv') as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=';')
         next(leesCSV, None)
 
@@ -134,7 +135,7 @@ def initialiseer():
             teller += 1
 
     # inlezen van CSV bestand van studenten
-    with open('studentenenvakken.csv', 'r', encoding="latin-1") as csvBestand:
+    with open('Data/studentenenvakken.csv', 'r', encoding="latin-1") as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=",")
         next(leesCSV, None)
 
@@ -161,7 +162,7 @@ def initialiseer():
         vak.aantalStudenten = len(vak.studenten)
 
     # leest bestand en creert zaalsloten
-    with open('zalen.csv') as csvBestand:
+    with open('Data/zalen.csv') as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=';')
         next(leesCSV, None)
         # leest elke zaal en maakt per dag en tijdslot een zaalslot
