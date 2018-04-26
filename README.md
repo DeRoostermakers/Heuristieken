@@ -32,5 +32,6 @@ De Roostermakers:
 
 ## Dankwoord
 
-* minor programmeren van de UvA
-* Deze case op verzoek van Justin Oud, Wouter Bohlken en Remco Mokveld (Heuristieken 2015a) tot eerste versie uitgewerkt. Overige betrokkenen in het proces zijn Marcella van Wijngaarden en Reinout Verbeek.
+* Minor programmeren van de UvA
+* Justin Oud, Wouter Bohlken en Remco Mokveld voor deze case. Overige betrokkenen zijn Marcella van Wijngaarden en Reinout Verbeek
+* Koffie
