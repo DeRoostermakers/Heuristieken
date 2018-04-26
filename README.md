@@ -6,7 +6,7 @@ In deze case moet een weekrooster gemaakt worden voor een vakkenlijst op Science
 
 ## Aan de slag
 
-### Verseisten
+### Vereisten
 
 Deze codebase is volledig geschreven in [Python3.6.3](https://www.python.org/downloads/). 
 
