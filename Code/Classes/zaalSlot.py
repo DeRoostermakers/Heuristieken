@@ -22,27 +22,30 @@ class ZaalSlot(object):
 
     def __repr__(self):
         return self.naam + "." + self.dag + "." + str(self.tijdslot) + "." + str(self.activiteit)
-    
+
     def wissel(self, zaalslot):
         """ Wissel twee activiteiten van tijdslot"""
-        
+
         # sla de eerste activiteit tijdelijk op
         tijdelijkActiviteit = self.activiteit
         tijdelijkDag = self.dag
         tijdelijkTijdslot = self.tijdslot
-        
+
         # verwissel de eerste activiteit met de tweede
         self.activiteit = zaalslot.activiteit
         self.dag = zaalslot.dag
         self.tijdslot = zaalslot.tijdslot
-        
+
         # verwissel de tweede activiteit met de eerste
         zaalslot.activiteit = tijdelijkActiviteit
         zaalslot.dag = tijdelijkDag
         zaalslot.tijdslot = tijdelijkTijdslot
-        
+
     def voegToe(self, activiteit):
         """ Voeg een activiteit aan een zaalslot toe."""
-        
+
         # voeg activiteit aan het zaalslot toe
         self.activiteit = activiteit
+        self.inGebruik = 1
+        activiteit.dag = self.dag
+        activiteit.tijdslot = self.tijdslot

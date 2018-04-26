@@ -3,6 +3,8 @@ Bestand met Vak klasse en lijsten Heuristieken
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
+import activiteit as ActiviteitKlasse
+import math
 
 class Vak(object):
     """
@@ -44,7 +46,6 @@ class Vak(object):
 
     def vanVakNaarActiviteit(self):
         # vakken omzetten naar activiteiten
-        import activiteit as ActiviteitKlasse
         activiteitenLijst = []
         # hoorcollege naar activiteiten
         if self.hc > 0:
@@ -55,7 +56,7 @@ class Vak(object):
 
         # werkcollege naar activiteiten
         if self.maxWc < self.aantalStudenten and self.wc > 0:
-            studPerWc = studentenSplitsen(self.aantalStudenten, self.maxWc, self.studenten)
+            studPerWc = self.studentenSplitsen( self.aantalStudenten, self.maxWc, self.studenten)
             i = 1
             for stud in studPerWc:
                 activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 1, self.id, self.maxWc,len(stud), stud))
@@ -65,7 +66,7 @@ class Vak(object):
 
         # practicum naar activiteiten
         if self.maxPrac < self.aantalStudenten and self.prac > 0:
-            studPerPrac = studentenSplitsen(self.aantalStudenten, self.maxPrac, self.studenten)
+            studPerPrac = self.studentenSplitsen(self.aantalStudenten, self.maxPrac, self.studenten)
             i = 1
             for stud in studPerPrac:
                 activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 2, self.id, self.maxPrac,len(stud), stud))

@@ -32,6 +32,95 @@ class Rooster(object):
         maakVakken(self)
         maakStudenten(self)
         maakZaalsloten(self)
+        maakActiviteiten(self)
+
+    def vulRandom(self):
+        i = 0
+        for zaalslot in self.zaalslotenLijst:
+            if len(self.activiteitenLijst) == i:
+                break
+            else:
+                zaalslot.voegToe(self.activiteitenLijst[i])
+                i += 1
+
+
+    def score(self):
+        "deze functie berekent de score van een rooster"
+
+        malusPunten = vakSpreiding(self) + zaalgrootteConflict(self) + roosterConflicten(self)  + extraTijdslot(self)
+        scorepunten = 1000 - malusPunten
+        return scorepunten
+
+def extraTijdslot(self):
+    "deze functie berekent de punten bij het gebruik van het extra tijdslot"
+
+    malusPunten = 0
+
+    # kijkt of zaal in tijdslot 5 (17.00-19.00) wordt gebruikt
+    for zaal in self.zaalslotenLijst:
+        if zaal.tijdslot == 5 and zaal.inGebruik == 1:
+            malusPunten += 50
+
+    return malusPunten
+
+def vakSpreiding(self):
+    "deze functie berekent de punten voor de spreiding van de activiteiten"
+
+    malusPunten = 0
+
+    for vak in self.vakkenLijst:
+        verdeeldAantalDagen = 0
+        dag = []
+        for activiteit in self.activiteitenLijst:
+            if activiteit.vakId == vak.id:
+                if activiteit.dag not in dag:
+                    dag.append(activiteit.dag)
+                    verdeeldAantalDagen += 1
+
+        aantalActiviteiten = vak.hc + vak.wc + vak.prac
+
+        x = aantalActiviteiten - verdeeldAantalDagen
+
+        malusPunten = malusPunten + x * 10
+
+    return malusPunten
+
+def roosterConflicten(self):
+    "deze functie berekent de punten bij roosterconflicten per student"
+
+    malusPunten = 0
+    zalenGebruikt = zalenInGebruik(self)
+
+    for student in self.studentenLijst:
+        tijdslotenStudent = []
+        for zaalslot in zalenGebruikt:
+            if student.studentnummer in zaalslot.activiteit.welkeStud:
+                dagtijd = [zaalslot.dag, zaalslot.tijdslot]
+                if dagtijd not in tijdslotenStudent:
+                    tijdslotenStudent.append(dagtijd)
+                else:
+                    malusPunten += 1
+
+    return malusPunten
+
+def zalenInGebruik(self):
+    zalenGebruikt = []
+    for zaalslot in self.zaalslotenLijst:
+        if zaalslot.inGebruik == 1:
+            zalenGebruikt.append(zaalslot)
+    return zalenGebruikt
+
+def zaalgrootteConflict(self):
+    "deze functie berekent de maluspunten voor te kleine zalen"
+    zalenGebruikt = zalenInGebruik(self)
+    malusPunten = 0
+    for zaalslot in zalenGebruikt:
+        verschil = zaalslot.capaciteit - zaalslot.activiteit.nrStud
+        if verschil < 0:
+            malusPunten = malusPunten + abs(verschil)
+
+    return malusPunten
+
 
 def zetTijdslotenOmNaarID(self, tijdsloten):
     for i in range(1, len(tijdsloten) + 1):
@@ -104,3 +193,42 @@ def maakZaalsloten(self):
         # voeg zaalsloten toe voor het laatste tijdslot 17.00-19.00
         for dag in self.lesdagen:
             self.zaalslotenLijst.append(ZaalSlotKlasse.ZaalSlot("C0.110", 110, dag, 5))
+
+def maakActiviteiten(self):
+    for vak in self.vakkenLijst:
+        self.activiteitenLijst += vak.vanVakNaarActiviteit()
+
+def vakSpreiding(self):
+    "deze functie berekent de punten voor de spreiding van de activiteiten"
+
+    malusPunten = 0
+
+    # itereer over ieder vak
+    for vak in self.vakkenLijst:
+
+        # onthoud op welke dagen activiteiten zijn geroosterd
+        verdeeldAantalDagen = 0
+        dag = []
+
+        # itereer over alle activiteiten
+        for activiteit in self.activiteitenLijst:
+
+            # controleer of alle activiteiten overeen komen met hetzelfde vak
+            if activiteit.vakId == vak.id:
+
+                # voeg nieuwe dag toe wanneer activiteit op andere dag
+                if activiteit.dag not in dag:
+                    dag.append(activiteit.dag)
+                    verdeeldAantalDagen += 1
+
+        # bepaal aantal activiteiten van het vak
+        aantalActiviteiten = vak.hc + vak.wc + vak.prac
+
+        # bepaal op hoeveel dagen de activiteiten zijn verdeeld
+        x = aantalActiviteiten - verdeeldAantalDagen
+
+        # bereken maluspunten
+        malusPunten = malusPunten + x * 10
+
+    # geef het aantal maluspunten terug
+    return malusPunten

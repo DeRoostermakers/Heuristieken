@@ -11,3 +11,11 @@ print(len(rooster.studentenLijst))
 print(rooster.idNaarTijdslot)
 print(rooster.zaalslotenLijst)
 print(len(rooster.zaalslotenLijst))
+print(len(rooster.activiteitenLijst))
+
+
+for vak in rooster.vakkenLijst:
+    print(str(vak.id) + "." + str(vak.aantalStudenten))
+rooster.vulRandom()
+
+print(rooster.score())
