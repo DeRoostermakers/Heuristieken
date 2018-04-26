@@ -25,6 +25,23 @@ class Vak(object):
     def __repr__(self):
         return self.naam
 
+
+    def studentenSplitsen(self, aantalStudenten, maximaal, studenten):
+        """ Split de studenten in meerdere colleges."""
+
+        # om studenten per werkcollege in op te slaan
+        werkcolleges = []
+
+        # berekenen hoeveel werkcolleges er moeten worden gegeven
+        aantalWc = math.ceil(aantalStudenten / maximaal)
+        studPerWc = math.ceil(aantalStudenten / aantalWc)
+
+        for i in range(0, aantalStudenten, studPerWc):
+            werkcolleges.append(studenten[i: i + studPerWc])
+
+        return werkcolleges
+
+
     def vanVakNaarActiviteit(self):
         # vakken omzetten naar activiteiten
         import activiteit as ActiviteitKlasse
@@ -57,19 +74,3 @@ class Vak(object):
             activiteitenLijst.append(ActiviteitKlasse.Activiteit(1, 2, self.id, self.maxPrac, self.aantalStudenten, self.studenten))
 
         return activiteitenLijst
-
-
-        def studentenSplitsen(self, aantalStudenten, maximaal, studenten):
-            """ Split de studenten in meerdere colleges."""
-
-            # om studenten per werkcollege in op te slaan
-            werkcolleges = []
-
-            # berekenen hoeveel werkcolleges er moeten worden gegeven
-            aantalWc = math.ceil(aantalStudenten / maximaal)
-            studPerWc = math.ceil(aantalStudenten / aantalWc)
-
-            for i in range(0, aantalStudenten, studPerWc):
-                werkcolleges.append(studenten[i: i + studPerWc])
-
-            return werkcolleges
