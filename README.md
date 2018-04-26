@@ -8,7 +8,11 @@ In deze case moet een weekrooster gemaakt worden voor een vakkenlijst op Science
 
 ### Vereisten
 
-Deze codebase is volledig geschreven in [Python3.6.3](https://www.python.org/downloads/). 
+Deze codebase is volledig geschreven in [Python3.6.3](https://www.python.org/downloads/). In requirements.txt staan alle benodigde packages om de code succesvol te draaien. Deze zijn gemakkelijk te installeren via pip dmv. de volgende instructie:
+
+```
+pip install -r requirements.txt
+```
 
 ### Structuur
 
