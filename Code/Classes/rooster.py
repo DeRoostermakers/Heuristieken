@@ -47,9 +47,23 @@ class Rooster(object):
     def score(self):
         "deze functie berekent de score van een rooster"
 
-        malusPunten = vakSpreiding(self) + zaalgrootteConflict(self) + roosterConflicten(self)  + extraTijdslot(self)
-        scorepunten = 1000 - malusPunten
-        return scorepunten
+        if vakkenIngeroosterd(self):
+            malusPunten = vakSpreiding(self) + zaalgrootteConflict(self) + roosterConflicten(self)  + extraTijdslot(self)
+            scorepunten = 1000 - malusPunten
+            return scorepunten
+        else:
+            print("Niet alle vakken ingeroosterd")
+            return -1000000000
+
+def vakkenIngeroosterd(self):
+    """ Controleert of alle vakken zijn ingeroosterd."""
+
+    # controleert of een activiteit nog niet is ingeroosterd aan de had van tijdslot 0
+    for activiteit in self.activiteitenLijst:
+        if activiteit.tijdslot == 0:
+            print("Niet alle vakken zijn ingeroosterd")
+            return False
+    return True
 
 def extraTijdslot(self):
     "deze functie berekent de punten bij het gebruik van het extra tijdslot"
