@@ -12,7 +12,7 @@ Deze codebase is volledig geschreven in [Python3.6.3](https://www.python.org/dow
 
 ### Structuur
 
-Alle Python scripts (op main.py na) staan in de folder Code. In de map Data zitten alle csv bestanden met de input waardes.
+Alle Python scripts (op main.py na) staan in de folder Code. In de map Data zitten alle csv bestanden met de input waardes. Onder informatie verzamelen staan bestanden die voor onszelf de case verduidelijken. Alle presentaties die we maken voor het werkcollege staan in de map Presentaties en in de map Tech Asist zetten we de vragen waar we tegenaan lopen tijdens het traject.
 
 ### Test
 
