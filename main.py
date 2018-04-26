@@ -224,11 +224,18 @@ def zaalgrootteConflict(zaalslotLijst):
     "deze functie berekent de maluspunten voor te kleine zalen"
 
     malusPunten = 0
-    for zaalslot in zaalslotLijst:
-        verschil = zaalslot.capaciteit - zaalslot.activiteit.nrStud
-        if verschil < 0:
-            malusPunten = malusPunten + abs(verschil)
 
+    # itereer over alle zalen
+    for zaalslot in zaalslotLijst:
+
+        # bekijk of er meer studenten zijn dan capaciteit van de zaal
+        verschil = zaalslot.capaciteit - zaalslot.activiteit.nrStud
+
+        # keer maluspunten uit aan studenten die niet in zaal passen
+        if verschil < 0:
+            malusPunten = malusPunten  - verschil
+
+    # geef het aantal maluspunten terug
     return malusPunten
 
 
@@ -237,21 +244,34 @@ def vakSpreiding(vakkenLijst, activiteitenLijst):
 
     malusPunten = 0
 
+    # itereer over ieder vak
     for vak in vakkenLijst:
+
+        # onthoud op welke dagen activiteiten zijn geroosterd
         verdeeldAantalDagen = 0
         dag = []
+
+        # itereer over alle activiteiten
         for activiteit in activiteitenLijst:
+
+            # controleer of alle activiteiten overeen komen met hetzelfde vak
             if activiteit.vakId == vak.id:
+
+                # voeg nieuwe dag toe wanneer activiteit op andere dag
                 if activiteit.dag not in dag:
                     dag.append(activiteit.dag)
                     verdeeldAantalDagen += 1
 
+        # bepaal aantal activiteiten van het vak
         aantalActiviteiten = vak.hc + vak.wc + vak.prac
 
+        # bepaal op hoeveel dagen de activiteiten zijn verdeeld
         x = aantalActiviteiten - verdeeldAantalDagen
 
+        # bereken maluspunten
         malusPunten = malusPunten + x * 10
 
+    # geef het aantal maluspunten terug
     return malusPunten
 
 
@@ -260,16 +280,28 @@ def roosterConflicten(studentenLijst, zaalslotLijst):
 
     malusPunten = 0
 
+    # itereer over iedere student
     for student in studentenLijst:
+
+        # lijst om iedere activiteit op te slaan
         tijdslotenStudent = []
+
+        # itereer over alle zalen
         for zaalslot in zaalslotLijst:
+
+            # controleer in welke zaal de student voorkomt
             if student.studentnummer in zaalslot.activiteit.welkeStud:
+
+                # voeg de activiteit toe mits tijd en dag nog niet voorkomt
                 dagtijd = [zaalslot.dag, zaalslot.tijdslot]
                 if dagtijd not in tijdslotenStudent:
                     tijdslotenStudent.append(dagtijd)
+
+                # voeg maluspunt toe als de dag en tijd al voorkomt
                 else:
                     malusPunten += 1
 
+    # geef het aantal maluspunten terug
     return malusPunten
 
 
