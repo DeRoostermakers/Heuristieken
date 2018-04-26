@@ -15,14 +15,12 @@ sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 import student as StudentKlasse
 import vak as VakKlasse
-import activiteit as ActiviteitKlasse
 import zaalSlot as ZaalSlotKlasse
 
 # initialiseer lijsten voor data
 studentenLijst = []
 vakkenLijst = []
 vanVakNaarId = {}
-activiteitenLijst = []
 rooster = []
 
 # dagen dat er les wordt gegeven
@@ -41,7 +39,7 @@ def main():
     for activiteit in activiteitenLijst:
         toevoegen(rooster[i], activiteit)
         i += 1
-    
+
     # opstellen van lijst met ingeroosterde activiteiten
     zalenInGebruik = ingeroosterdLijst(rooster)
 
@@ -49,67 +47,18 @@ def main():
     score = scoreFunctie(vakkenLijst, activiteitenLijst, zalenInGebruik, studentenLijst)
 
     print(score)
-    
-    
+
+
 def ingeroosterdLijst(rooster):
     """ opstellen van lijst met ingeroosterde activiteiten"""
-    
-    # voeg elk ingeroosterde combinatie van tijdslot en zaal aan lijst toe     
+
+    # voeg elk ingeroosterde combinatie van tijdslot en zaal aan lijst toe
     zalenInGebruik = []
     for zaalslot in rooster:
         if zaalslot.inGebruik == 1:
             zalenInGebruik.append(zaalslot)
-    
+
     return zalenInGebruik
-
-
-def wissel(activiteit1, activiteit2):
-    """ Wissel twee activiteiten van tijdslot"""
-
-    # initialiseer zaalsloten die gewisseld moeten worden
-    zaalslot1 = None
-    zaalslot2 = None
-
-    # zoekt naar de twee bijbehorende zaalsloten
-    for zaalslot in rooster:
-        if zaalslot.activiteit == activiteit1:
-            zaalslot1 = zaalslot
-        elif zaalslot.activiteit == activiteit2:
-            zaalslot2 = zaalslot
-
-    # controleer of zaalsloten zijn gevonden
-    if zaalslot1 == None or zaalslot2 == None:
-        print("activiteit niet gevonden")
-
-    # wissel de activiteiten van zaalsloten
-    else:
-        zaalslot1.activiteit = activiteit2
-        activiteit2.dag = zaalslot1.dag
-        activiteit2.tijdslot = zaalslot1.tijdslot
-
-        zaalslot2.activiteit = activiteit1
-        activiteit1.dag = zaalslot2.dag
-        activiteit1.tijdslot = zaalslot2.tijdslot
-
-
-def toevoegen(zaalslotGewenst, activiteit):
-    """ Voeg een activiteit aan een zaalslot toe."""
-
-    # zoek naar de gegeven zaal in de juiste dag en tijdslot
-    for zaalslot in rooster:
-        if zaalslot == zaalslotGewenst:
-            
-            # controleer of het zaalslot nog niet in gebruik is en voeg vak toe
-            if zaalslot.activiteit == None:
-                zaalslot.activiteit = activiteit
-                zaalslot.inGebruik = 1
-                activiteit.dag = zaalslot.dag
-                activiteit.tijdslot = zaalslot.tijdslot
-                return True
-            else:
-                print("Zaal al bezet")
-                return False
-
 
 def initialiseer():
     """ Leest de data in en maakt de benodigde lijsten."""
@@ -174,51 +123,6 @@ def initialiseer():
         # voeg zaalsloten toe voor het laatste tijdslot 17.00-19.00
         for dag in lesdagen:
             rooster.append(ZaalSlotKlasse.ZaalSlot("C0.110", 110, dag, 5))
-
-    # vakken omzetten naar activiteiten
-    for vak in vakkenLijst:
-        # hoorcollege naar activiteiten
-        if vak.hc > 0:
-            i = vak.hc
-            while(i != 0):
-                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 0, vak.id, 1000, vak.aantalStudenten, vak.studenten))
-                i -= 1
-
-        # werkcollege naar activiteiten
-        if vak.maxWc < vak.aantalStudenten and vak.wc > 0:
-            studPerWc = studentenSplitsen(vak.aantalStudenten, vak.maxWc, vak.studenten)
-            i = 1
-            for stud in studPerWc:
-                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 1, vak.id, vak.maxWc,len(stud), stud))
-                i += 1
-        elif vak.wc > 0:
-            activiteitenLijst.append(ActiviteitKlasse.Activiteit(1, 1, vak.id, vak.maxWc, vak.aantalStudenten, vak.studenten))
-
-        # practicum naar activiteiten
-        if vak.maxPrac < vak.aantalStudenten and vak.prac > 0:
-            studPerPrac = studentenSplitsen(vak.aantalStudenten, vak.maxPrac, vak.studenten)
-            i = 1
-            for stud in studPerPrac:
-                activiteitenLijst.append(ActiviteitKlasse.Activiteit(i, 2, vak.id, vak.maxPrac,len(stud), stud))
-                i += 1
-        elif vak.prac > 0:
-            activiteitenLijst.append(ActiviteitKlasse.Activiteit(1, 2, vak.id, vak.maxPrac, vak.aantalStudenten, vak.studenten))
-
-
-def studentenSplitsen(aantalStudenten, maximaal, studenten):
-    """ Split de studenten in meerdere colleges."""
-
-    # om studenten per werkcollege in op te slaan
-    werkcolleges = []
-
-    # berekenen hoeveel werkcolleges er moeten worden gegeven
-    aantalWc = math.ceil(aantalStudenten / maximaal)
-    studPerWc = math.ceil(aantalStudenten / aantalWc)
-
-    for i in range(0, aantalStudenten, studPerWc):
-        werkcolleges.append(studenten[i: i + studPerWc])
-
-    return werkcolleges
 
 
 def zaalgrootteConflict(zaalslotLijst):
@@ -316,6 +220,7 @@ def extraTijdslot(studentenLijst, zaalslotLijst):
         if zaal.tijdslot == 5 and zaal.inGebruik == 1:
             malusPunten += 50
 
+    # geef het aantal maluspunten terug
     return malusPunten
 
 
