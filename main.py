@@ -279,6 +279,15 @@ def scoreFunctie(vakkenLijst, activiteitenLijst, zaalslotLijst, studentenLijst):
 
     return score
 
+def vakkenIngeroosterd():
+    """ Controleert of alle vakken zijn ingeroosterd."""
+
+    # controleert of een activiteit nog niet is ingeroosterd aan de had van tijdslot 0
+    for activiteit in activiteitenLijst:
+        if activiteit.tijdslot == 0:
+            print("Niet alle vakken zijn ingeroosterd")
+            return False
+    return True
 
 if __name__ == "__main__":
     main()
