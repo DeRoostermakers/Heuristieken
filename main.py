@@ -4,17 +4,18 @@ Hoofdbestand Heuristieken
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 import os, sys
-directory = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(directory, "Code"))
-sys.path.append(os.path.join(directory, "Code", "Classes"))
-sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
-
 import csv
 import student as StudentKlasse
 import vak as VakKlasse
 import activiteit as ActiviteitKlasse
 import zaalSlot as ZaalSlotKlasse
 import math
+
+# intialiseer paden naar andere klasses en algoritmes
+directory = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(directory, "Code"))
+sys.path.append(os.path.join(directory, "Code", "Classes"))
+sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 # initialiseer lijsten voor data
 studentenLijst = []
@@ -25,6 +26,7 @@ rooster = []
 
 # dagen dat er les wordt gegeven
 lesdagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
+
 # dict om id van tijdsloten om te zetten naar tijd
 idNaarTijdslot = {1 : "9:00-11:00", 2 : "11:00-13:00", 3: "13:00-15:00", 4: "15:00-17:00", 5: "17:00-19:00"}
 
@@ -32,25 +34,18 @@ def main():
 
     # start de datastructuur
     initialiseer()
-<<<<<<< HEAD
 
-    print(rooster)
-
-=======
-    
     i = 0
     for activiteit in activiteitenLijst:
         toevoegen(rooster[i], activiteit)
         i += 1
-        
->>>>>>> a5e7b72088ad58eaba60751d5785dfc2ff51dba2
+
     zalenInGebruik = []
     for zaalslot in rooster:
         if zaalslot.inGebruik == 1:
             zalenInGebruik.append(zaalslot)
 
     score = scoreFunctie(vakkenLijst, activiteitenLijst, zalenInGebruik, studentenLijst)
-<<<<<<< HEAD
 
     print(score)
 
@@ -82,13 +77,6 @@ def wissel(activiteit1, activiteit2):
         activiteit1.tijdslot = zaalslot2.tijdslot
 
 
-
-=======
-    
-    print(score)
-
->>>>>>> a5e7b72088ad58eaba60751d5785dfc2ff51dba2
-
 def toevoegen(zaalslotGewenst, activiteit):
     """ Voeg een activiteit aan een zaalslot toe."""
 
@@ -109,10 +97,11 @@ def toevoegen(zaalslotGewenst, activiteit):
 
 def initialiseer():
     """ Leest de data in en maakt de benodigde lijsten."""
+
     # aanmaken van dict en vakkenlijst creëren
     teller = 0
 
-    # inlezen van CSV bestand
+    # inlezen van CSV bestand van vakken
     with open('vakken.csv') as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=';')
         next(leesCSV, None)
@@ -129,7 +118,7 @@ def initialiseer():
             vanVakNaarId[rij[0]] = teller
             teller += 1
 
-    # inlezen van CSV bestand
+    # inlezen van CSV bestand van studenten
     with open('studentenenvakken.csv', 'r', encoding="latin-1") as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=",")
         next(leesCSV, None)
@@ -141,7 +130,6 @@ def initialiseer():
                 if vak != "":
                     studentVakken.append(vak)
             studentenLijst.append(StudentKlasse.Student(rij[0], rij[1], rij[2], studentVakken))
-
 
     # vakken in studentenlijst met id voorzien
     for student in studentenLijst:
@@ -190,7 +178,6 @@ def initialiseer():
         elif vak.wc > 0:
             activiteitenLijst.append(ActiviteitKlasse.Activiteit(1, 1, vak.id, vak.maxWc, vak.aantalStudenten, vak.studenten))
 
-
         # practicum naar activiteiten
         if vak.maxPrac < vak.aantalStudenten and vak.prac > 0:
             studPerPrac = studentenSplitsen(vak.aantalStudenten, vak.maxPrac, vak.studenten)
@@ -216,7 +203,6 @@ def studentenSplitsen(aantalStudenten, maximaal, studenten):
         werkcolleges.append(studenten[i: i + studPerWc])
 
     return werkcolleges
-
 
 
 def zaalgrootteConflict(zaalslotLijst):
@@ -277,6 +263,7 @@ def extraTijdslot(studentenLijst, zaalslotLijst):
 
     malusPunten = 0
 
+    # kijkt of zaal in tijdslot 5 (17.00-19.00) wordt gebruikt
     for zaal in zaalslotLijst:
         if zaal.tijdslot == 5 and zaal.inGebruik == 1:
             malusPunten += 50
@@ -288,13 +275,8 @@ def scoreFunctie(vakkenLijst, activiteitenLijst, zaalslotLijst, studentenLijst):
     "deze functie berekent de score van een rooster"
 
     malusPunten = vakSpreiding(vakkenLijst, activiteitenLijst) + zaalgrootteConflict(zaalslotLijst) + roosterConflicten(studentenLijst, zaalslotLijst) + extraTijdslot(studentenLijst, zaalslotLijst)
-<<<<<<< HEAD
     score = 1000 - malusPunten
 
-=======
-    score = 1000 - malusPunten  
-    
->>>>>>> a5e7b72088ad58eaba60751d5785dfc2ff51dba2
     return score
 
 
