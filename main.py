@@ -316,6 +316,7 @@ def extraTijdslot(studentenLijst, zaalslotLijst):
         if zaal.tijdslot == 5 and zaal.inGebruik == 1:
             malusPunten += 50
 
+    # geef het aantal maluspunten terug
     return malusPunten
 
 
