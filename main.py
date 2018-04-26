@@ -15,7 +15,6 @@ sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 import student as StudentKlasse
 import vak as VakKlasse
-import activiteit as ActiviteitKlasse
 import zaalSlot as ZaalSlotKlasse
 
 # initialiseer lijsten voor data
@@ -60,55 +59,6 @@ def ingeroosterdLijst(rooster):
             zalenInGebruik.append(zaalslot)
 
     return zalenInGebruik
-
-
-def wissel(activiteit1, activiteit2):
-    """ Wissel twee activiteiten van tijdslot"""
-
-    # initialiseer zaalsloten die gewisseld moeten worden
-    zaalslot1 = None
-    zaalslot2 = None
-
-    # zoekt naar de twee bijbehorende zaalsloten
-    for zaalslot in rooster:
-        if zaalslot.activiteit == activiteit1:
-            zaalslot1 = zaalslot
-        elif zaalslot.activiteit == activiteit2:
-            zaalslot2 = zaalslot
-
-    # controleer of zaalsloten zijn gevonden
-    if zaalslot1 == None or zaalslot2 == None:
-        print("activiteit niet gevonden")
-
-    # wissel de activiteiten van zaalsloten
-    else:
-        zaalslot1.activiteit = activiteit2
-        activiteit2.dag = zaalslot1.dag
-        activiteit2.tijdslot = zaalslot1.tijdslot
-
-        zaalslot2.activiteit = activiteit1
-        activiteit1.dag = zaalslot2.dag
-        activiteit1.tijdslot = zaalslot2.tijdslot
-
-
-def toevoegen(zaalslotGewenst, activiteit):
-    """ Voeg een activiteit aan een zaalslot toe."""
-
-    # zoek naar de gegeven zaal in de juiste dag en tijdslot
-    for zaalslot in rooster:
-        if zaalslot == zaalslotGewenst:
-
-            # controleer of het zaalslot nog niet in gebruik is en voeg vak toe
-            if zaalslot.activiteit == None:
-                zaalslot.activiteit = activiteit
-                zaalslot.inGebruik = 1
-                activiteit.dag = zaalslot.dag
-                activiteit.tijdslot = zaalslot.tijdslot
-                return True
-            else:
-                print("Zaal al bezet")
-                return False
-
 
 def initialiseer():
     """ Leest de data in en maakt de benodigde lijsten."""
