@@ -62,7 +62,6 @@ def ingeroosterdLijst(rooster):
     return zalenInGebruik
 
 
-
 def wissel(activiteit1, activiteit2):
     """ Wissel twee activiteiten van tijdslot"""
 
