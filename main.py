@@ -32,26 +32,41 @@ idNaarTijdslot = {1 : "9:00-11:00", 2 : "11:00-13:00", 3: "13:00-15:00", 4: "15:
 
 def main():
 
-    # start de datastructuur
+    # lees de data in de datasructuur in
     initialiseer()
 
+    # voeg vakken aan het rooster toe
     i = 0
     for activiteit in activiteitenLijst:
         toevoegen(rooster[i], activiteit)
         i += 1
+    
+    # opstellen van lijst met ingeroosterde activiteiten
+    zalenInGebruik = ingeroosterdLijst(rooster)
 
+    # berekenen van de puntenscore
+    score = scoreFunctie(vakkenLijst, activiteitenLijst, zalenInGebruik, studentenLijst)
+
+    print(score)
+    
+    
+def ingeroosterdLijst(rooster):
+    """ opstellen van lijst met ingeroosterde activiteiten"""
+    
+    # voeg elk ingeroosterde combinatie van tijdslot en zaal aan lijst toe     
     zalenInGebruik = []
     for zaalslot in rooster:
         if zaalslot.inGebruik == 1:
             zalenInGebruik.append(zaalslot)
+    
+    return zalenInGebruik
 
-    score = scoreFunctie(vakkenLijst, activiteitenLijst, zalenInGebruik, studentenLijst)
 
-    print(score)
 
 def wissel(activiteit1, activiteit2):
     """ Wissel twee activiteiten van tijdslot"""
 
+    # initialiseer zaalsloten die gewisseld moeten worden
     zaalslot1 = None
     zaalslot2 = None
 
@@ -62,7 +77,7 @@ def wissel(activiteit1, activiteit2):
         elif zaalslot.activiteit == activiteit2:
             zaalslot2 = zaalslot
 
-    # controleert of zaalsloten zijn gevonden
+    # controleer of zaalsloten zijn gevonden
     if zaalslot1 == None or zaalslot2 == None:
         print("activiteit niet gevonden")
 
@@ -83,6 +98,7 @@ def toevoegen(zaalslotGewenst, activiteit):
     # zoek naar de gegeven zaal in de juiste dag en tijdslot
     for zaalslot in rooster:
         if zaalslot == zaalslotGewenst:
+            
             # controleer of het zaalslot nog niet in gebruik is en voeg vak toe
             if zaalslot.activiteit == None:
                 zaalslot.activiteit = activiteit
