@@ -9,19 +9,20 @@ class ZaalSlot(object):
     Klasse om een zaalslot te representeren
     """
 
-    def __init__(self, naam, capaciteit, dag, tijdslot):
+    def __init__(self, naam, capaciteit, dag, tijdslot, idNaarDag):
         self.naam = naam
         self.capaciteit = capaciteit
         self.inGebruik = 0
         self.activiteit = None
         self.dag = dag
         self.tijdslot = tijdslot
-
+        self.idNaarDag = idNaarDag
+        
     def __str__(self):
-        return self.naam + "." + self.dag + "." + str(self.tijdslot) + "." + str(self.activiteit)
+        return self.naam + "." + self.idNaarDag[self.dag] + "." + str(self.tijdslot) + "." + str(self.activiteit)
 
     def __repr__(self):
-        return self.naam + "." + self.dag + "." + str(self.tijdslot) + "." + str(self.activiteit)
+        return self.naam + "." + self.idNaarDag[self.dag] + "." + str(self.tijdslot) + "." + str(self.activiteit)
 
     def wissel(self, zaalslot):
         """ Wissel twee activiteiten van tijdslot"""

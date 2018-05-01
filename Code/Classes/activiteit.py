@@ -16,7 +16,7 @@ class Activiteit(object):
         self.maxStud = maxStud
         self.nrStud = nrStud
         self.welkeStud = welkeStud
-        self.dag = "nvt"
+        self.dag = 0
         self.tijdslot = 0
 
     def __str__(self):
