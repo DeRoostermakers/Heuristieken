@@ -53,7 +53,7 @@ class Rooster(object):
         if vakkenIngeroosterd(self):
             malusPunten = vakSpreiding(self) + zaalgrootteConflict(self) + roosterConflicten(self, rooster)  + extraTijdslot(self)
             scorepunten = 1000 - malusPunten
-            
+
             print("vakspreiding: " + str(vakSpreiding(self)))
             print("zaalgrootteConflict: " + str(zaalgrootteConflict(self)))
             print("roosterConflicten: " + str(roosterConflicten(self, rooster)))
@@ -247,3 +247,49 @@ def maakZaalsloten(self):
 def maakActiviteiten(self):
     for vak in self.vakkenLijst:
         self.activiteitenLijst += vak.vanVakNaarActiviteit()
+
+def bonus(self):
+    bonus = 0
+    aantalNietGesplitst = 0
+    aantalActiviteiten = vak.hc + vak.wc + vak.prac
+    hcDag = []
+    wcDag = []
+    pracDag = []
+
+    for vak in vakkenLijst:
+        if vak.hc != 0:
+            aantalNietGesplitst += vak.hc
+        if vak.wc != 0:
+            aantalNietGesplitst += 1
+        if vak.prac != 0:
+            aantalNietGesplitst += 1
+
+        if aantalNietGesplitst == aantalActiviteiten:
+            # niets is gesplitst, dus hier kan gwn de afstand bekeken worden
+
+
+        if aantalNietGesplitst < aantalActiviteiten:
+            # kortste afstand berekenen
+            if aantalNietGesplitst == 2:
+                for activiteit in activiteitenLijst:
+                    if activiteit.vakId == vak.id:
+                        if activiteit.soort == 0:
+                            hcDag.append(activiteit.dag)
+                        if activiteit.soort == 1:
+                            wcDag.append(activiteit.dag)
+                        if activiteit.soort == 2:
+                            pracDag.append(activiteit.dag)
+                    afstand = []
+                    if vak.soort == 1:
+                        for i in range(wcDag):
+                            afstand.append(abs(wcDag[i]-hcDag))
+                    if vak.soort == 2:
+                        for i in range(pracDag):
+                            afstand.append(abs(pracDag[i]-hcDag))
+                    if min(afstand) == 3:
+                        bonus += 20
+
+
+
+        if nietGesplitst > aantalActiviteiten:
+            # error, het aantalActiviteiten klopt niet
