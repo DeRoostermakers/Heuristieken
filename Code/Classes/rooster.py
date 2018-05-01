@@ -5,7 +5,6 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 
 import csv
-
 import student as StudentKlasse
 import vak as VakKlasse
 import zaalSlot as ZaalSlotKlasse
@@ -23,7 +22,7 @@ class Rooster(object):
         self.lesdagen = lesdagen
         self.dagNaarId = {}
         self.idNaarDag = {}
-        zetTijdslotenOmNaarID(self, tijdsloten)
+        zetIdOmNaarTijdslot(self, tijdsloten)
         zetDagOmNaarId(self, lesdagen)
         maakVakken(self)
         maakStudenten(self)
@@ -41,7 +40,6 @@ class Rooster(object):
             else:
                 zaalslot.voegToe(self.activiteitenLijst[i])
                 i += 1
-
 
     def score(self):
         "deze functie berekent de score van een rooster"
@@ -88,9 +86,34 @@ def vakSpreiding(self):
     "deze functie berekent de punten voor de spreiding van de activiteiten"
 
     malusPunten = 0
+    vakkenSpreiding = []
 
 
 
+    for i in range(len(self.vakkenLijst)):
+        vakkenSpreiding.append([])
+
+    for activiteit in self.activiteitenLijst:
+        i = activiteit.vakId
+        vakkenSpreiding[i].append(activiteit.dag)
+
+    print(vakkenSpreiding)
+
+    for vak in vakkenSpreiding:
+        aantalActiviteiten = len(vak)
+        dagGeweest = []
+        verdeeldAantalDagen = 0
+        for dag in vak:
+            if dag not in dagGeweest:
+                dagGeweest.append(dag)
+                verdeeldAantalDagen += 1
+        x = aantalActiviteiten - verdeeldAantalDagen
+
+        malusPunten = malusPunten + x * 10
+    return malusPunten
+
+    '''
+    malusPunten = 0
     # kijkt voor elk vak
     for vak in self.vakkenLijst:
         verdeeldAantalDagen = 0
@@ -108,15 +131,20 @@ def vakSpreiding(self):
         malusPunten = malusPunten + x * 10
 
     return malusPunten
-
+    '''
 
 def maakRooster(self):
+    " Maakt een rooster structuur met lijsten en voeg de zaalsloten toe."
     rooster = []
+
+    # maak het aantal lijsten voor het aantal dagen, gebruik het id als index
     for i in range(len(self.lesdagen) + 1):
         rooster.append([])
+        # maak het aantal lijsten voor het aantal tijdsloten, gebruik het id als index
         for j in range(len(self.idNaarTijdslot) + 1):
             rooster[i].append([])
 
+    # voeg het zaalslot toe op de juiste plaats in het rooster
     for zaalslot in self.zaalslotenLijst:
         i = int(zaalslot.dag)
         j = int(zaalslot.tijdslot)
@@ -130,18 +158,25 @@ def roosterConflicten(self, rooster):
 
     malusPunten = 0
 
+    # kijk voor elke dag naar een tijdslot
     for dag in rooster:
+        # kijk voor elk tijdslot welke studenten een vak volgen
         for tijdslot in dag:
             studentenTijdslot = []
+            # voeg alle studenten samen in een lijst
             for zaalslot in tijdslot:
                 if zaalslot.activiteit != None:
                     studentenTijdslot += zaalslot.activiteit.welkeStud
+            #  bereken de maluspunten voor de rooster conflicten
             malusPunten += controleerDubbel(studentenTijdslot)
     return malusPunten
 
 def controleerDubbel(studentenTijdslot):
+    " Controleert hoeveel rooster conflicten een bepaald tijdslot heeft"
     malusPunten = 0
     aanwezig = []
+
+    # kijkt of een student al aanwezig was in het tijdslot
     for student in studentenTijdslot:
         if student in aanwezig:
             malusPunten += 1
@@ -150,6 +185,7 @@ def controleerDubbel(studentenTijdslot):
     return malusPunten
 
 def zalenInGebruik(self):
+    " Maakt een verzameling van alle zaalsloten die in gebruik zijn"
     zalenGebruikt = []
     for zaalslot in self.zaalslotenLijst:
         if zaalslot.inGebruik == 1:
@@ -157,26 +193,32 @@ def zalenInGebruik(self):
     return zalenGebruikt
 
 def zaalgrootteConflict(self):
-    "deze functie berekent de maluspunten voor te kleine zalen"
+    "Deze functie berekent de maluspunten voor te kleine zalen"
+    # vraagt alle zaalsloten op welke worden gebruikt
     zalenGebruikt = zalenInGebruik(self)
     malusPunten = 0
+
+    # kijkt of de capaciteit van de zaal te klein is voor het aantal studenten
     for zaalslot in zalenGebruikt:
         verschil = zaalslot.capaciteit - zaalslot.activiteit.nrStud
+        # berekent het aantal maluspunten als zaal te klein is
         if verschil < 0:
             malusPunten = malusPunten + abs(verschil)
     return malusPunten
 
 def zetDagOmNaarId(self, lesdagen):
+    "Maakt een dict om dagen om te zetten naar een id."
     for i in range(1, len(lesdagen) + 1):
         self.dagNaarId[lesdagen[i - 1]] = i
         self.idNaarDag[i] = lesdagen[i - 1]
 
-def zetTijdslotenOmNaarID(self, tijdsloten):
+def zetIdOmNaarTijdslot(self, tijdsloten):
+    "Maakt een dict om een id om te zetten naar een tijdslot."
     for i in range(1, len(tijdsloten) + 1):
         self.idNaarTijdslot[i] = tijdsloten[i - 1]
 
 def maakVakken(self):
-    """ Leest het csv bestand in en maakt een vakkenlijst."""
+    "Leest het csv bestand in en maakt een vakkenlijst."
     # aanmaken van verschillende functies
     teller = 0
 
@@ -228,9 +270,9 @@ def maakStudenten(self):
 
 
 def maakZaalsloten(self):
+    "Maakt een lijst met zaalsloten aan."
 
     # leest bestand en creert zaalsloten
-
     with open("Data/zalen.csv") as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=';')
         next(leesCSV, None)
@@ -245,10 +287,12 @@ def maakZaalsloten(self):
             self.zaalslotenLijst.append(ZaalSlotKlasse.ZaalSlot("C0.110", 110, self.dagNaarId[dag], 5, self.idNaarDag))
 
 def maakActiviteiten(self):
+    "Zet de vakkenlijst om naar een activiteitenlijst."
     for vak in self.vakkenLijst:
         self.activiteitenLijst += vak.vanVakNaarActiviteit()
 
 def bonus(self):
+    "Berekent de bonuspunten."
     bonus = 0
     aantalNietGesplitst = 0
     aantalActiviteiten = vak.hc + vak.wc + vak.prac
@@ -268,28 +312,26 @@ def bonus(self):
             # niets is gesplitst, dus hier kan gwn de afstand bekeken worden
 
 
-        if aantalNietGesplitst < aantalActiviteiten:
-            # kortste afstand berekenen
-            if aantalNietGesplitst == 2:
-                for activiteit in activiteitenLijst:
-                    if activiteit.vakId == vak.id:
-                        if activiteit.soort == 0:
-                            hcDag.append(activiteit.dag)
-                        if activiteit.soort == 1:
-                            wcDag.append(activiteit.dag)
-                        if activiteit.soort == 2:
-                            pracDag.append(activiteit.dag)
-                    afstand = []
-                    if vak.soort == 1:
-                        for i in range(wcDag):
-                            afstand.append(abs(wcDag[i]-hcDag))
-                    if vak.soort == 2:
-                        for i in range(pracDag):
-                            afstand.append(abs(pracDag[i]-hcDag))
-                    if min(afstand) == 3:
-                        bonus += 20
+            if aantalNietGesplitst < aantalActiviteiten:
+                # kortste afstand berekenen
+                if aantalNietGesplitst == 2:
+                    for activiteit in activiteitenLijst:
+                        if activiteit.vakId == vak.id:
+                            if activiteit.soort == 0:
+                                hcDag.append(activiteit.dag)
+                            if activiteit.soort == 1:
+                                wcDag.append(activiteit.dag)
+                            if activiteit.soort == 2:
+                                pracDag.append(activiteit.dag)
+                        afstand = []
+                        if vak.soort == 1:
+                            for i in range(wcDag):
+                                afstand.append(abs(wcDag[i]-hcDag))
+                        if vak.soort == 2:
+                            for i in range(pracDag):
+                                afstand.append(abs(pracDag[i]-hcDag))
+                        if min(afstand) == 3:
+                            bonus += 20
 
-
-
-        if nietGesplitst > aantalActiviteiten:
-            # error, het aantalActiviteiten klopt niet
+        #if nietGesplitst > aantalActiviteiten:
+            # error het aantalActiviteiten klopt niet
