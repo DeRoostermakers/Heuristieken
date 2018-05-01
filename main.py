@@ -1,3 +1,11 @@
+
+import os, sys
+
+directory = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(directory, "Code"))
+sys.path.append(os.path.join(directory, "Code", "Classes"))
+sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
+
 import rooster as Rooster
 
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
