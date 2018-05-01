@@ -44,6 +44,7 @@ class Rooster(object):
         if vakkenIngeroosterd(self):
             malusPunten = vakSpreiding(self) + zaalgrootteConflict(self) + roosterConflicten(self)  + extraTijdslot(self)
             scorepunten = 1000 - malusPunten
+            print(roosterConflicten(self))
             return scorepunten
         else:
             print("Niet alle vakken ingeroosterd")
