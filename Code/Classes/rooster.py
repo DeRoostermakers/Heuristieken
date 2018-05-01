@@ -20,6 +20,7 @@ import zaalSlot as ZaalSlotKlasse
 
 
 class Rooster(object):
+    """ Klasse om een rooster te representeren."""
     def __init__(self, lesdagen, tijdsloten):
         self.studentenLijst = []
         self.vakkenLijst = []
