@@ -4,17 +4,10 @@ Rooster klasse
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 
-import os, sys
 import csv
-
-directory = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(directory, "Code"))
-sys.path.append(os.path.join(directory, "Code", "Classes"))
-sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 import student as StudentKlasse
 import vak as VakKlasse
-import activiteit as ActiviteitKlasse
 import zaalSlot as ZaalSlotKlasse
 
 
@@ -147,7 +140,7 @@ def maakVakken(self):
     teller = 0
 
     # inlezen van CSV bestand van vakken
-    with open("../../Data/vakken.csv") as csvBestand:
+    with open('Data/vakken.csv') as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=';')
         next(leesCSV, None)
 
@@ -166,7 +159,7 @@ def maakVakken(self):
 def maakStudenten(self):
     """ Leest het csv bestand in en maakt een studentenlijst."""
     # inlezen van CSV bestand van studenten
-    with open("../../Data/studentenenvakken.csv", "r", encoding="latin-1") as csvBestand:
+    with open("Data/studentenenvakken.csv", "r", encoding="latin-1") as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=",")
         next(leesCSV, None)
 
@@ -196,7 +189,11 @@ def maakStudenten(self):
 def maakZaalsloten(self):
 
     # leest bestand en creert zaalsloten
+<<<<<<< HEAD
     with open("/Data/zalen.csv") as csvBestand:
+=======
+    with open("Data/zalen.csv") as csvBestand:
+>>>>>>> d80c1eac65d4a09a86af1321269b42a105564c0d
         leesCSV = csv.reader(csvBestand, delimiter=';')
         next(leesCSV, None)
         # leest elke zaal en maakt per dag en tijdslot een zaalslot
@@ -212,38 +209,3 @@ def maakZaalsloten(self):
 def maakActiviteiten(self):
     for vak in self.vakkenLijst:
         self.activiteitenLijst += vak.vanVakNaarActiviteit()
-
-def vakSpreiding(self):
-    "deze functie berekent de punten voor de spreiding van de activiteiten"
-
-    malusPunten = 0
-
-    # itereer over ieder vak
-    for vak in self.vakkenLijst:
-
-        # onthoud op welke dagen activiteiten zijn geroosterd
-        verdeeldAantalDagen = 0
-        dag = []
-
-        # itereer over alle activiteiten
-        for activiteit in self.activiteitenLijst:
-
-            # controleer of alle activiteiten overeen komen met hetzelfde vak
-            if activiteit.vakId == vak.id:
-
-                # voeg nieuwe dag toe wanneer activiteit op andere dag
-                if activiteit.dag not in dag:
-                    dag.append(activiteit.dag)
-                    verdeeldAantalDagen += 1
-
-        # bepaal aantal activiteiten van het vak
-        aantalActiviteiten = vak.hc + vak.wc + vak.prac
-
-        # bepaal op hoeveel dagen de activiteiten zijn verdeeld
-        x = aantalActiviteiten - verdeeldAantalDagen
-
-        # bereken maluspunten
-        malusPunten = malusPunten + x * 10
-
-    # geef het aantal maluspunten terug
-    return malusPunten
