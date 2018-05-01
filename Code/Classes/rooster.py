@@ -228,6 +228,7 @@ def maakStudenten(self):
 def maakZaalsloten(self):
 
     # leest bestand en creert zaalsloten
+
     with open("Data/zalen.csv") as csvBestand:
         leesCSV = csv.reader(csvBestand, delimiter=';')
         next(leesCSV, None)
