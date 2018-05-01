@@ -189,11 +189,8 @@ def maakStudenten(self):
 def maakZaalsloten(self):
 
     # leest bestand en creert zaalsloten
-<<<<<<< HEAD
-    with open("/Data/zalen.csv") as csvBestand:
-=======
+
     with open("Data/zalen.csv") as csvBestand:
->>>>>>> d80c1eac65d4a09a86af1321269b42a105564c0d
         leesCSV = csv.reader(csvBestand, delimiter=';')
         next(leesCSV, None)
         # leest elke zaal en maakt per dag en tijdslot een zaalslot
