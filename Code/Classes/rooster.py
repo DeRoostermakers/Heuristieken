@@ -298,12 +298,9 @@ def maakActiviteiten(self):
         self.activiteitenLijst += vak.vanVakNaarActiviteit()
 
 def bonus(self):
+    
     bonus = 0
     aantalNietGesplitst = 0
-
-    hcDag = []
-    wcDag = []
-    pracDag = []
 
     for vak in self.vakkenLijst:
         if vak.hc != 0:
@@ -317,29 +314,29 @@ def bonus(self):
 
         # per vak kijken naar de spreiding
         for vak in self.vakkenLijst:
+            hcDag = []
+            wcDag = []
+            pracDag = []
             # kijk naar alle activiteiten binne vak
             for activiteit in self.activiteitenLijst:
-                if activiteit.soort == 0:
-                    hcDag.append(activiteit.dag)
-                if activiteit.soort == 1:
-                    wcDag.append(activiteit.dag)
-                if activiteit.soort == 2:
-                    pracDag.append(activiteit.dag)
+                if vak.id == activiteit.vakId:
+                    if activiteit.soort == 0:
+                        hcDag.append(activiteit.dag)
+                    if activiteit.soort == 1:
+                        wcDag.append(activiteit.dag)
+                    if activiteit.soort == 2:
+                        pracDag.append(activiteit.dag)
 
-                perGroep = []
-                # for i in range(len(wcDag)):
-                    # perGroep.append([])
-                
-                # lijst =[]
-                for i in range(len(wcDag)):
-                    print(i)
-                    print(wcDag)
-                    # lijst.extend(hcDag)
-                    # lijst.extend(wcDag[i])
-                    # lijst.extend(pracDag[i])
-                    # perGroep.append(lijst)
-                print(perGroep)
+            perGroep = []            
+            lijst =[]
+            for i in range(len(wcDag)):
+                lijst.extend(hcDag)
+                if len(wcDag) > 0:
+                    lijst.append(wcDag[i])
+                if len(pracDag) > 0:
+                    lijst.append(pracDag[i])
+                perGroep.append(lijst)
 
-                bonus += 20
+            bonus += 20
 
     return(bonus)
