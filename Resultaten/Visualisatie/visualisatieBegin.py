@@ -43,43 +43,10 @@ ontwerp1 = plot.Table(
                 align = ["left", "center"],
                 font = dict(color = "#506784", size = 11)
                         ))
-                
-ontwerp2 = plot.Table(
-        type = "table",
-        header = dict(
-                values = [["<b>Dinsdag</b>"],
-                          ["A1.04"],
-                          ["A1.06"],
-                          ["A1.08"],
-                          ["A1.10"],
-                          ["B0.201"],
-                          ["C0.110"],
-                          ["C0.110"]],
-                line = dict(color = "#506784"),
-                            fill = dict(color = hoofdregelKleur),
-                            align = ["left", "center"],
-                            font = dict(color = "white", size = 12)
-                          ),
-        cells = dict(
-                values = [
-                        [["09:00-11:00"], ["11:00-13:00"], ["13:00-15:00"], ["15:00-17:00"], ["17:00-19:00"]],
-                        [["bla"], ["bla"], ["bla"], ["bla"], ["bla"]],
-                        [["bla"], ["bla"], ["bla"], ["bla"], ["bla"]],
-                        [["bla"], ["bla"], ["bla"], ["bla"], ["bla"]],
-                        [["bla"], ["bla"], ["bla"], ["bla"], ["bla"]],
-                        [["bla"], ["bla"], ["bla"], ["bla"], ["bla"]],
-                        [["bla"], ["bla"], ["bla"], ["bla"], ["bla"]],
-                        [["bla"], ["bla"], ["bla"], ["bla"], ["bla"]]],
-                line = dict(color = "#506784"),
-                fill = dict(color = [[rijOnevenKleur, rijEvenKleur, rijOnevenKleur, rijEvenKleur, rijOnevenKleur, rijEvenKleur, rijOnevenKleur]]),
-                align = ["left", "center"],
-                font = dict(color = "#506784", size = 11)
-                        ))
 
 
+data = [ontwerp1]
 
-figuur = plot.Figure(data = [ontwerp1, ontwerp2], layout = layout)
-
-py.plotly.plot(figuur, filename = "visualisatieTest")
+py.plotly.plot(data, filename = "visualisatieTest")
 
 
