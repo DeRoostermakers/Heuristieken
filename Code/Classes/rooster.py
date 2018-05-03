@@ -5,6 +5,7 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 
 import csv
+import random
 import student as StudentKlasse
 import vak as VakKlasse
 import zaalSlot as ZaalSlotKlasse
@@ -33,12 +34,15 @@ class Rooster(object):
     def vulRandom(self):
         "Vult het rooster met activiteiten"
         i = 0
+        randomIndex = random.sample(range(len(self.activiteitenLijst)), 
+                                    len(self.activiteitenLijst))
+        
         # plaatst elk activiteit in het eerste beschikbare zaalslot
         for zaalslot in self.zaalslotenLijst:
             if len(self.activiteitenLijst) == i:
                 break
             else:
-                zaalslot.voegToe(self.activiteitenLijst[i])
+                zaalslot.voegToe(self.activiteitenLijst[randomIndex[i]])
                 i += 1
 
     def score(self):
@@ -58,7 +62,7 @@ class Rooster(object):
             print("roosterConflicten: " + str(roosterConflicten(self, rooster)))
             print("extra tijdslot: " + str(extraTijdslot(self)))
             print("bonuspunten: " + str(bonus(self)))
-            return "score rooster: " + str(scorepunten)
+            return scorepunten
 
         else:
             return "niet alle vakken zijn ingeroosterd, geen score"

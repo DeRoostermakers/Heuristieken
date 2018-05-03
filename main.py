@@ -10,6 +10,10 @@ sys.path.append(os.path.join(directory, "Code"))
 sys.path.append(os.path.join(directory, "Code", "Classes"))
 sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
+import plotly.plotly as py
+import plotly.graph_objs as go
+import numpy as np
+
 import rooster as Rooster
 
 # Dagen en tijdsloten welke geldig zijn voor het rooster
@@ -20,7 +24,13 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 rooster = Rooster.Rooster(dagen, tijdsloten)
 
 # vul het rooster met vakken
-rooster.vulRandom()
+# rooster.vulRandom()
 
 # bereken de score
-print(rooster.score())
+# print(rooster.score())
+
+
+
+
+
+
