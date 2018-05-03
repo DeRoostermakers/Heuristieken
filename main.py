@@ -30,4 +30,3 @@ print(rooster.score())
 iteraties = 51
 randomSteekproef(rooster, iteraties)
 
-
