@@ -49,13 +49,15 @@ class Rooster(object):
 
         # berekent de malus- en bonuspunten per onderdeel
         if vakkenIngeroosterd(self):
+            bonusPunten = bonus(self)
             malusPunten = vakSpreiding(self) + zaalgrootteConflict(self) + roosterConflicten(self, rooster)  + extraTijdslot(self)
-            scorepunten = 1000 - malusPunten
+            scorepunten = 1000 - malusPunten + bonusPunten
 
             print("vakspreiding: " + str(vakSpreiding(self)))
             print("zaalgrootteConflict: " + str(zaalgrootteConflict(self)))
             print("roosterConflicten: " + str(roosterConflicten(self, rooster)))
             print("extra tijdslot: " + str(extraTijdslot(self)))
+            print("bonuspunten: " + str(bonus(self)))
             return "score rooster: " + str(scorepunten)
 
         else:
@@ -292,15 +294,14 @@ def maakActiviteiten(self):
         self.activiteitenLijst += vak.vanVakNaarActiviteit()
 
 def bonus(self):
-    "Berekent de bonuspunten."
     bonus = 0
     aantalNietGesplitst = 0
-    aantalActiviteiten = vak.hc + vak.wc + vak.prac
+
     hcDag = []
     wcDag = []
     pracDag = []
 
-    for vak in vakkenLijst:
+    for vak in self.vakkenLijst:
         if vak.hc != 0:
             aantalNietGesplitst += vak.hc
         if vak.wc != 0:
@@ -308,30 +309,34 @@ def bonus(self):
         if vak.prac != 0:
             aantalNietGesplitst += 1
 
-        if aantalNietGesplitst == aantalActiviteiten:
+        aantalActiviteiten = vak.hc + vak.wc + vak.prac
+
+        # if aantalNietGesplitst == aantalActiviteiten:
             # niets is gesplitst, dus hier kan gwn de afstand bekeken worden
 
 
-            if aantalNietGesplitst < aantalActiviteiten:
-                # kortste afstand berekenen
-                if aantalNietGesplitst == 2:
-                    for activiteit in activiteitenLijst:
-                        if activiteit.vakId == vak.id:
-                            if activiteit.soort == 0:
-                                hcDag.append(activiteit.dag)
-                            if activiteit.soort == 1:
-                                wcDag.append(activiteit.dag)
-                            if activiteit.soort == 2:
-                                pracDag.append(activiteit.dag)
-                        afstand = []
-                        if vak.soort == 1:
-                            for i in range(wcDag):
-                                afstand.append(abs(wcDag[i]-hcDag))
-                        if vak.soort == 2:
-                            for i in range(pracDag):
-                                afstand.append(abs(pracDag[i]-hcDag))
-                        if min(afstand) == 3:
-                            bonus += 20
+        if aantalNietGesplitst < aantalActiviteiten:
+            # kortste afstand berekenen
+            if aantalNietGesplitst == 2:
+                for activiteit in activiteitenLijst:
+                    if activiteit.vakId == vak.id:
+                        if activiteit.soort == 0:
+                            hcDag.append(activiteit.dag)
+                        if activiteit.soort == 1:
+                            wcDag.append(activiteit.dag)
+                        if activiteit.soort == 2:
+                            pracDag.append(activiteit.dag)
+                    afstand = []
+                    if vak.soort == 1:
+                        for i in range(wcDag):
+                            afstand.append(abs(wcDag[i]-hcDag))
+                    if vak.soort == 2:
+                        for i in range(pracDag):
+                            afstand.append(abs(pracDag[i]-hcDag))
+                    if min(afstand) == 3:
+                        bonus += 20
 
-        #if nietGesplitst > aantalActiviteiten:
-            # error het aantalActiviteiten klopt niet
+    return(bonus)
+
+        # if nietGesplitst > aantalActiviteiten:
+            # error, het aantalActiviteiten klopt niet
