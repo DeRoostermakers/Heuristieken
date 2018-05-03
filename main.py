@@ -28,9 +28,3 @@ rooster = Rooster.Rooster(dagen, tijdsloten)
 
 # bereken de score
 # print(rooster.score())
-
-
-
-
-
-

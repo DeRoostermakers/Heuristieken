@@ -34,9 +34,9 @@ class Rooster(object):
     def vulRandom(self):
         "Vult het rooster met activiteiten"
         i = 0
-        randomIndex = random.sample(range(len(self.activiteitenLijst)), 
+        randomIndex = random.sample(range(len(self.activiteitenLijst)),
                                     len(self.activiteitenLijst))
-        
+
         # plaatst elk activiteit in het eerste beschikbare zaalslot
         for zaalslot in self.zaalslotenLijst:
             if len(self.activiteitenLijst) == i:
@@ -315,21 +315,25 @@ def bonus(self):
 
         aantalActiviteiten = vak.hc + vak.wc + vak.prac
 
-        # if aantalNietGesplitst == aantalActiviteiten:
-            # niets is gesplitst, dus hier kan gwn de afstand bekeken worden
+        # per vak kijken naar de spreiding
+        for vak in self.vakkenLijst:
+            # kijk naar alle activiteiten binne vak
+            for activiteit in self.activiteitenLijst:
+                if activiteit.soort == 0:
+                    hcDag.append(activiteit.dag)
+                if activiteit.soort == 1:
+                    wcDag.append(activiteit.dag)
+                if activiteit.soort == 2:
+                    pracDag.append(activiteit.dag)
 
+                perGroep = []
+                for i in range(len(wcDag)):
+                    perGroep.append([])
 
-        if aantalNietGesplitst < aantalActiviteiten:
-            # kortste afstand berekenen
-            if aantalNietGesplitst == 2:
-                for activiteit in activiteitenLijst:
-                    if activiteit.vakId == vak.id:
-                        if activiteit.soort == 0:
-                            hcDag.append(activiteit.dag)
-                        if activiteit.soort == 1:
-                            wcDag.append(activiteit.dag)
-                        if activiteit.soort == 2:
-                            pracDag.append(activiteit.dag)
+                for i in range(len(wcDag)):
+                    perGroep[i].append(hcDag).append(wcDag[i])
+                print(perGroep)
+
                     afstand = []
                     if vak.soort == 1:
                         for i in range(wcDag):
@@ -341,6 +345,3 @@ def bonus(self):
                         bonus += 20
 
     return(bonus)
-
-        # if nietGesplitst > aantalActiviteiten:
-            # error, het aantalActiviteiten klopt niet
