@@ -20,6 +20,7 @@ class Rooster(object):
         self.zaalslotenLijst = []
         self.idNaarTijdslot = {}
         self.vanVakNaarId = {}
+        self.vanIdNaarVak = {}
         self.lesdagen = lesdagen
         self.dagNaarId = {}
         self.idNaarDag = {}
@@ -53,15 +54,15 @@ class Rooster(object):
 
         # berekent de malus- en bonuspunten per onderdeel
         if vakkenIngeroosterd(self):
-            bonusPunten = bonus(self)
+            #bonusPunten = bonus(self)
             malusPunten = vakSpreiding(self) + zaalgrootteConflict(self) + roosterConflicten(self, rooster)  + extraTijdslot(self)
-            scorepunten = 1000 - malusPunten + bonusPunten
+            scorepunten = 1000 - malusPunten #+ bonusPunten
 
             print("vakspreiding: " + str(vakSpreiding(self)))
             print("zaalgrootteConflict: " + str(zaalgrootteConflict(self)))
             print("roosterConflicten: " + str(roosterConflicten(self, rooster)))
             print("extra tijdslot: " + str(extraTijdslot(self)))
-            print("bonuspunten: " + str(bonus(self)))
+            #print("bonuspunten: " + str(bonus(self)))
             return scorepunten
 
         else:
@@ -243,6 +244,7 @@ def maakVakken(self):
 
             self.vakkenLijst.append(VakKlasse.Vak(teller, rij[0], int(rij[1]), int(rij[2]), int(rij[3]), int(rij[4]), int(rij[5])))
             self.vanVakNaarId[rij[0]] = teller
+            self.vanIdNaarVak[teller] = rij[0]
             teller += 1
 
 def maakStudenten(self):
@@ -258,7 +260,7 @@ def maakStudenten(self):
             for vak in rij[3:]:
                 if vak != "":
                     studentVakken.append(vak)
-            self.studentenLijst.append(StudentKlasse.Student(rij[0], rij[1], rij[2], studentVakken))
+            self.studentenLijst.append(StudentKlasse.Student(rij[0], rij[1], int(rij[2]), studentVakken))
 
     # vakken in studentenlijst met id voorzien
     for student in self.studentenLijst:
@@ -329,7 +331,7 @@ def bonus(self):
                 perGroep = []
                 # for i in range(len(wcDag)):
                     # perGroep.append([])
-                
+
                 # lijst =[]
                 for i in range(len(wcDag)):
                     print(i)
