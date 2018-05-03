@@ -313,7 +313,7 @@ def bonus(self):
         if vak.prac != 0:
             aantalNietGesplitst += 1
 
-        aantalActiviteiten = vak.hc + vak.wc + vak.prac
+        # aantalActiviteiten = vak.hc + vak.wc + vak.prac
 
         # per vak kijken naar de spreiding
         for vak in self.vakkenLijst:
@@ -327,21 +327,19 @@ def bonus(self):
                     pracDag.append(activiteit.dag)
 
                 perGroep = []
+                # for i in range(len(wcDag)):
+                    # perGroep.append([])
+                
+                # lijst =[]
                 for i in range(len(wcDag)):
-                    perGroep.append([])
-
-                for i in range(len(wcDag)):
-                    perGroep[i].append(hcDag).append(wcDag[i])
+                    print(i)
+                    print(wcDag)
+                    # lijst.extend(hcDag)
+                    # lijst.extend(wcDag[i])
+                    # lijst.extend(pracDag[i])
+                    # perGroep.append(lijst)
                 print(perGroep)
 
-                    afstand = []
-                    if vak.soort == 1:
-                        for i in range(wcDag):
-                            afstand.append(abs(wcDag[i]-hcDag))
-                    if vak.soort == 2:
-                        for i in range(pracDag):
-                            afstand.append(abs(pracDag[i]-hcDag))
-                    if min(afstand) == 3:
-                        bonus += 20
+                bonus += 20
 
     return(bonus)

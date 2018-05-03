@@ -11,7 +11,7 @@ sys.path.append(os.path.join(directory, "Code", "Classes"))
 sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 import rooster as Rooster
-from randomSteekproef import randomSteekproef
+# from randomSteekproef import randomSteekproef
 
 # Dagen en tijdsloten welke geldig zijn voor het rooster
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
@@ -27,6 +27,6 @@ rooster.vulRandom()
 print(rooster.score())
 
 # maak een random steekproef aan van x iteraties
-iteraties = 51
-randomSteekproef(rooster, iteraties)
+# iteraties = 51
+# randomSteekproef(rooster, iteraties)
 
