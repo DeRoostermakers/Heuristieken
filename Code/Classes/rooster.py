@@ -88,21 +88,21 @@ def vakSpreiding(self):
     malusPunten = 0
     vakkenSpreiding = []
 
-
-
+    # maak een array voor elk vak
     for i in range(len(self.vakkenLijst)):
         vakkenSpreiding.append([])
 
+    # voeg elke activiteit toe aan het juiste vak
     for activiteit in self.activiteitenLijst:
         i = activiteit.vakId
         vakkenSpreiding[i].append(activiteit.dag)
 
-    print(vakkenSpreiding)
-
+    # controleer voor elk vak zijn activiteiten
     for vak in vakkenSpreiding:
         aantalActiviteiten = len(vak)
         dagGeweest = []
         verdeeldAantalDagen = 0
+        # kijk voor elke activiteit op welke dag deze plaatsvindt
         for dag in vak:
             if dag not in dagGeweest:
                 dagGeweest.append(dag)
