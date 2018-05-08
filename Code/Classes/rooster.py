@@ -273,8 +273,44 @@ class Rooster(object):
                 zalenGebruikt.append(zaalslot)
         return zalenGebruikt
 
-    def bonus(self):
+    def weekIndeling(self):
+        perGroep = []
+        # per vak kijken naar de spreiding
+        for vak in self.vakkenLijst:
+            hcDag = []
+            wcDag = []
+            pracDag = []
+            # kijk naar alle activiteiten binne vak
+            for activiteit in self.activiteitenLijst:
+                if vak.id == activiteit.vakId:
+                    if activiteit.soort == 0:
+                        hcDag.append(activiteit.dag)
+                    if activiteit.soort == 1:
+                        wcDag.append(activiteit.dag)
+                    if activiteit.soort == 2:
+                        pracDag.append(activiteit.dag)
 
+            # voor alle mogelijke splitsingen een weeklijst maken
+            for i in range(max(len(wcDag),len(hcDag),len(pracDag))):
+                lijst =[]
+
+                # voeg alle hoorcolleges toe
+                lijst.extend(hcDag)
+
+                # voeg de werkgroep toe van splitsing i
+                if len(wcDag) > 0:
+                    lijst.append(wcDag[i])
+
+                # voeg de werkgroep toe van splitsing i
+                if len(pracDag) > 0:
+                    lijst.append(pracDag[i])
+
+                perGroep.append(lijst)
+
+        return perGroep
+
+    def bonus(self):
+        perGroep = self.weekIndeling()
         bonus = 0
         aantalNietGesplitst = 0
 
@@ -286,37 +322,12 @@ class Rooster(object):
             if vak.prac != 0:
                 aantalNietGesplitst += 1
 
-            # aantalActiviteiten = vak.hc + vak.wc + vak.prac
+            aantalActiviteiten = vak.hc + vak.wc + vak.prac
+            bonus += 20
 
-            # per vak kijken naar de spreiding
-            for vak in self.vakkenLijst:
-                hcDag = []
-                wcDag = []
-                pracDag = []
-                # kijk naar alle activiteiten binne vak
-                for activiteit in self.activiteitenLijst:
-                    if vak.id == activiteit.vakId:
-                        if activiteit.soort == 0:
-                            hcDag.append(activiteit.dag)
-                        if activiteit.soort == 1:
-                            wcDag.append(activiteit.dag)
-                        if activiteit.soort == 2:
-                            pracDag.append(activiteit.dag)
+        return bonus
 
-                perGroep = []
 
-                lijst =[]
-                for i in range(len(wcDag)):
-                    lijst.extend(hcDag)
-                    if len(wcDag) > 0:
-                        lijst.append(wcDag[i])
-                    if len(pracDag) > 0:
-                        lijst.append(pracDag[i])
-                    perGroep.append(lijst)
-
-                bonus += 20
-
-        return(bonus)
 
     def roosterConflicten(self):
         "deze functie berekent de punten bij roosterconflicten per student"

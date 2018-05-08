@@ -28,6 +28,7 @@ rooster.vulRandom()
 print(rooster.score())
 
 
+
 # maak een random steekproef aan van x iteraties
 # iteraties = 51
 # randomSteekproef(rooster, iteraties)
