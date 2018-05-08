@@ -311,20 +311,18 @@ class Rooster(object):
 
     def bonus(self, perGroep):
         bonus = 0
-        aantalNietGesplitst = 0
 
-        print(perGroep)
-        for vak in self.vakkenLijst:
-            if vak.hc != 0:
-                aantalNietGesplitst += vak.hc
-            if vak.wc != 0:
-                aantalNietGesplitst += 1
-            if vak.prac != 0:
-                aantalNietGesplitst += 1
-
-            aantalActiviteiten = vak.hc + vak.wc + vak.prac
-            bonus += 20
-        # print(aantalActiviteiten)
+        for groep in perGroep:
+            groep.sort()
+            if len(groep) == 2:
+                if groep[1] - groep[0] == 3:
+                    bonus += 20
+            if len(groep) == 3:
+                if groep[1] - groep[0] == 2 and groep[2] - groep[1] == 2:
+                    bonus += 20
+            if len(groep) == 4:
+                if groep[1] - groep[0] == 1 and groep[2] - groep[1] == 2 and groep[3] - groep[2] == 1:
+                    bonus += 20
 
 
         return bonus
