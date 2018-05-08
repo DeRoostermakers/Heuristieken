@@ -35,22 +35,22 @@ class Rooster(object):
     def vulRandom(self):
         "Vult het rooster met activiteiten"
         i = 0
-        randomIndex = random.sample(range(len(self.activiteitenLijst)),
+        j = 0
+        randomIndexActiviteiten = random.sample(range(len(self.activiteitenLijst)),
                                     len(self.activiteitenLijst))
+        randomIndexSloten = random.sample(range(len(self.zaalslotenLijst)),
+                                    len(self.zaalslotenLijst))
 
         # plaatst elk activiteit in het eerste beschikbare zaalslot
-        for zaalslot in self.zaalslotenLijst:
-            if len(self.activiteitenLijst) == i:
-                break
-            else:
-                zaalslot.voegToe(self.activiteitenLijst[randomIndex[i]])
-                i += 1
+        for zaalslot in range(0, len(self.activiteitenLijst)):
+            self.zaalslotenLijst[randomIndexSloten[j]].voegToe(self.activiteitenLijst[randomIndexActiviteiten[i]])
+            i += 1
+            j += 1
 
     def score(self):
         "deze functie berekent de score van een rooster"
 
         # maakt een rooster structuur van de activiteitenlijst
-        rooster = self.maakRooster()
         perGroep = self.weekIndeling()
 
         # berekent de malus- en bonuspunten per onderdeel
