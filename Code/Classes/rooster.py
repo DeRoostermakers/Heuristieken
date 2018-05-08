@@ -36,7 +36,6 @@ class Rooster(object):
         self.zaalgrootteConflict()
         self.maakRooster()
         self.zalenInGebruik()
-        self.bonus()
         self.roosterConflicten()
 
     def vulRandom(self):
@@ -58,10 +57,10 @@ class Rooster(object):
 
         # maakt een rooster structuur van de activiteitenlijst
         rooster = self.maakRooster()
-
+        perGroep = self.weekIndeling()
         # berekent de malus- en bonuspunten per onderdeel
         if self.vakkenIngeroosterd():
-            bonusPunten = self.bonus()
+            bonusPunten = self.bonus(perGroep)
             malusPunten = self.vakSpreiding() + self.zaalgrootteConflict() + self.roosterConflicten() + self.extraTijdslot()
             scorepunten = 1000 - malusPunten + bonusPunten
 
@@ -69,7 +68,7 @@ class Rooster(object):
             print("zaalgrootteConflict: " + str(self.zaalgrootteConflict()))
             print("roosterConflicten: " + str(self.roosterConflicten()))
             print("extra tijdslot: " + str(self.extraTijdslot()))
-            print("bonuspunten: " + str(self.bonus()))
+            print("bonuspunten: " + str(bonusPunten))
             return scorepunten
 
         else:
@@ -307,13 +306,14 @@ class Rooster(object):
 
                 perGroep.append(lijst)
 
+
         return perGroep
 
-    def bonus(self):
-        perGroep = self.weekIndeling()
+    def bonus(self, perGroep):
         bonus = 0
         aantalNietGesplitst = 0
 
+        print(perGroep)
         for vak in self.vakkenLijst:
             if vak.hc != 0:
                 aantalNietGesplitst += vak.hc
@@ -324,6 +324,8 @@ class Rooster(object):
 
             aantalActiviteiten = vak.hc + vak.wc + vak.prac
             bonus += 20
+        # print(aantalActiviteiten)
+
 
         return bonus
 
