@@ -309,6 +309,7 @@ class Rooster(object):
             if len(groep) == 2:
                 if groep[1] - groep[0] == 3:
                     bonus += 20
+                    print(bonus)
             if len(groep) == 3:
                 if groep[1] - groep[0] == 2 and groep[2] - groep[1] == 2:
                     bonus += 20

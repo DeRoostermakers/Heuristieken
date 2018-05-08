@@ -3,14 +3,15 @@ Hoofd bestand om een rooster object aan te maken en algoritmes te testen.
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
-import os, sys
 
+import os, sys
 
 directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "Code"))
 sys.path.append(os.path.join(directory, "Code", "Classes"))
 sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
+from hillClimber import hillClimbing
 import rooster as Rooster
 # from randomSteekproef import randomSteekproef
 
@@ -24,6 +25,7 @@ rooster = Rooster.Rooster(dagen, tijdsloten)
 # vul het rooster met vakken
 rooster.vulRandom()
 
+hillClimbing(rooster)
 # bereken de score
 print(rooster.score())
 
