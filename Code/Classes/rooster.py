@@ -30,13 +30,7 @@ class Rooster(object):
         self.maakStudenten()
         self.maakZaalsloten()
         self.maakActiviteiten()
-        self.vakkenIngeroosterd()
-        self.extraTijdslot()
-        self.vakSpreiding()
-        self.zaalgrootteConflict()
-        self.maakRooster()
-        self.zalenInGebruik()
-        self.roosterConflicten()
+
 
     def vulRandom(self):
         "Vult het rooster met activiteiten"
@@ -58,16 +52,22 @@ class Rooster(object):
         # maakt een rooster structuur van de activiteitenlijst
         rooster = self.maakRooster()
         perGroep = self.weekIndeling()
+
         # berekent de malus- en bonuspunten per onderdeel
         if self.vakkenIngeroosterd():
             bonusPunten = self.bonus(perGroep)
-            malusPunten = self.vakSpreiding() + self.zaalgrootteConflict() + self.roosterConflicten() + self.extraTijdslot()
-            scorepunten = 1000 - malusPunten + bonusPunten
+            vakSpreidingPunten = self.vakSpreiding(perGroep)
+            zaalgrootteConflictPunten = self.zaalgrootteConflict()
+            roosterConflictenPunten = self.roosterConflicten()
+            extraTijdslotPunten = self.extraTijdslot()
+            malusPunten = vakSpreidingPunten + zaalgrootteConflictPunten + roosterConflictenPunten + extraTijdslotPunten
 
-            print("vakspreiding: " + str(self.vakSpreiding()))
-            print("zaalgrootteConflict: " + str(self.zaalgrootteConflict()))
-            print("roosterConflicten: " + str(self.roosterConflicten()))
-            print("extra tijdslot: " + str(self.extraTijdslot()))
+            scorepunten = 1000 - malusPunten + bonusPunten
+            print("vakspreidingOud: " + str(self.vakSpreidingOud()))
+            print("vakspreiding: " + str(vakSpreidingPunten))
+            print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
+            print("roosterConflicten: " + str(roosterConflictenPunten))
+            print("extra tijdslot: " + str(extraTijdslotPunten))
             print("bonuspunten: " + str(bonusPunten))
             return scorepunten
 
@@ -180,9 +180,23 @@ class Rooster(object):
 
         return malusPunten
 
-    def vakSpreiding(self):
+    def vakSpreiding(self, perGroep):
         "deze functie berekent de punten voor de spreiding van de activiteiten"
+        malusPunten = 0
 
+        # controleer per vakgroep de vakspreiding door de week
+        for groep in perGroep:
+            dagGeweest = []
+            # controleer of op de dag al een activiteit is geweest
+            for dag in groep:
+                if dag in dagGeweest:
+                    malusPunten += 10
+                else:
+                    dagGeweest.append(dag)
+        return malusPunten
+
+
+    def vakSpreidingOud(self):
         malusPunten = 0
         vakkenSpreiding = []
 
@@ -209,27 +223,6 @@ class Rooster(object):
 
             malusPunten = malusPunten + x * 10
         return malusPunten
-
-        '''
-        malusPunten = 0
-        # kijkt voor elk vak
-        for vak in self.vakkenLijst:
-            verdeeldAantalDagen = 0
-            dag = []
-            for activiteit in self.activiteitenLijst:
-                if activiteit.vakId == vak.id:
-                    if activiteit.dag not in dag:
-                        dag.append(activiteit.dag)
-                        verdeeldAantalDagen += 1
-
-            aantalActiviteiten = vak.hc + vak.wc + vak.prac
-
-            x = aantalActiviteiten - verdeeldAantalDagen
-
-            malusPunten = malusPunten + x * 10
-
-        return malusPunten
-        '''
 
     def zaalgrootteConflict(self):
         "Deze functie berekent de maluspunten voor te kleine zalen"
@@ -306,14 +299,12 @@ class Rooster(object):
 
                 perGroep.append(lijst)
 
-
         return perGroep
 
     def bonus(self, perGroep):
         bonus = 0
         aantalNietGesplitst = 0
 
-        print(perGroep)
         for vak in self.vakkenLijst:
             if vak.hc != 0:
                 aantalNietGesplitst += vak.hc
