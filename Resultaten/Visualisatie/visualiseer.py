@@ -10,6 +10,13 @@ from plotly import tools
 py.tools.set_credentials_file(username='DeRoostermakers', api_key='kMZnofKi6pSyYy6Ih1bI')
 
 
+weekdagen = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"]
+zalen = ["A1.04", "A1.06", "A1.08", "A1.10", "B0.201", "C0.110", "C0.110"]
+
+i = 0
+for zaalslot in rooster.zaalslotenLijst:
+    
+
 # set datastructure
 maandag = [["", "A1.04", "A1.06", "A1.08", "A1.10", "B0.201", "C0.110", "C0.110"],
            ["09:00-11:00", "1", "2", "3", "bla", "bla", "bla", "bla"],
@@ -25,7 +32,8 @@ tabel2 = ff.create_table(dinsdag)
 
 # define the subplots
 figuur = tools.make_subplots(rows = 2, cols = 1, print_grid = False,
-                             vertical_spacing = 0.085, subplot_titles = ("Maandag", "Dinsdag"))
+                             vertical_spacing = 0.085, 
+                             subplot_titles = (weekdagen[0], weekdagen[1]))
 
 # add tables to appropriate subplot
 figuur.append_trace(tabel1['data'][0], 1, 1)
