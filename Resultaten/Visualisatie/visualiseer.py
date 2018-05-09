@@ -15,6 +15,7 @@ zalen = ["A1.04", "A1.06", "A1.08", "A1.10", "B0.201", "C0.110", "C0.110"]
 
 i = 0
 for zaalslot in rooster.zaalslotenLijst:
+    # hier nog zalen binnen dagen -> tijdsloten sorteren
     
 
 # set datastructure

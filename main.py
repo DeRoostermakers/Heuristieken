@@ -26,6 +26,10 @@ rooster = Rooster.Rooster(dagen, tijdsloten)
 rooster.vulRandom()
 
 hillClimbing(rooster)
+
+# visualiseer(rooster)
+
+
 # bereken de score
 print(rooster.score())
 
