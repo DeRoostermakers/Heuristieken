@@ -9,10 +9,12 @@ import os, sys
 directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "Code"))
 sys.path.append(os.path.join(directory, "Code", "Classes"))
+sys.path.append(os.path.join(directory, "Resultaten", "Visualisatie"))
 sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 from hillClimber import hillClimbing
 import rooster as Rooster
+from visualiseer import visualiseer
 # from randomSteekproef import randomSteekproef
 
 # Dagen en tijdsloten welke geldig zijn voor het rooster
@@ -25,9 +27,9 @@ rooster = Rooster.Rooster(dagen, tijdsloten)
 # vul het rooster met vakken
 rooster.vulRandom()
 
-hillClimbing(rooster)
+# hillClimbing(rooster)
 
-# visualiseer(rooster)
+visualiseer(tijdsloten, dagen, rooster)
 
 
 # bereken de score
