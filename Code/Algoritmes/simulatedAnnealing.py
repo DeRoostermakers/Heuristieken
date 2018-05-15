@@ -5,11 +5,12 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 
 import random
+import math
 import rooster as Rooster
 import zaalSlot as ZaalSlot
 
 
-def simulatedAnneling(dagen, tijdsloten):
+def simulatedAnnealing(dagen, tijdsloten):
     # maak een rooster object aan
     rooster = Rooster.Rooster(dagen, tijdsloten)
     minIteraties = 2000
@@ -17,9 +18,14 @@ def simulatedAnneling(dagen, tijdsloten):
     score = rooster.score()
 
 
-    acceptatieKans = math.exp(1)
+    acceptatieKans = math.exp(-0.4)
     print(acceptatieKans)
 
+
+    nummer = random.random()
+    print(nummer)
+    if acceptatieKans < nummer:
+        print("hoi")
 
     #
     # mutaties = 0

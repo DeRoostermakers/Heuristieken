@@ -38,14 +38,12 @@ def hillClimbing(dagen, tijdsloten):
 
     hillClimberRooster.append([rooster, score])
 
-<<<<<<< HEAD
     aantalIteraties = []
     for i in range(minIteraties):
         aantalIteraties.append(i)
-=======
+
     print(lijstScore)
 
->>>>>>> a704127b159694f66f7f16274dff12e927330f93
 
     # print(aantalIteraties)
     # print(lijstScore)
