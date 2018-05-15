@@ -14,15 +14,15 @@ sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 
 from hillClimber import hillClimbing
-from sequential import sequential, sequentialRandom
+from sequential import sequential
 
-<<<<<<< HEAD
+
 import rooster as Rooster
 #from visualiseer import visualiseer
-=======
+
 # import rooster as Rooster
 # from visualiseer import visualiseer
->>>>>>> f3f056ba96cc642250e1d1d388cec7228c81d607
+
 # from randomSteekproef import randomSteekproef
 # from geneticAlgorithm import geneticAlgorithm
 
@@ -34,25 +34,23 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # rooster = Rooster.Rooster(dagen, tijdsloten)
 
 
-# sequential(rooster)
+print(sequential(dagen, tijdsloten))
 # geneticAlgorithm(rooster)
 
 # vul het rooster met vakken
-<<<<<<< HEAD
+
 #rooster.vulRandom()
 
-
-=======
 # rooster.vulRandom()
 
-hillClimbing(dagen, tijdsloten)
->>>>>>> f3f056ba96cc642250e1d1d388cec7228c81d607
+
+
 
 # hillClimbing(rooster)
 
 
 # bereken de score
-print(rooster.score())
+
 
 
 
