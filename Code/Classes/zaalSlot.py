@@ -17,6 +17,7 @@ class ZaalSlot(object):
         self.dag = dag
         self.tijdslot = tijdslot
         self.idNaarDag = idNaarDag
+        self.zaalslotId = str(self.naam) + "." + str(self.dag) + "." + str(self.tijdslot)
 
     def __str__(self):
         return self.naam + "." + self.idNaarDag[self.dag] + "." + str(self.tijdslot) + "." + str(self.activiteit)

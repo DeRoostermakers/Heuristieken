@@ -5,15 +5,19 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 
 import random
+import rooster as Rooster
 from operator import itemgetter
 
-def geneticAlgorithm(rooster, groottePopulatie, aantalGeneraties):
+def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
     
     # creëer populatie bestaande uit willekeurige roosters
     populatie = []
+   
     for i in range(groottePopulatie):
-        burger = [rooster.vulRandom()]
-        burger.extend(burger.score())
+        nieuwRooster = Rooster.Rooster(dagen, tijdsloten)
+        nieuwRooster.vulRandom()
+        burger = [nieuwRooster]
+        burger.append(nieuwRooster.score())
         populatie.append(burger)
     
     # iteraar door bepaald aantal generaties
@@ -25,23 +29,58 @@ def geneticAlgorithm(rooster, groottePopulatie, aantalGeneraties):
             
             # selecteer willekeurig twee ouders uit de populatie
             oudersIndex = random.sample(range(groottePopulatie), 2)
-            ouder1 = (populatie(oudersIndex[0]))[0]
-            ouder2 = (populatie(oudersIndex[1]))[0]
+            ouder1 = (populatie[oudersIndex[0]])[0]
+            ouder2 = (populatie[oudersIndex[1]])[0]
+            
+            rooster = Rooster.Rooster(dagen, tijdsloten)
             kind = rooster
             
             ######################### RECOMBINATIE
-            # recombineer ouders door van ieder helft van activiteiten te gebruiken
-            # aantalActiviteiten = len(ouder1.activiteitenLijst)
-            # indexActiviteiten = random.sample(range(aantalActiviteiten), aantalActiviteiten/2)
-        
-            # plaatst helft van de activiteiten van ouder1 in zaalsloten van kind
+            # recombineer ouders door van ieder willekeurige, halve anantal activiteiten te gebruiken
+            aantalActiviteiten = len(ouder1.activiteitenLijst)
+            indexActiviteiten = random.sample(range(aantalActiviteiten), round(aantalActiviteiten/2))
+            activiteitenOuder1 = []
+            activiteitenIdsOuder1 = []
+            for i in range(len(indexActiviteiten)):
+                activiteit = ouder1.activiteitenLijst[indexActiviteiten[i]]
+                activiteitenOuder1.append(activiteit)
+                activiteitenIdsOuder1.extend(activiteit.activiteitId)
+            activiteitenOuder2 = []
+            for activiteit in ouder2.activiteitenLijst:
+                if activiteit.activiteitId not in activiteitenIdsOuder1:
+                    activiteitenOuder2.append(activiteit)
+            
+            activiteitenKind = activiteitenOuder1 + activiteitenOuder2
+            zaalslotenKind = []
+            
+            legeZaalslotenOuder1 = []
+            legeZaalslotenId = []
+            for activiteit in activiteitenOuder1:
+                for zaalslot in ouder1.zaalslotenLijst:
+                    if zaalslot.activiteit == None:
+                        legeZaalslotenId.append(zaalslot.zaalslotId)
+                        legeZaalslotenOuder1.append(zaalslot)
+                    elif zaalslot.activiteit.activiteitId == activiteit.activiteitId:
+                        zaalslotenKind.append(zaalslot)
+            
+            inTeRoosteren = []
+            for activiteit in activiteitenOuder2:
+                for zaalslot in ouder2.zaalslotenLijst:
+                    if zaalslot.zaalslotId in legeZaalslotenId:
+                        zaalslotenKind.append(zaalslot)
+                        legeZaalslotenId = [slot for slot in legeZaalslotenId if slot not in [zaalslot.zaalslotId]]
+                    else:
+                        inTeRoosteren.append(activiteit)
+            
             i = 0
-            j = 0
-            for zaalslot in range(0, len(ouder2.activiteitenLijst)):
-                kind.zaalslotenLijst[j].voegToe(kind.activiteitenLijst[i])
-                i += 1
-                j += 1
-            ######################### RECOMBINATIE
+            for activiteit in inTeRoosteren:
+                for zaalslot in legeZaalslotenOuder1:
+                    if zaalslot.zaalslotId not in legeZaalslotenId:
+                        zaalslot.voegToe(activiteit)
+                        zaalslotenKind.append(zaalslot)
+                
+            kind.activiteitenLijst = activiteitenKind
+            kind.zaalslotenLijst = zaalslotenKind
             
             # muteer kind met 10% kans
             een = 1
@@ -53,30 +92,21 @@ def geneticAlgorithm(rooster, groottePopulatie, aantalGeneraties):
                 randomZaalslot1 = kind.zaalslotenLijst(indexZaalslot[0])
                 randomZaalslot2 = kind.zaalslotenLijst(indexZaalslot[1])
                 randomZaalslot1.wissel(randomZaalslot2)
-                
+            print(kind.activiteitenLijst)
+            print(kind.zaalslotenLijst)
+            print(kind.vakkenLijst)
             # voeg kind toe aan generatie van kinderen
             kinderen.append([kind, kind.score()])
         
-        # sorteer kinderen en ouders van laagste naar hoogste score
-        kinderenGesorteerd = sorted(kinderen, key=itemgetter(1))
-        oudersGesorteerd = sorted(populatie, key=itemgetter(1))
+        # sorteer totale populatie op scores
+        totalePopulatie = kinderen + populatie
+        populatieGesorteerd = sorted(totalePopulatie, key=itemgetter(1), reverse = True)
         
-        ####################### KLOPT VOLGENS MIJ NOG NIET
-        # selecteer de beste scores van ouders en kinderen
-        j = 0
-        score = 1
-        for kind in kinderenGesorteerd:
-            if kind[score] >= oudersGesorteerd[0][score]:
-                oudersGesorteerd.pop(j)
-                oudersGesorteerd == [kind] + oudersGesorteerd
-            if kind[score] < oudersGesorteerd[0][score]: 
-                j += 1
-        
-        # herhaal proces voor nieuwe populatie
-        populatie = oudersGesorteerd
+        # selecteer beste 50 roosters uit de populatie
+        populatie = populatieGesorteerd[:groottePopulatie]
     
     # selecteer beste rooster van laatste populatie
     populatieGesorteerd = sorted(populatie, key=itemgetter(1))
-    besteRooster = populatieGesorteerd[0][0]
+    besteScore = populatieGesorteerd[0]
     
-    return besteRooster
+    return besteScore

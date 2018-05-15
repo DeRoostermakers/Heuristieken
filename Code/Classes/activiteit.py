@@ -18,9 +18,10 @@ class Activiteit(object):
         self.welkeStud = welkeStud
         self.dag = 0
         self.tijdslot = 0
+        self.activiteitId = str(self.vakId) + "." + str(self.soort) + "." + str(self.groepnr)
 
     def __str__(self):
-        return str(self.vakId) + "." + str(self.soort) + "." + str(self.groepnr)
+        return self.activiteitId
 
     def __repr__(self):
-        return str(self.vakId) + "." + str(self.soort) + "." + str(self.groepnr)
+        return self.activiteitId
