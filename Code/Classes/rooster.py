@@ -64,14 +64,7 @@ class Rooster(object):
             malusPunten = vakSpreidingPunten + zaalgrootteConflictPunten + roosterConflictenPunten + extraTijdslotPunten
 
             scorepunten = 1000 - malusPunten + bonusPunten
-<<<<<<< HEAD
-            print("vakspreiding: " + str(vakSpreidingPunten))
-            print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
-            print("roosterConflicten: " + str(roosterConflictenPunten))
-            print("extra tijdslot: " + str(extraTijdslotPunten))
-            print("bonuspunten: " + str(bonusPunten))
-            print("score: " + str(scorepunten))
-=======
+
             # print("vakspreidingOud: " + str(self.vakSpreidingOud()))
             # print("vakspreiding: " + str(vakSpreidingPunten))
             # print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
@@ -79,7 +72,6 @@ class Rooster(object):
             # print("extra tijdslot: " + str(extraTijdslotPunten))
             # print("bonuspunten: " + str(bonusPunten))
 
->>>>>>> 2fc0c6a8a9bfab987f2b5197deace13e2bf7bf2b
             return scorepunten
 
         else:
