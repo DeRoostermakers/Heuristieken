@@ -6,6 +6,7 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 
 import csv
 import random
+# import numpy
 import student as StudentKlasse
 import vak as VakKlasse
 import zaalSlot as ZaalSlotKlasse
@@ -41,7 +42,7 @@ class Rooster(object):
         randomIndexSloten = random.sample(range(len(self.zaalslotenLijst)),
                                     len(self.zaalslotenLijst))
 
-        # plaatst elk activiteit in het eerste beschikbare zaalslot
+        # plaatst elk activiteit in het een willekeurig zaalslot
         for zaalslot in range(0, len(self.activiteitenLijst)):
             self.zaalslotenLijst[randomIndexSloten[j]].voegToe(self.activiteitenLijst[randomIndexActiviteiten[i]])
             i += 1
