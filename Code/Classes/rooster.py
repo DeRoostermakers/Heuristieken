@@ -64,12 +64,12 @@ class Rooster(object):
             malusPunten = vakSpreidingPunten + zaalgrootteConflictPunten + roosterConflictenPunten + extraTijdslotPunten
 
             scorepunten = 1000 - malusPunten + bonusPunten
-            print("vakspreidingOud: " + str(self.vakSpreidingOud()))
-            print("vakspreiding: " + str(vakSpreidingPunten))
-            print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
-            print("roosterConflicten: " + str(roosterConflictenPunten))
-            print("extra tijdslot: " + str(extraTijdslotPunten))
-            print("bonuspunten: " + str(bonusPunten))
+            # print("vakspreiding: " + str(vakSpreidingPunten))
+            # print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
+            # print("roosterConflicten: " + str(roosterConflictenPunten))
+            # print("extra tijdslot: " + str(extraTijdslotPunten))
+            #print("bonuspunten: " + str(bonusPunten))
+            #print("score: " + str(scorepunten))
             return scorepunten
 
         else:
@@ -196,51 +196,22 @@ class Rooster(object):
                     dagGeweest.append(dag)
         return malusPunten
 
-
-    def vakSpreidingOud(self):
-        malusPunten = 0
-        vakkenSpreiding = []
-
-        # maak een array voor elk vak
-        for i in range(len(self.vakkenLijst)):
-            vakkenSpreiding.append([])
-
-        # voeg elke activiteit toe aan het juiste vak
-        for activiteit in self.activiteitenLijst:
-            i = activiteit.vakId
-            vakkenSpreiding[i].append(activiteit.dag)
-
-        # controleer voor elk vak zijn activiteiten
-        for vak in vakkenSpreiding:
-            aantalActiviteiten = len(vak)
-            dagGeweest = []
-            verdeeldAantalDagen = 0
-            # kijk voor elke activiteit op welke dag deze plaatsvindt
-            for dag in vak:
-                if dag not in dagGeweest:
-                    dagGeweest.append(dag)
-                    verdeeldAantalDagen += 1
-            x = aantalActiviteiten - verdeeldAantalDagen
-
-            malusPunten = malusPunten + x * 10
-        return malusPunten
-
     def zaalgrootteConflict(self):
         "Deze functie berekent de maluspunten voor te kleine zalen"
         # vraagt alle zaalsloten op welke worden gebruikt
-        zalenGebruikt = self.zalenInGebruik()
         malusPunten = 0
 
         # kijkt of de capaciteit van de zaal te klein is voor het aantal studenten
-        for zaalslot in zalenGebruikt:
-            verschil = zaalslot.capaciteit - zaalslot.activiteit.nrStud
-            # berekent het aantal maluspunten als zaal te klein is
-            if verschil < 0:
-                malusPunten = malusPunten + abs(verschil)
+        for zaalslot in self.zaalslotenLijst:
+            if zaalslot.inGebruik == 1:
+                verschil = zaalslot.capaciteit - zaalslot.activiteit.nrStud
+                # berekent het aantal maluspunten als zaal te klein is
+                if verschil < 0:
+                    malusPunten = malusPunten + abs(verschil)
         return malusPunten
 
     def maakRooster(self):
-        " Maakt een rooster structuur met lijsten en voeg de zaalsloten toe."
+        "Maakt een rooster structuur met lijsten en voeg de zaalsloten toe"
         rooster = []
 
         # maak het aantal lijsten voor het aantal dagen, gebruik het id als index
@@ -258,22 +229,16 @@ class Rooster(object):
 
         return rooster
 
-    def zalenInGebruik(self):
-        " Maakt een verzameling van alle zaalsloten die in gebruik zijn"
-        zalenGebruikt = []
-        for zaalslot in self.zaalslotenLijst:
-            if zaalslot.inGebruik == 1:
-                zalenGebruikt.append(zaalslot)
-        return zalenGebruikt
 
     def weekIndeling(self):
+        "Maakt per werkgroep een lijst aan met de activiteiten door de week"
         perGroep = []
         # per vak kijken naar de spreiding
         for vak in self.vakkenLijst:
             hcDag = []
             wcDag = []
             pracDag = []
-            # kijk naar alle activiteiten binne vak
+            # kijk naar alle activiteiten binnen een vak
             for activiteit in self.activiteitenLijst:
                 if vak.id == activiteit.vakId:
                     if activiteit.soort == 0:
@@ -303,16 +268,21 @@ class Rooster(object):
         return perGroep
 
     def bonus(self, perGroep):
+        "Berekent de bonuspunten van de vakspreiding"
         bonus = 0
 
+        # kijkt per werkgroep (vanuti student) of de verdeling van de activiteiten goed is
         for groep in perGroep:
             groep.sort()
+            # twee activiteiten: dan moeten er twee dagen tussen de activiteiten zitten
             if len(groep) == 2:
                 if groep[1] - groep[0] == 3:
                     bonus += 20
+            # drie activiteiten: moeten er twee dagen tussen alle drie de activiteiten zitten
             if len(groep) == 3:
                 if groep[1] - groep[0] == 2 and groep[2] - groep[1] == 2:
                     bonus += 20
+            # vier activiteiten: eerste twee, en laatste twee moet een dag tussen zitten
             if len(groep) == 4:
                 if groep[1] - groep[0] == 1 and groep[2] - groep[1] == 2 and groep[3] - groep[2] == 1:
                     bonus += 20
@@ -340,7 +310,7 @@ class Rooster(object):
         return malusPunten
 
 def controleerDubbel(studentenTijdslot):
-    " Controleert hoeveel rooster conflicten een bepaald tijdslot heeft"
+    "Controleert hoeveel rooster conflicten een bepaald tijdslot heeft"
     malusPunten = 0
     aanwezig = []
 

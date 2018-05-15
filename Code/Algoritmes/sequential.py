@@ -1,6 +1,10 @@
 import random
+import rooster as Rooster
 
-def sequential(rooster):
+def sequential(dagen, tijdsloten):
+
+    rooster = Rooster.Rooster(dagen, tijdsloten)
+
 
     # plaats de activiteiten in beschikbaar slot, aan de hand van score (zaalgrote/grootte groep)
 
@@ -23,23 +27,36 @@ def sequential(rooster):
         j += 1
 
 
+
+
+    minIteraties = 10
+    score = rooster.score()
+
+    nieuwRooster = rooster
+    mutaties = 0
+    lijstScore = []
+    for i in range(minIteraties):
+
+        # wissel twee willekeurige zaalsloten
+        indexZaalslot = random.sample(range(len(nieuwRooster.zaalslotenLijst)), 2)
+        randomZaalslot1 = nieuwRooster.zaalslotenLijst[indexZaalslot[0]]
+        randomZaalslot2 = nieuwRooster.zaalslotenLijst[indexZaalslot[1]]
+        randomZaalslot1.wissel(randomZaalslot2)
+        score2 = nieuwRooster.score()
+        lijstScore.append(score)
+
+        print("score 1: " + str(score))
+        print("score 2: " + str(score2))
+        if score2 > score:
+            rooster = nieuwRooster
+            score = score2
+            mutaties += 1
+            # print(score)
+
+    print(lijstScore)
+
+
+    return [rooster, rooster.score()]
+
     # nu een hillcliber of iets om dit vakspreiding te minimaliseren
     # dan studenten wisselen tussen vakken om te kijken of je nog kan verbeteren > opletten dat je dan studenten bij beide werkcolleges wisselt
-
-
-
-def sequentialRandom(rooster):
-    "Vult het rooster met activiteiten"
-
-
-    acceptatie = 0.8
-
-    # maak een random volgorde van de activiteitenlijst
-    random.shuffle(rooster.activiteitenLijst, random.random)
-
-    for activiteit in rooster.activiteitenLijst:
-        while(True):
-            zaalslot = random.choice(rooster.zaalslotenLijst)
-            if (activiteit.nrStud / zaalslot.capaciteit) > acceptatie and (activiteit.nrStud / zaalslot.capaciteit) <= acceptatie and zaalslot.inGebruik == 0:
-                zaalslot.voegToe(activiteit)
-                break
