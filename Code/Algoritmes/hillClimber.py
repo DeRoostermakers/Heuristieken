@@ -8,9 +8,9 @@ import random
 import rooster as Rooster
 import zaalSlot as ZaalSlot
 import copy
-import plotly.plotly as py
-import plotly.graph_objs as go
-import numpy as np
+#import plotly.plotly as py
+#import plotly.graph_objs as go
+#import numpy as np
 
 def hillClimbing(dagen, tijdsloten):
     # maak een rooster object aan

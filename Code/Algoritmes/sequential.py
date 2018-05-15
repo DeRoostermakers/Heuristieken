@@ -5,16 +5,16 @@ def sequential(dagen, tijdsloten):
 
     rooster = Rooster.Rooster(dagen, tijdsloten)
 
-
-    # plaats de activiteiten in beschikbaar slot, aan de hand van score (zaalgrote/grootte groep)
+    # maak een random volgorde van de zaalslotenlijst
+    random.shuffle(rooster.zaalslotenLijst, random.random)
 
     # maak een random volgorde van de activiteitenlijst
-    random.shuffle(rooster.zaalslotenLijst, random.random)
+    random.shuffle(rooster.activiteitenLijst, random.random)
 
     # sorteer de activiteiten op het aantal studenten per activiteit
     rooster.activiteitenLijst.sort(key = lambda x: x.nrStud, reverse = True)
 
-    # sorteer de zaalsloten op het aantal studenten per activiteit
+    # sorteer de zaalsloten op het aantal studenten per capaciteit
     rooster.zaalslotenLijst.sort(key = lambda x: x.capaciteit, reverse = True)
 
     j = 0
@@ -28,33 +28,32 @@ def sequential(dagen, tijdsloten):
 
 
 
-
-    minIteraties = 10
+    minIteraties = 100
     score = rooster.score()
 
-    nieuwRooster = rooster
     mutaties = 0
     lijstScore = []
+
     for i in range(minIteraties):
 
         # wissel twee willekeurige zaalsloten
-        indexZaalslot = random.sample(range(len(nieuwRooster.zaalslotenLijst)), 2)
-        randomZaalslot1 = nieuwRooster.zaalslotenLijst[indexZaalslot[0]]
-        randomZaalslot2 = nieuwRooster.zaalslotenLijst[indexZaalslot[1]]
+        indexZaalslot = random.sample(range(len(rooster.zaalslotenLijst)), 2)
+        randomZaalslot1 = rooster.zaalslotenLijst[indexZaalslot[0]]
+        randomZaalslot2 = rooster.zaalslotenLijst[indexZaalslot[1]]
         randomZaalslot1.wissel(randomZaalslot2)
-        score2 = nieuwRooster.score()
+        score2 = rooster.score()
         lijstScore.append(score)
 
-        print("score 1: " + str(score))
-        print("score 2: " + str(score2))
         if score2 > score:
-            rooster = nieuwRooster
             score = score2
             mutaties += 1
             # print(score)
 
-    print(lijstScore)
+        else:
+            randomZaalslot2.wissel(randomZaalslot1)
 
+        print("Score 1: " + str(score))
+        print("score 2: " + str(score2))
 
     return [rooster, rooster.score()]
 

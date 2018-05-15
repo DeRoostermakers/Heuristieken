@@ -42,9 +42,7 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # rooster.vulRandom()
 
 
-
-sequential(dagen, tijdsloten)
-
+print(sequential(dagen, tijdsloten))
 # bereken de score
 
 
