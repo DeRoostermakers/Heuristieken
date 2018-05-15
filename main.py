@@ -43,8 +43,6 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 
 hillClimbing(dagen, tijdsloten)
 
-
-
 # bereken de score
 # print(rooster.score())
 
