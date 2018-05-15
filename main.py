@@ -12,12 +12,10 @@ sys.path.append(os.path.join(directory, "Code", "Classes"))
 sys.path.append(os.path.join(directory, "Resultaten", "Visualisatie"))
 sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
-<<<<<<< HEAD
+
 from hillClimber import hillClimbing
 from sequential import sequential, sequentialRandom
-=======
-# from hillClimber import hillClimbing
->>>>>>> 3432a0c77a8c4459c6da17e1d64b86428d643c49
+
 import rooster as Rooster
 # from visualiseer import visualiseer
 # from randomSteekproef import randomSteekproef
@@ -43,7 +41,7 @@ rooster.vulRandom()
 
 
 # bereken de score
-print(rooster.score())
+# print(rooster.score())
 
 
 
