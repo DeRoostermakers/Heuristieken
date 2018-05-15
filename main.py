@@ -25,8 +25,8 @@ import rooster as Rooster
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
 tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-19.00"]
 
-# maak een rooster object aan
-rooster = Rooster.Rooster(dagen, tijdsloten)
+# # maak een rooster object aan
+# rooster = Rooster.Rooster(dagen, tijdsloten)
 
 
 sequential(rooster)
@@ -35,7 +35,7 @@ sequential(rooster)
 # vul het rooster met vakken
 rooster.vulRandom()
 
-# hillClimbing(rooster)
+hillClimbing(rooster)
 
 # visualiseer(tijdsloten, dagen, rooster)
 
