@@ -18,10 +18,11 @@ def hillClimbing(dagen, tijdsloten):
     print(score)
 
 
+    nieuwRooster = rooster
     # wissel twee willekeurige zaalsloten
-    indexZaalslot = random.sample(range(len(rooster.zaalslotenLijst)), 2)
-    randomZaalslot1 = rooster.zaalslotenLijst[indexZaalslot[0]]
-    randomZaalslot2 = rooster.zaalslotenLijst[indexZaalslot[1]]
+    indexZaalslot = random.sample(range(len(nieuwRooster.zaalslotenLijst)), 2)
+    randomZaalslot1 = nieuwRooster.zaalslotenLijst[indexZaalslot[0]]
+    randomZaalslot2 = nieuwRooster.zaalslotenLijst[indexZaalslot[1]]
     randomZaalslot1.wissel(randomZaalslot2)
-    score = rooster.score()
-    print(score)
+    score2 = nieuwRooster.score()
+    print(score2)
