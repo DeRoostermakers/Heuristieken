@@ -1,5 +1,5 @@
 """
-Algoritme dat een rooster zoekt door recombinatie en mutatie.
+Algoritme dat een rooster zoekt door allen wissels toe te staan die voor verbetering zorgen.
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
@@ -7,21 +7,18 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 import random
 import rooster as Rooster
 import zaalSlot as ZaalSlot
-import copy
-import plotly.plotly as py
-import plotly.graph_objs as go
-import numpy as np
+
 
 def hillClimbing(dagen, tijdsloten):
     # maak een rooster object aan
     rooster = Rooster.Rooster(dagen, tijdsloten)
-    minIteraties = 3000
-    score = 0
+    minIteraties = 2000
     rooster.vulRandom()
     score = rooster.score()
 
     mutaties = 0
     lijstScore = []
+    hillClimberRooster = []
     for i in range(minIteraties):
 
         # wissel twee willekeurige zaalsloten
@@ -35,20 +32,17 @@ def hillClimbing(dagen, tijdsloten):
         if score2 > score:
             score = score2
             mutaties += 1
-            # print(score)
 
         else:
             randomZaalslot2.wissel(randomZaalslot1)
 
+    hillClimberRooster.append([rooster, score])
 
-    print(lijstScore)
-    
+    aantalIteraties = []
+    for i in range(minIteraties):
+        aantalIteraties.append(i)
 
-    # trace = go.Scatter(
-    #     x = random_x,
-    #     y = random_y
-    # )
-    #
-    # data = [trace]
-    #
-    # py.iplot(data, filename='basic-line')
+    # print(aantalIteraties)
+    # print(lijstScore)
+    print(hillClimberRooster)
+    return hillClimberRooster
