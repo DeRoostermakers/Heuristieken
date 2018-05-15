@@ -34,7 +34,7 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 
 # sequential(rooster)
 
-groottePopulatie = 5 
+groottePopulatie = 5
 aantalGeneraties = 3
 geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties)
 
@@ -47,7 +47,6 @@ geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties)
 # rooster.vulRandom()
 
 
-print(sequential(dagen, tijdsloten))
 # bereken de score
 
 
