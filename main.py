@@ -17,7 +17,11 @@ from hillClimber import hillClimbing
 from sequential import sequential
 
 
+<<<<<<< HEAD
 import rooster as Rooster
+=======
+
+>>>>>>> 2fc0c6a8a9bfab987f2b5197deace13e2bf7bf2b
 #from visualiseer import visualiseer
 
 # import rooster as Rooster
@@ -41,6 +45,7 @@ print(sequential(dagen, tijdsloten))
 
 #rooster.vulRandom()
 
+<<<<<<< HEAD
 # rooster.vulRandom()
 
 
@@ -51,6 +56,13 @@ print(sequential(dagen, tijdsloten))
 
 # bereken de score
 
+=======
+
+hillClimbing(dagen, tijdsloten)
+
+# bereken de score
+# print(rooster.score())
+>>>>>>> 2fc0c6a8a9bfab987f2b5197deace13e2bf7bf2b
 
 
 
