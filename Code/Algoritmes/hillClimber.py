@@ -15,7 +15,7 @@ def hillClimbing(dagen, tijdsloten):
     score = 0
     rooster.vulRandom()
     score = rooster.score()
-    
+
     nieuwRooster = rooster
     mutaties = 0
     lijstScore = []

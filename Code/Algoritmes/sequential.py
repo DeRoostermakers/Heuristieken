@@ -26,6 +26,36 @@ def sequential(dagen, tijdsloten):
         rooster.zaalslotenLijst[j].voegToe(rooster.activiteitenLijst[i])
         j += 1
 
+
+
+
+    minIteraties = 10
+    score = rooster.score()
+
+    nieuwRooster = rooster
+    mutaties = 0
+    lijstScore = []
+    for i in range(minIteraties):
+
+        # wissel twee willekeurige zaalsloten
+        indexZaalslot = random.sample(range(len(nieuwRooster.zaalslotenLijst)), 2)
+        randomZaalslot1 = nieuwRooster.zaalslotenLijst[indexZaalslot[0]]
+        randomZaalslot2 = nieuwRooster.zaalslotenLijst[indexZaalslot[1]]
+        randomZaalslot1.wissel(randomZaalslot2)
+        score2 = nieuwRooster.score()
+        lijstScore.append(score)
+
+        print("score 1: " + str(score))
+        print("score 2: " + str(score2))
+        if score2 > score:
+            rooster = nieuwRooster
+            score = score2
+            mutaties += 1
+            # print(score)
+
+    print(lijstScore)
+
+
     return [rooster, rooster.score()]
 
     # nu een hillcliber of iets om dit vakspreiding te minimaliseren
