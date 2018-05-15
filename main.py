@@ -16,8 +16,6 @@ sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 from hillClimber import hillClimbing
 from sequential import sequential
 
-
-import rooster as Rooster
 #from visualiseer import visualiseer
 
 # import rooster as Rooster
