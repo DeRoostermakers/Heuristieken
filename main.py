@@ -17,7 +17,7 @@ from hillClimber import hillClimbing
 from sequential import sequential, sequentialRandom
 
 import rooster as Rooster
-# from visualiseer import visualiseer
+#from visualiseer import visualiseer
 # from randomSteekproef import randomSteekproef
 # from geneticAlgorithm import geneticAlgorithm
 
@@ -33,15 +33,15 @@ sequential(rooster)
 # geneticAlgorithm(rooster)
 
 # vul het rooster met vakken
-rooster.vulRandom()
+#rooster.vulRandom()
+
+
 
 # hillClimbing(rooster)
 
-# visualiseer(tijdsloten, dagen, rooster)
-
 
 # bereken de score
-# print(rooster.score())
+print(rooster.score())
 
 
 

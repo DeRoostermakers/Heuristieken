@@ -12,7 +12,7 @@ def sequential(rooster):
 
     # sorteer de zaalsloten op het aantal studenten per activiteit
     rooster.zaalslotenLijst.sort(key = lambda x: x.capaciteit, reverse = True)
-
+        
     j = 0
     # voeg de activiteiten toe aan de zaalsloten, sla de zaalsloten van 17.00-19.00 over
     for i in range(len(rooster.activiteitenLijst)):
