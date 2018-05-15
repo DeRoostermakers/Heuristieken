@@ -31,16 +31,19 @@ class ZaalSlot(object):
         tijdelijkActiviteit = self.activiteit
         tijdelijkDag = self.dag
         tijdelijkTijdslot = self.tijdslot
+        tijdelijkInGebruik = self.inGebruik
 
         # verwissel de eerste activiteit met de tweede
         self.activiteit = zaalslot.activiteit
         self.dag = zaalslot.dag
         self.tijdslot = zaalslot.tijdslot
+        self.inGebruik = zaalslot.inGebruik
 
         # verwissel de tweede activiteit met de eerste
         zaalslot.activiteit = tijdelijkActiviteit
         zaalslot.dag = tijdelijkDag
         zaalslot.tijdslot = tijdelijkTijdslot
+        zaalslot.inGebruik = tijdelijkInGebruik
 
     def voegToe(self, activiteit):
         """ Voeg een activiteit aan een zaalslot toe."""

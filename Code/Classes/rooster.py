@@ -64,11 +64,20 @@ class Rooster(object):
             malusPunten = vakSpreidingPunten + zaalgrootteConflictPunten + roosterConflictenPunten + extraTijdslotPunten
 
             scorepunten = 1000 - malusPunten + bonusPunten
+<<<<<<< HEAD
             print("vakspreiding: " + str(vakSpreidingPunten))
             print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
             print("roosterConflicten: " + str(roosterConflictenPunten))
             print("extra tijdslot: " + str(extraTijdslotPunten))
             print("bonuspunten: " + str(bonusPunten))
+=======
+            # print("vakspreidingOud: " + str(self.vakSpreidingOud()))
+            # print("vakspreiding: " + str(vakSpreidingPunten))
+            # print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
+            # print("roosterConflicten: " + str(roosterConflictenPunten))
+            # print("extra tijdslot: " + str(extraTijdslotPunten))
+            # print("bonuspunten: " + str(bonusPunten))
+>>>>>>> f3f056ba96cc642250e1d1d388cec7228c81d607
             return scorepunten
 
         else:
@@ -198,15 +207,15 @@ class Rooster(object):
     def zaalgrootteConflict(self):
         "Deze functie berekent de maluspunten voor te kleine zalen"
         # vraagt alle zaalsloten op welke worden gebruikt
-        zalenGebruikt = self.zalenInGebruik()
         malusPunten = 0
 
         # kijkt of de capaciteit van de zaal te klein is voor het aantal studenten
-        for zaalslot in zalenGebruikt:
-            verschil = zaalslot.capaciteit - zaalslot.activiteit.nrStud
-            # berekent het aantal maluspunten als zaal te klein is
-            if verschil < 0:
-                malusPunten = malusPunten + abs(verschil)
+        for zaalslot in self.zaalslotenLijst:
+            if zaalslot.inGebruik == 1:
+                verschil = zaalslot.capaciteit - zaalslot.activiteit.nrStud
+                # berekent het aantal maluspunten als zaal te klein is
+                if verschil < 0:
+                    malusPunten = malusPunten + abs(verschil)
         return malusPunten
 
     def maakRooster(self):
@@ -228,13 +237,6 @@ class Rooster(object):
 
         return rooster
 
-    def zalenInGebruik(self):
-        " Maakt een verzameling van alle zaalsloten die in gebruik zijn"
-        zalenGebruikt = []
-        for zaalslot in self.zaalslotenLijst:
-            if zaalslot.inGebruik == 1:
-                zalenGebruikt.append(zaalslot)
-        return zalenGebruikt
 
     def weekIndeling(self):
         "Maakt per werkgroep een lijst aan met de activiteiten door de week"
