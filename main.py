@@ -27,8 +27,9 @@ from geneticAlgorithm import geneticAlgorithm
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
 tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-19.00"]
 
-rooster = hillClimbing(dagen, tijdsloten)[0]
-score = hillClimbing(dagen, tijdsloten)[1]
+roosterEnScore = hillClimbing(dagen, tijdsloten)
+rooster = roosterEnScore[0]
+score = roosterEnScore[1]
 
 # sequential(dagen, tijdsloten)
 
@@ -40,8 +41,8 @@ score = hillClimbing(dagen, tijdsloten)[1]
 
 # vul het rooster met vakken
 # rooster = Rooster.Rooster(dagen, tijdsloten)
-rooster.vulRandom()
-visualiseer(tijdsloten, dagen, rooster, score)
+# rooster.vulRandom()
+# visualiseer(tijdsloten, dagen, rooster, score)
 
 # hillClimbing(dagen, tijdsloten)
 # simulatedAnnealing(dagen, tijdsloten)
