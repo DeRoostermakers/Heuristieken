@@ -13,11 +13,12 @@ sys.path.append(os.path.join(directory, "Resultaten", "Visualisatie"))
 sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 # from hillClimber import hillClimbing
+from hillClimber2 import hillClimbing2
 # from simulatedAnnealing import simulatedAnnealing
 # from sequential import sequential, sequentialRandom
 
-#import rooster as Rooster
-#from visualiseer import visualiseer
+import rooster as Rooster
+from visualiseer import visualiseer
 
 # from randomSteekproef import randomSteekproef
 from geneticAlgorithm import geneticAlgorithm
@@ -26,27 +27,21 @@ from geneticAlgorithm import geneticAlgorithm
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
 tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-19.00"]
 
+hillClimbing2(dagen, tijdsloten)
 
-# maak een rooster object aan
-# rooster = Rooster.Rooster(dagen, tijdsloten)
 
 # sequential(dagen, tijdsloten)
 
 # sequential(rooster)
-
-groottePopulatie = 5
-aantalGeneraties = 3
-geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties)
+#
+# groottePopulatie = 5
+# aantalGeneraties = 3
+# geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties)
 
 # vul het rooster met vakken
-# rooster.vulRandom()
-
-
-#rooster.vulRandom()
-
-# rooster.vulRandom()
-
-
+rooster = Rooster.Rooster(dagen, tijdsloten)
+rooster.vulRandom()
+visualiseer(tijdsloten, dagen, rooster)
 
 # hillClimbing(dagen, tijdsloten)
 # simulatedAnnealing(dagen, tijdsloten)

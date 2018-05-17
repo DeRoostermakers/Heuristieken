@@ -20,7 +20,7 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
         burger.append(nieuwRooster.score())
         populatie.append(burger)
 
-    # iteraar door bepaald aantal generaties
+    # itereer door bepaald aantal generaties
     for i in range(aantalGeneraties):
 
         # maak generatie van kinderen ter grootte van de populatie
@@ -34,7 +34,6 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
 
             kind = Rooster.Rooster(dagen, tijdsloten)
 
-
             ######################### RECOMBINATIE
             # recombineer ouders door van ieder willekeurige, halve aantal activiteiten te gebruiken
             aantalActiviteiten = len(ouder1.activiteitenLijst)
@@ -44,14 +43,13 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
 
             activiteitenOuder1 = []
             activiteitenIdsOuder1 = []
+            activiteitenOuder2 = []
 
             # selecter de gekozen eerste helft van activiteiten van ouder 1
             for i in range(len(indexActiviteiten)):
                 activiteit = ouder1.activiteitenLijst[indexActiviteiten[i]]
                 activiteitenOuder1.append(activiteit)
                 activiteitenIdsOuder1.extend(activiteit.activiteitId)
-
-            activiteitenOuder2 = []
 
             # kies de activiteiten van ouder 2 die niet door ouder 1 zijn toegevoegd
             for activiteit in ouder2.activiteitenLijst:
@@ -78,8 +76,6 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
                     elif zaalslot.activiteit.activiteitId == activiteit.activiteitId:
                         zaalslotenKind.append(zaalslot)
 
-                activiteitenKind.append(activiteit)
-
             # voeg activiteiten van ouder 2 toe
             inTeRoosteren = []
             for activiteit in activiteitenOuder2:
@@ -98,8 +94,6 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
                     else:
                         inTeRoosteren.append(activiteit)
 
-                activiteitenKind.append(activiteit)
-
             # rooster overgebleven activiteiten in
             i = 0
             for activiteit in inTeRoosteren:
@@ -108,8 +102,7 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
                         zaalslot.voegToe(activiteit)
                         zaalslotenKind.append(zaalslot)
 
-                activiteitenKind.append(activiteit)
-
+            print(activiteitenKind)
             kind.activiteitenLijst = activiteitenKind
             kind.zaalslotenLijst = zaalslotenKind
 
@@ -120,13 +113,16 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
 
                 # wissel twee willekeurige zaalsloten
                 indexZaalslot = random.sample(range(len(kind.zaalslotenLijst)), 2)
-                randomZaalslot1 = kind.zaalslotenLijst(indexZaalslot[0])
-                randomZaalslot2 = kind.zaalslotenLijst(indexZaalslot[1])
+                randomZaalslot1 = kind.zaalslotenLijst[indexZaalslot[0]]
+                randomZaalslot2 = kind.zaalslotenLijst[indexZaalslot[1]]
                 randomZaalslot1.wissel(randomZaalslot2)
-            print(kind.activiteitenLijst)
-            print(kind.zaalslotenLijst)
-            print(kind.vakkenLijst)
-            
+
+            i = 0
+            for zaalslot in kind.zaalslotenLijst:
+                # print(zaalslot)
+                i += 1
+            print(i)
+
             # voeg kind toe aan generatie van kinderen
             kinderen.append([kind, kind.score()])
 
