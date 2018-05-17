@@ -10,6 +10,7 @@ import random
 import student as StudentKlasse
 import vak as VakKlasse
 import zaalSlot as ZaalSlotKlasse
+import activiteit as ActiviteitKlasse
 
 
 class Rooster(object):
@@ -32,7 +33,13 @@ class Rooster(object):
         self.maakStudenten()
         self.maakZaalsloten()
         self.maakActiviteiten()
+        self.vulActiviteitenLijstAan()
 
+    def vulActiviteitenLijstAan(self):
+        verschil = len(self.zaalslotenLijst) - len(self.activiteitenLijst)
+        if verschil > 0:
+            for leegZaalslot in range(verschil):
+                self.activiteitenLijst.append(ActiviteitKlasse.Activiteit(None, None, None, None, 0, []))
 
     def vulRandom(self):
         "Vult het rooster met activiteiten"
@@ -65,12 +72,12 @@ class Rooster(object):
             malusPunten = vakSpreidingPunten + zaalgrootteConflictPunten + roosterConflictenPunten + extraTijdslotPunten
 
             scorepunten = 1000 - malusPunten + bonusPunten
-            # print("vakspreiding: " + str(vakSpreidingPunten))
-            # print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
-            # print("roosterConflicten: " + str(roosterConflictenPunten))
-            # print("extra tijdslot: " + str(extraTijdslotPunten))
-            # print("bonuspunten: " + str(bonusPunten))
-            # print("score: " + str(scorepunten))
+            print("vakspreiding: " + str(vakSpreidingPunten))
+            print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
+            print("roosterConflicten: " + str(roosterConflictenPunten))
+            print("extra tijdslot: " + str(extraTijdslotPunten))
+            print("bonuspunten: " + str(bonusPunten))
+            print("score: " + str(scorepunten))
             return scorepunten
 
         else:
@@ -268,6 +275,7 @@ class Rooster(object):
 
                 perGroep.append(lijst)
 
+        print(perGroep)
         return perGroep
 
     def bonus(self, perGroep):
