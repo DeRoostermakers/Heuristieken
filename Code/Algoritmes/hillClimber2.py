@@ -25,6 +25,7 @@ def hillClimbing2(dagen, tijdsloten):
         print(stop)
         if stop > 50:
             break
+            print("hoi")
         scoreAlleWissels = []
         # wissel twee willekeurige zaalsloten
         indexZaalslot = random.sample(range(len(rooster.zaalslotenLijst)), 1)
