@@ -58,38 +58,57 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
                 if activiteit.activiteitId not in activiteitenIdsOuder1:
                     activiteitenOuder2.append(activiteit)
 
-            # activiteitenKind = activiteitenOuder1 + activiteitenOuder2
+            activiteitenKind = []
             zaalslotenKind = []
-
-
             legeZaalslotenOuder1 = []
             legeZaalslotenId = []
+
             # zoek de juiste zaalsloten bij de activiteit van ouder 1
-            # controleren dat je niet elke ronde steeds de lege zaalsloten append!!!
             for activiteit in activiteitenOuder1:
                 for zaalslot in ouder1.zaalslotenLijst:
                     if zaalslot.activiteit == None:
-                        legeZaalslotenId.append(zaalslot.zaalslotId)
-                        legeZaalslotenOuder1.append(zaalslot)
 
+                        # controleren dat je niet elke ronde steeds de lege zaalsloten toevoegd
+                        if zaalslot not in legeZaalslotenOuder1:
+                            legeZaalslotenOuder1.append(zaalslot)
+                        if zaalslot.zaalslotId not in legeZaalslotenId:
+                            legeZaalslotenId.append(zaalslot.zaalslotId)
+
+                    # voeg zaalslot van activiteit van ouder 1 aan kind toe
                     elif zaalslot.activiteit.activiteitId == activiteit.activiteitId:
                         zaalslotenKind.append(zaalslot)
 
+                activiteitenKind.append(activiteit)
+
+            # voeg activiteiten van ouder 2 toe
             inTeRoosteren = []
             for activiteit in activiteitenOuder2:
+
+                # rooster zaalslot wanneer deze leeg is
                 for zaalslot in ouder2.zaalslotenLijst:
                     if zaalslot.zaalslotId in legeZaalslotenId:
                         zaalslotenKind.append(zaalslot)
-                        legeZaalslotenId = [slot for slot in legeZaalslotenId if slot not in [zaalslot.zaalslotId]]
+
+                        # verwijder zaalslot uit lege lijst als hij in gebruik is
+                        for slot in legeZaalslotenId:
+                            if slot == zaalslot.zaalslotId:
+                                legeZaalslotenId.remove(slot)
+
+                    # hou bij welke activiteiten nog ingeroosterd moeten worden
                     else:
                         inTeRoosteren.append(activiteit)
 
+                activiteitenKind.append(activiteit)
+
+            # rooster overgebleven activiteiten in
             i = 0
             for activiteit in inTeRoosteren:
                 for zaalslot in legeZaalslotenOuder1:
                     if zaalslot.zaalslotId not in legeZaalslotenId:
                         zaalslot.voegToe(activiteit)
                         zaalslotenKind.append(zaalslot)
+
+                activiteitenKind.append(activiteit)
 
             kind.activiteitenLijst = activiteitenKind
             kind.zaalslotenLijst = zaalslotenKind
@@ -107,6 +126,7 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
             print(kind.activiteitenLijst)
             print(kind.zaalslotenLijst)
             print(kind.vakkenLijst)
+            
             # voeg kind toe aan generatie van kinderen
             kinderen.append([kind, kind.score()])
 
