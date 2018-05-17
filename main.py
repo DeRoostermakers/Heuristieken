@@ -14,14 +14,9 @@ sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 
 
-<<<<<<< HEAD
-#from hillClimber import hillClimbing
-from sequential import sequential
-=======
 from hillClimber import hillClimbing
 from simulatedAnnealing import simulatedAnnealing
-# from sequential import sequential, sequentialRandom
->>>>>>> ec28dc3ddd97b3b4ed0a2bc24a3e37999ea30999
+from sequential import sequential, sequentialDos, sequentialTres
 
 #import rooster as Rooster
 #from visualiseer import visualiseer
@@ -37,16 +32,13 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # maak een rooster object aan
 # rooster = Rooster.Rooster(dagen, tijdsloten)
 
-sequential(dagen, tijdsloten)
+sequentialTres(dagen, tijdsloten)
 
-<<<<<<< HEAD
-=======
 # sequential(rooster)
 
 # groottePopulatie = 5
 # aantalGeneraties = 3
 # geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties)
->>>>>>> ec28dc3ddd97b3b4ed0a2bc24a3e37999ea30999
 
 # vul het rooster met vakken
 # rooster.vulRandom()
@@ -59,7 +51,7 @@ sequential(dagen, tijdsloten)
 
 
 # hillClimbing(dagen, tijdsloten)
-simulatedAnnealing(dagen, tijdsloten)
+#simulatedAnnealing(dagen, tijdsloten)
 
 # maak een random steekproef aan van x iteraties
 # iteraties = 51
