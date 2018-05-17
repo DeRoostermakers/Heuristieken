@@ -12,16 +12,15 @@ sys.path.append(os.path.join(directory, "Code", "Classes"))
 sys.path.append(os.path.join(directory, "Resultaten", "Visualisatie"))
 sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
+
 from hillClimber import hillClimbing
-# from hillClimber2 import hillClimbing2
-# from simulatedAnnealing import simulatedAnnealing
-# from sequential import sequential, sequentialRandom
+from simulatedAnnealing import simulatedAnnealing
+from sequential import sequential, sequentialDos, sequentialTres
+# from geneticAlgorithm import geneticAlgorithm
+#import rooster as Rooster
+#from visualiseer import visualiseer
 
-import rooster as Rooster
-from visualiseer import visualiseer
 
-# from randomSteekproef import randomSteekproef
-from geneticAlgorithm import geneticAlgorithm
 
 # Dagen en tijdsloten welke geldig zijn voor het rooster
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
@@ -40,29 +39,34 @@ score = roosterEnScore[1]
 # geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties)
 
 # vul het rooster met vakken
-# rooster = Rooster.Rooster(dagen, tijdsloten)
 # rooster.vulRandom()
 # visualiseer(tijdsloten, dagen, rooster, score)
 
-# hillClimbing(dagen, tijdsloten)
+
+#rooster.vulRandom()
+
+# rooster.vulRandom()
+
+
+
+#hillClimbing(dagen, tijdsloten)
 # simulatedAnnealing(dagen, tijdsloten)
 
 # maak een random steekproef aan van x iteraties
 # iteraties = 51
 # randomSteekproef(rooster, iteraties)
-
-# print("WELKOM BIJ HET INPLANNEN VAN DE LESROOSTERS")
-# algoritme = input("Welke algoritme wil je uitproberen? \nJe kunt kiezen uit hillClimber, hillClimber2, simulatedAnnealing, sequential of geneticAlgorithm\n")
-# aantalUivoeren = input("Hoeveel keer wil je dit dit algoritme uitvoeren?\n")
-# print("Cool, laten we " + algoritme + " " + aantalUivoeren +" keer uitvoeren!")
-# if algoritme == "hillClimber":
-#     rooster = (hillClimbing(dagen, tijdsloten))[0]
-#     score = (hillClimbing(dagen, tijdsloten))[1]
-#     print(rooster, score)
-# if algoritme == "hillClimber2":
-#     rooster = (hillClimbing2(dagen, tijdsloten))[0]
-#     score = (hillClimbing2(dagen, tijdsloten))[1]
-# if algoritme == "simulatedAnnealing":
-#     rooster = (simulatedAnnealing(dagen, tijdsloten))[0]
-#     score = (simulatedAnnealing(dagen, tijdsloten))[1]
-# print("Wil je nog een algoritme op dit rooster uitproberen?")
+print("WELKOM BIJ HET INPLANNEN VAN DE LESROOSTERS")
+algoritme = input("Welke algoritme wil je uitproberen? \nJe kunt kiezen uit hillClimber, hillClimber2, simulatedAnnealing, sequential of geneticAlgorithm\n")
+aantalUivoeren = input("Hoeveel keer wil je dit dit algoritme uitvoeren?\n")
+print("Cool, laten we " + algoritme + " " + aantalUivoeren +" keer uitvoeren!")
+if algoritme == "hillClimber":
+    rooster = (hillClimbing(dagen, tijdsloten))[0]
+    score = (hillClimbing(dagen, tijdsloten))[1]
+    print(rooster, score)
+if algoritme == "hillClimber2":
+    rooster = (hillClimbing2(dagen, tijdsloten))[0]
+    score = (hillClimbing2(dagen, tijdsloten))[1]
+if algoritme == "simulatedAnnealing":
+    rooster = (simulatedAnnealing(dagen, tijdsloten))[0]
+    score = (simulatedAnnealing(dagen, tijdsloten))[1]
+print("Wil je nog een algoritme op dit rooster uitproberen?")
