@@ -22,7 +22,7 @@ def simulatedAnnealing(dagen, tijdsloten):
 
     mutaties = 0
     lijstScore = []
-    simulatedAnnelingRooster = []
+    simulatedAnnealingRooster = []
     for i in range(minIteraties):
 
         # wissel twee willekeurige zaalsloten
@@ -52,7 +52,7 @@ def simulatedAnnealing(dagen, tijdsloten):
             # niet geaccepteerd
             randomZaalslot2.wissel(randomZaalslot1)
 
-    simulatedAnnelingRooster.append([rooster, score])
+    simulatedAnnealingRooster.append([rooster, score])
 
     aantalIteraties = []
     for i in range(minIteraties):
@@ -60,5 +60,5 @@ def simulatedAnnealing(dagen, tijdsloten):
 
     # print(aantalIteraties)
     print(lijstScore)
-    print(simulatedAnnelingRooster)
-    return simulatedAnnelingRooster
+    print(simulatedAnnealingRooster)
+    return rooster

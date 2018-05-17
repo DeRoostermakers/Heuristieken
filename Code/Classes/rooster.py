@@ -22,6 +22,7 @@ class Rooster(object):
         self.idNaarTijdslot = {}
         self.vanVakNaarId = {}
         self.vanIdNaarVak = {}
+        self.zaalNaarID = {}
         self.lesdagen = lesdagen
         self.dagNaarId = {}
         self.idNaarDag = {}
@@ -64,12 +65,12 @@ class Rooster(object):
             malusPunten = vakSpreidingPunten + zaalgrootteConflictPunten + roosterConflictenPunten + extraTijdslotPunten
 
             scorepunten = 1000 - malusPunten + bonusPunten
-            # print("vakspreiding: " + str(vakSpreidingPunten))
-            # print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
-            # print("roosterConflicten: " + str(roosterConflictenPunten))
-            # print("extra tijdslot: " + str(extraTijdslotPunten))
-            #print("bonuspunten: " + str(bonusPunten))
-            #print("score: " + str(scorepunten))
+            print("vakspreiding: " + str(vakSpreidingPunten))
+            print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
+            print("roosterConflicten: " + str(roosterConflictenPunten))
+            print("extra tijdslot: " + str(extraTijdslotPunten))
+            print("bonuspunten: " + str(bonusPunten))
+            print("score: " + str(scorepunten))
             return scorepunten
 
         else:
@@ -95,7 +96,6 @@ class Rooster(object):
         with open('Data/vakken.csv') as csvBestand:
             leesCSV = csv.reader(csvBestand, delimiter=';')
             next(leesCSV, None)
-
             # rijen van CSV inlezen en vakobject aanmaken
             for rij in leesCSV:
                 # nvt naar "oneindig zetten"
@@ -141,12 +141,15 @@ class Rooster(object):
     def maakZaalsloten(self):
         "Maakt een lijst met zaalsloten aan."
 
+        j = 0
         # leest bestand en creert zaalsloten
         with open("Data/zalen.csv") as csvBestand:
             leesCSV = csv.reader(csvBestand, delimiter=';')
             next(leesCSV, None)
             # leest elke zaal en maakt per dag en tijdslot een zaalslot
             for rij in leesCSV:
+                self.zaalNaarID[rij[0]] = j
+                j += 1
                 for dag in self.lesdagen:
                     for i in range(1, len(self.idNaarTijdslot)):
                         self.zaalslotenLijst.append(ZaalSlotKlasse.ZaalSlot(rij[0], int(rij[1]), self.dagNaarId[dag], i, self.idNaarDag))

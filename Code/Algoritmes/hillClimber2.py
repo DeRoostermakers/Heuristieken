@@ -19,7 +19,7 @@ def hillClimbing2(dagen, tijdsloten):
 
     mutaties = 0
     lijstScore = []
-    hillClimberRooster = []
+    hillClimber2Rooster = []
     stop = 0
     for i in range(minIteraties):
         print(stop)
@@ -61,5 +61,5 @@ def hillClimbing2(dagen, tijdsloten):
 
     # print(aantalIteraties)
     # print(lijstScore)
-    print(hillClimberRooster)
-    return hillClimberRooster
+    print(hillClimberRooster2)
+    return rooster
