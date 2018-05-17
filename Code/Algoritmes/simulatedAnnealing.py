@@ -40,8 +40,9 @@ def simulatedAnnealing(dagen, tijdsloten):
         else:
             # nog steeds geaccepteerd toegestaan
             temperatuur = beginTemperatuur-i*(beginTemperatuur-eindTemperatuur)/minIteraties
-            acceptatieKans = math.exp(temperatuur)
-            print(acceptatieKans)
+            verkorting = score2 - score
+            acceptatieKans = math.exp(verkorting/temperatuur)
+            # print(acceptatieKans)
 
             nummer = random.random()
             if acceptatieKans > nummer:
@@ -58,6 +59,6 @@ def simulatedAnnealing(dagen, tijdsloten):
         aantalIteraties.append(i)
 
     # print(aantalIteraties)
-    # print(lijstScore)
+    print(lijstScore)
     print(simulatedAnnelingRooster)
     return simulatedAnnelingRooster
