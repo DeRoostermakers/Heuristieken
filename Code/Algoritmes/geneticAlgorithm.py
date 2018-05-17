@@ -14,15 +14,13 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
     populatie = []
 
     for i in range(groottePopulatie):
-        nieuwRooster = Rooster.Rooster(dagen, tijdsloten)
-        nieuwRooster.vulRandom()
-        burger = [nieuwRooster]
-        burger.append(nieuwRooster.score())
-        populatie.append(burger)
+        burger = Rooster.Rooster(dagen, tijdsloten)
+        burger.vulRandom()
+        populatie.append([burger, burger.score()])
+
 
     # iteraar door bepaald aantal generaties
     for i in range(aantalGeneraties):
-
         # maak generatie van kinderen ter grootte van de populatie
         kinderen = []
         for kind in range(groottePopulatie):
@@ -32,8 +30,8 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
             ouder1 = (populatie[oudersIndex[0]])[0]
             ouder2 = (populatie[oudersIndex[1]])[0]
 
-            kind = Rooster.Rooster(dagen, tijdsloten)
 
+            kind = Rooster.Rooster(dagen, tijdsloten)
 
             ######################### RECOMBINATIE
             # recombineer ouders door van ieder willekeurige, halve aantal activiteiten te gebruiken
@@ -49,96 +47,45 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
             for i in range(len(indexActiviteiten)):
                 activiteit = ouder1.activiteitenLijst[indexActiviteiten[i]]
                 activiteitenOuder1.append(activiteit)
-                activiteitenIdsOuder1.extend(activiteit.activiteitId)
+                activiteitenIdsOuder1.append(activiteit.activiteitId)
+
 
             activiteitenOuder2 = []
+            activiteitenIdsOuder2 = []
 
             # kies de activiteiten van ouder 2 die niet door ouder 1 zijn toegevoegd
             for activiteit in ouder2.activiteitenLijst:
                 if activiteit.activiteitId not in activiteitenIdsOuder1:
                     activiteitenOuder2.append(activiteit)
+                    activiteitenIdsOuder2.append(activiteit.activiteitId)
 
             activiteitenKind = []
             zaalslotenKind = []
             legeZaalslotenOuder1 = []
             legeZaalslotenId = []
 
-            # zoek de juiste zaalsloten bij de activiteit van ouder 1
-            for activiteit in activiteitenOuder1:
-                for zaalslot in ouder1.zaalslotenLijst:
-                    if zaalslot.activiteit == None:
-
-                        # controleren dat je niet elke ronde steeds de lege zaalsloten toevoegd
-                        if zaalslot not in legeZaalslotenOuder1:
-                            legeZaalslotenOuder1.append(zaalslot)
-                        if zaalslot.zaalslotId not in legeZaalslotenId:
-                            legeZaalslotenId.append(zaalslot.zaalslotId)
-
-                    # voeg zaalslot van activiteit van ouder 1 aan kind toe
-                    elif zaalslot.activiteit.activiteitId == activiteit.activiteitId:
-                        zaalslotenKind.append(zaalslot)
-
-                activiteitenKind.append(activiteit)
+            # zoek de juiste zaalsloten bij de activiteiten van ouder 1, voeg deze zaalsloten toe aan de zaalsloten kind
+            for zaalslot in ouder1.zaalslotenLijst:
+                if zaalslot.activiteit == None:
+                    legeZaalslotenOuder1.append(zaalslot)
+                    legeZaalslotenId.append(zaalslot.zaalslotId)
+                elif zaalslot.activiteit.activiteitId in activiteitenIdsOuder1:
+                    zaalslotenKind.append(zaalslot)
+                    activiteitenKind.append(activiteit)
 
             # voeg activiteiten van ouder 2 toe
             inTeRoosteren = []
-            for activiteit in activiteitenOuder2:
 
+            for zaalslot in ouder2.zaalslotenLijst
+
+
+            for activiteit in activiteitenOuder2:
                 # rooster zaalslot wanneer deze leeg is
                 for zaalslot in ouder2.zaalslotenLijst:
                     if zaalslot.zaalslotId in legeZaalslotenId:
                         zaalslotenKind.append(zaalslot)
-
-                        # verwijder zaalslot uit lege lijst als hij in gebruik is
-                        for slot in legeZaalslotenId:
-                            if slot == zaalslot.zaalslotId:
-                                legeZaalslotenId.remove(slot)
-
+                        activiteitenKind.append(activiteit)
+                        legeZaalslotenId.remove(zaalslot.zaalslotId)
                     # hou bij welke activiteiten nog ingeroosterd moeten worden
                     else:
                         inTeRoosteren.append(activiteit)
-
-                activiteitenKind.append(activiteit)
-
-            # rooster overgebleven activiteiten in
-            i = 0
-            for activiteit in inTeRoosteren:
-                for zaalslot in legeZaalslotenOuder1:
-                    if zaalslot.zaalslotId not in legeZaalslotenId:
-                        zaalslot.voegToe(activiteit)
-                        zaalslotenKind.append(zaalslot)
-
-                activiteitenKind.append(activiteit)
-
-            kind.activiteitenLijst = activiteitenKind
-            kind.zaalslotenLijst = zaalslotenKind
-
-            # muteer kind met 10% kans
-            een = 1
-            nummer = random.sample(range(10), een)
-            if een in nummer:
-
-                # wissel twee willekeurige zaalsloten
-                indexZaalslot = random.sample(range(len(kind.zaalslotenLijst)), 2)
-                randomZaalslot1 = kind.zaalslotenLijst(indexZaalslot[0])
-                randomZaalslot2 = kind.zaalslotenLijst(indexZaalslot[1])
-                randomZaalslot1.wissel(randomZaalslot2)
-            print(kind.activiteitenLijst)
-            print(kind.zaalslotenLijst)
-            print(kind.vakkenLijst)
-            
-            # voeg kind toe aan generatie van kinderen
-            kinderen.append([kind, kind.score()])
-
-        # sorteer totale populatie op scores
-        totalePopulatie = kinderen + populatie
-        populatieGesorteerd = sorted(totalePopulatie, key=itemgetter(1), reverse = True)
-
-        # selecteer beste 50 roosters uit de populatie
-        populatie = populatieGesorteerd[:groottePopulatie]
-
-    # selecteer beste rooster van laatste populatie
-    populatieGesorteerd = sorted(populatie, key=itemgetter(1))
-    besteScore = populatieGesorteerd[0]
-
-    return besteScore
