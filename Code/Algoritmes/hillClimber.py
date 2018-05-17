@@ -48,4 +48,4 @@ def hillClimbing(dagen, tijdsloten):
     # print(aantalIteraties)
     # print(lijstScore)
     print(hillClimberRooster)
-    return hillClimberRooster
+    return rooster
