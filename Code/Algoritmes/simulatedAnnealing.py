@@ -1,24 +1,28 @@
 """
-Algoritme dat een rooster zoekt door allen wissels toe te staan die voor verbetering zorgen.
+Algoritme dat een rooster zoekt door recombinatie en mutatie.
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 
 import random
+import math
 import rooster as Rooster
 import zaalSlot as ZaalSlot
 
 
-def hillClimbing(dagen, tijdsloten):
+def simulatedAnnealing(dagen, tijdsloten):
     # maak een rooster object aan
     rooster = Rooster.Rooster(dagen, tijdsloten)
     minIteraties = 2000
     rooster.vulRandom()
     score = rooster.score()
 
+    beginTemperatuur = 100
+    eindTemperatuur = 0
+
     mutaties = 0
     lijstScore = []
-    hillClimberRooster = []
+    simulatedAnnelingRooster = []
     for i in range(minIteraties):
 
         # wissel twee willekeurige zaalsloten
@@ -34,18 +38,27 @@ def hillClimbing(dagen, tijdsloten):
             mutaties += 1
 
         else:
+            # nog steeds geaccepteerd toegestaan
+            temperatuur = beginTemperatuur-i*(beginTemperatuur-eindTemperatuur)/minIteraties
+            verkorting = score2 - score
+            acceptatieKans = math.exp(verkorting/temperatuur)
+            # print(acceptatieKans)
+
+            nummer = random.random()
+            if acceptatieKans > nummer:
+                score = score2
+                mutaties += 1
+
+            # niet geaccepteerd
             randomZaalslot2.wissel(randomZaalslot1)
 
-    hillClimberRooster.append([rooster, score])
+    simulatedAnnelingRooster.append([rooster, score])
 
     aantalIteraties = []
     for i in range(minIteraties):
         aantalIteraties.append(i)
 
-    print(lijstScore)
-
-
     # print(aantalIteraties)
-    # print(lijstScore)
-    print(hillClimberRooster)
-    return hillClimberRooster
+    print(lijstScore)
+    print(simulatedAnnelingRooster)
+    return simulatedAnnelingRooster
