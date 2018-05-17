@@ -15,6 +15,7 @@ sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 
 from hillClimber import hillClimbing
+from hillClimber2 import hillClimbing2
 from simulatedAnnealing import simulatedAnnealing
 # from sequential import sequential, sequentialRandom
 
@@ -50,6 +51,7 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 
 
 # hillClimbing(dagen, tijdsloten)
+# hillClimbing2(dagen, tijdsloten)
 simulatedAnnealing(dagen, tijdsloten)
 
 # maak een random steekproef aan van x iteraties
