@@ -97,7 +97,7 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
 
             zaalslotenKindIds = []
             for zaalslot in zaalslotenKind:
-
+                zaalslotenKindIds.append(zaalslot.)
             print(len(ouder1.activiteitenLijst))
             print("nog in te roosteren" + str(len(NogInTeRoosteren)))
             print(" ingeroosterd" + str(len(zaalslotenKind)))
