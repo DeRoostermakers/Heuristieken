@@ -63,8 +63,9 @@ def uitvoer():
     print("Cool, laten we " + algoritme + " " + aantalUivoeren +" keer uitvoeren!")
 
     if algoritme == "hillClimber":
-        rooster = (hillClimbing(dagen, tijdsloten))[0]
-        score = (hillClimbing(dagen, tijdsloten))[1]
+        roosterEnScore = (hillClimbing(dagen, tijdsloten))
+        rooster = roosterEnScore[0]
+        score = roosterEnScore[1]
         print(rooster, score)
     if algoritme == "hillClimber2":
         rooster = (hillClimbing2(dagen, tijdsloten))[0]
