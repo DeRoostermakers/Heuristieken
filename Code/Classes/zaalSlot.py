@@ -27,39 +27,31 @@ class ZaalSlot(object):
 
     def wissel(self, zaalslot):
         """ Wissel twee activiteiten van tijdslot"""
-        
+
         # sla de eerste activiteit tijdelijk op
-        tijdelijkActiviteit = self.activiteit
+        # tijdelijkActiviteit = self.activiteit
         tijdelijkDag = self.dag
         tijdelijkTijdslot = self.tijdslot
-        tijdelijkInGebruik = self.inGebruik
+        # tijdelijkInGebruik = self.inGebruik
         tijdelijkIdNaarDag = self.idNaarDag
 
         # verwissel de eerste activiteit met de tweede
-        self.activiteit = zaalslot.activiteit
+        # self.activiteit = zaalslot.activiteit
         self.dag = zaalslot.dag
         self.tijdslot = zaalslot.tijdslot
-        self.inGebruik = zaalslot.inGebruik
+        # self.inGebruik = zaalslot.inGebruik
         self.idNaarDag = zaalslot.idNaarDag
 
         if self.activiteit:
             self.activiteit.dag = zaalslot.dag
             self.activiteit.tijdslot = zaalslot.tijdslot
 
-        if self.activiteit:
-            self.activiteit.dag = zaalslot.dag
-            self.activiteit.tijdslot = zaalslot.tijdslot
-
         # verwissel de tweede activiteit met de eerste
-        zaalslot.activiteit = tijdelijkActiviteit
+        # zaalslot.activiteit = tijdelijkActiviteit
         zaalslot.dag = tijdelijkDag
         zaalslot.tijdslot = tijdelijkTijdslot
-        zaalslot.inGebruik = tijdelijkInGebruik
+        # zaalslot.inGebruik = tijdelijkInGebruik
         zaalslot.idNaarDag = tijdelijkIdNaarDag
-
-        if zaalslot.activiteit:
-            zaalslot.activiteit.dag = tijdelijkDag
-            zaalslot.activiteit.tijdslot = tijdelijkTijdslot
 
         if zaalslot.activiteit:
             zaalslot.activiteit.dag = tijdelijkDag

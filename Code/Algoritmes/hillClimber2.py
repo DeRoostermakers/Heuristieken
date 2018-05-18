@@ -22,10 +22,8 @@ def hillClimbing2(dagen, tijdsloten):
     hillClimber2Rooster = []
     stop = 0
     for i in range(minIteraties):
-        print(stop)
         if stop > 50:
             break
-            print("hoi")
         scoreAlleWissels = []
         # wissel twee willekeurige zaalsloten
         indexZaalslot = random.sample(range(len(rooster.zaalslotenLijst)), 1)
@@ -38,7 +36,7 @@ def hillClimbing2(dagen, tijdsloten):
                 randomZaalslot2.wissel(randomZaalslot1)
         scoreGesorteerd = sorted(scoreAlleWissels, key=itemgetter(1), reverse=True)
         score2 = scoreGesorteerd[0][1]
-        print(score)
+
         lijstScore.append(score)
 
         if score2 > score:
@@ -50,7 +48,7 @@ def hillClimbing2(dagen, tijdsloten):
             randomZaalslot2.wissel(randomZaalslot1)
             stop += 1
 
-    hillClimberRooster.append([rooster, score])
+    hillClimber2Rooster.extend([rooster, score])
 
     aantalIteraties = []
     for i in range(minIteraties):
@@ -61,5 +59,5 @@ def hillClimbing2(dagen, tijdsloten):
 
     # print(aantalIteraties)
     # print(lijstScore)
-    print(hillClimberRooster2)
-    return rooster
+    # print(hillClimberRooster2)
+    return hillClimber2Rooster
