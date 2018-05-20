@@ -14,6 +14,7 @@ sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 
 from hillClimber import hillClimbing
+from hillClimber2 import hillClimbing2
 from simulatedAnnealing import simulatedAnnealing
 from sequential import sequential, sequentialDos, sequentialTres
 # from geneticAlgorithm import geneticAlgorithm
@@ -26,22 +27,21 @@ from sequential import sequential, sequentialDos, sequentialTres
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
 tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-19.00"]
 
-hillClimbing(dagen, tijdsloten)
-
-# print("HOOOOOI")
-# print(rooster.zaalslotenLijst)
+# roosterEnScore = hillClimbing(dagen, tijdsloten)
+# rooster = roosterEnScore[0]
+# score = roosterEnScore[1]
 
 # sequential(dagen, tijdsloten)
 
 # sequential(rooster)
 
-# groottePopulatie = 2
-# aantalGeneraties = 1
+# groottePopulatie = 5
+# aantalGeneraties = 3
 # geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties)
-
 
 # vul het rooster met vakken
 # rooster.vulRandom()
+# visualiseer(tijdsloten, dagen, rooster, score)
 
 
 #rooster.vulRandom()

@@ -27,20 +27,29 @@ class ZaalSlot(object):
 
     def wissel(self, zaalslot):
         """ Wissel twee activiteiten van tijdslot"""
+<<<<<<< HEAD
         print("wissel : " + str(id(self.activiteit)))
         print("dag eigenzaalslot : " + str(self.dag))
+=======
+
+>>>>>>> 83a1bd74925769d8d2eb71fcdb133b30388a45ac
         # sla de eerste activiteit tijdelijk op
-        tijdelijkActiviteit = self.activiteit
+        # tijdelijkActiviteit = self.activiteit
         tijdelijkDag = self.dag
         tijdelijkTijdslot = self.tijdslot
-        tijdelijkInGebruik = self.inGebruik
+        # tijdelijkInGebruik = self.inGebruik
 
         # verwissel de eerste activiteit met de tweede
-        self.activiteit = zaalslot.activiteit
+        # self.activiteit = zaalslot.activiteit
         self.dag = zaalslot.dag
         self.tijdslot = zaalslot.tijdslot
+<<<<<<< HEAD
         self.inGebruik = zaalslot.inGebruik
         print("dag eigenzaalslot na wissel : " + str(self.dag))
+=======
+        # self.inGebruik = zaalslot.inGebruik
+
+>>>>>>> 83a1bd74925769d8d2eb71fcdb133b30388a45ac
         if self.activiteit:
             self.activiteit.dag = zaalslot.dag
             self.activiteit.tijdslot = zaalslot.tijdslot
@@ -48,10 +57,10 @@ class ZaalSlot(object):
 
         print("wiseel 3 : " + str(id(zaalslot.activiteit)))
         # verwissel de tweede activiteit met de eerste
-        zaalslot.activiteit = tijdelijkActiviteit
+        # zaalslot.activiteit = tijdelijkActiviteit
         zaalslot.dag = tijdelijkDag
         zaalslot.tijdslot = tijdelijkTijdslot
-        zaalslot.inGebruik = tijdelijkInGebruik
+        # zaalslot.inGebruik = tijdelijkInGebruik
 
 
         if zaalslot.activiteit:

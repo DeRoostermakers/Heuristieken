@@ -12,13 +12,14 @@ import zaalSlot as ZaalSlot
 def hillClimbing(dagen, tijdsloten):
     # maak een rooster object aan
     rooster = Rooster.Rooster(dagen, tijdsloten)
-    minIteraties = 100
+    minIteraties = 15000
     rooster.vulRandom()
     score = rooster.score()
 
     print(str(rooster.activiteitenLijst[1]))
     print(str(rooster.activiteitenLijst[2]))
 
+<<<<<<< HEAD
     ID1 = rooster.activiteitenLijst[1].activiteitId
     ID2 = rooster.activiteitenLijst[2].activiteitId
 
@@ -35,6 +36,26 @@ def hillClimbing(dagen, tijdsloten):
 
     print(str(rooster.activiteitenLijst[1]))
     print(str(rooster.activiteitenLijst[2]))
+=======
+        # wissel twee willekeurige zaalsloten
+        indexZaalslot = random.sample(range(len(rooster.zaalslotenLijst)), 2)
+        randomZaalslot1 = rooster.zaalslotenLijst[indexZaalslot[0]]
+        randomZaalslot2 = rooster.zaalslotenLijst[indexZaalslot[1]]
+        randomZaalslot1.wissel(randomZaalslot2)
+
+        score2 = rooster.score()
+        lijstScore.append(score)
+
+
+        if score2 > score:
+            score = score2
+            mutaties += 1
+            print(score2)
+        else:
+            randomZaalslot2.wissel(randomZaalslot1)
+
+    hillClimberRooster.extend([rooster, score])
+>>>>>>> 83a1bd74925769d8d2eb71fcdb133b30388a45ac
 
 
     # mutaties = 0
@@ -69,6 +90,6 @@ def hillClimbing(dagen, tijdsloten):
 
 
     # print(aantalIteraties)
-    #print(lijstScore)
+    # print(lijstScore)
     # print(hillClimberRooster)
     # return hillClimberRooster
