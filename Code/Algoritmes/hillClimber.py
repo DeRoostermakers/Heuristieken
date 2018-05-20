@@ -16,33 +16,54 @@ def hillClimbing(dagen, tijdsloten):
     rooster.vulRandom()
     score = rooster.score()
 
-    mutaties = 0
-    lijstScore = []
-    hillClimberRooster = []
-    for i in range(minIteraties):
+    print(str(rooster.activiteitenLijst[1]))
+    print(str(rooster.activiteitenLijst[2]))
 
-        # wissel twee willekeurige zaalsloten
-        indexZaalslot = random.sample(range(len(rooster.zaalslotenLijst)), 2)
-        randomZaalslot1 = rooster.zaalslotenLijst[indexZaalslot[0]]
-        randomZaalslot2 = rooster.zaalslotenLijst[indexZaalslot[1]]
+    ID1 = rooster.activiteitenLijst[1].activiteitId
+    ID2 = rooster.activiteitenLijst[2].activiteitId
 
-        randomZaalslot1.wissel(randomZaalslot2)
-        score2 = rooster.score()
-        lijstScore.append(score)
-        input()
+    zaalslot1 = rooster.zaalslotenLijst[1]
+    zaalslot2 = rooster.zaalslotenLijst[2]
 
-        if score2 > score:
-            score = score2
-            mutaties += 1
+    for zaalslot in rooster.zaalslotenLijst:
+        if zaalslot.activiteit.activiteitId == ID1:
+            zaalslot1 = zaalslot
+        elif zaalslot.activiteit.activiteitId == ID2:
+            zaalslot2 = zaalslot
 
-        else:
-            randomZaalslot2.wissel(randomZaalslot1)
+    zaalslot1.wissel(zaalslot2)
 
-    hillClimberRooster.append([rooster, score])
+    print(str(rooster.activiteitenLijst[1]))
+    print(str(rooster.activiteitenLijst[2]))
 
-    aantalIteraties = []
-    for i in range(minIteraties):
-        aantalIteraties.append(i)
+
+    # mutaties = 0
+    # lijstScore = []
+    # hillClimberRooster = []
+    # for i in range(minIteraties):
+    #
+    #     # wissel twee willekeurige zaalsloten
+    #     indexZaalslot = random.sample(range(len(rooster.zaalslotenLijst)), 2)
+    #     randomZaalslot1 = rooster.zaalslotenLijst[indexZaalslot[0]]
+    #     randomZaalslot2 = rooster.zaalslotenLijst[indexZaalslot[1]]
+    #
+    #     randomZaalslot1.wissel(randomZaalslot2)
+    #     score2 = rooster.score()
+    #     lijstScore.append(score)
+    #     input()
+    #
+    #     if score2 > score:
+    #         score = score2
+    #         mutaties += 1
+    #
+    #     else:
+    #         randomZaalslot2.wissel(randomZaalslot1)
+    #
+    # hillClimberRooster.append([rooster, score])
+    #
+    # aantalIteraties = []
+    # for i in range(minIteraties):
+    #     aantalIteraties.append(i)
 
     # print(lijstScore)
 
@@ -50,4 +71,4 @@ def hillClimbing(dagen, tijdsloten):
     # print(aantalIteraties)
     #print(lijstScore)
     # print(hillClimberRooster)
-    return hillClimberRooster
+    # return hillClimberRooster

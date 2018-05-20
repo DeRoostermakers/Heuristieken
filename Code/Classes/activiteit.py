@@ -21,7 +21,7 @@ class Activiteit(object):
         self.activiteitId = str(self.vakId) + "." + str(self.soort) + "." + str(self.groepnr)
 
     def __str__(self):
-        return self.activiteitId
+        return self.activiteitId + str(self.dag) + str(self.tijdslot)
 
     def __repr__(self):
-        return self.activiteitId
+        return self.activiteitId + str(self.dag) + str(self.tijdslot)
