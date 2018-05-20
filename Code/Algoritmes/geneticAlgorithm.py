@@ -13,6 +13,7 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
     # creëer populatie bestaande uit willekeurige roosters
     populatie = []
 
+    # maak een populatie zo groot als voorgeschreven
     for i in range(groottePopulatie):
         burger = Rooster.Rooster(dagen, tijdsloten)
         burger.vulRandom()
@@ -69,6 +70,7 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
             zaalslotenKind = []
             NogInTeRoosteren = []
 
+            # zoek in ouder1 naar de zaalsloten van de juist activiteiten en sla alle vrije zaalsloten op
             for zaalslot in ouder1.zaalslotenLijst:
                 if zaalslot.activiteit == None:
                     vrijeZaalslotenOuder1.append(zaalslot.zaalslotId)
@@ -76,11 +78,13 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
                 elif zaalslot.activiteit.activiteitId in activiteitenIdsOuder1:
                     zaalslotenOuder1.append(zaalslot)
 
+            # voeg de zaalsloten van de ouder toe aan het kind
             for zaalslot in zaalslotenOuder1:
                 zaalslotenKind.append(zaalslot)
 
             print("zaalsloten ouder 1: " +str(len(zaalslotenOuder1)))
 
+            # zoek de zaalsloten bij de gekozen activiteiten van ouder2
             for zaalslot in ouder2.zaalslotenLijst:
                 if zaalslot.activiteit == None:
                     continue
@@ -89,6 +93,7 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
 
             print("zaalsloten ouder 2: " +str(len(zaalslotenOuder2)))
 
+            # kijk of de zaalsloten van ouder 2 bij het kind kunnen worden toegevoegd, anders in aparte array zetten
             for zaalslot in zaalslotenOuder2:
                 if zaalslot.zaalslotId in vrijeZaalslotenOuder1:
                     zaalslotenKind.append(zaalslot)
@@ -96,57 +101,60 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
                     NogInTeRoosteren.append(zaalslot.activiteit)
 
             zaalslotenKindIds = []
+
+            # zoek alle zaalsloten van het kind op
             for zaalslot in zaalslotenKind:
-                zaalslotenKindIds.append(zaalslot.)
+                zaalslotenKindIds.append(zaalslot.zaalslotId)
             print(len(ouder1.activiteitenLijst))
             print("nog in te roosteren" + str(len(NogInTeRoosteren)))
             print(" ingeroosterd" + str(len(zaalslotenKind)))
 
+            vrijeZaalslotenKind = []
+
             # zaalsloten vinden die nog leeg zijn
             for zaalslot in ouder1.zaalslotenLijst:
+                if zaalslot.zaalslotId not in zaalslotenKindIds:
+                    vrijeZaalslotenKind.append(zaalslot)
 
+            print("vrije zaalsloten kind: " + str(len(vrijeZaalslotenKind)))
 
+            # voeg vrije activiteien toe aan vrij zaalsloten, nu nog random!
+            for i in range(len(NogInTeRoosteren)):
+                vrijeZaalslotenKind[i].voegToe(NogInTeRoosteren[i])
 
+            # voeg de laatste ingeroosterde zaalsloten toe aan de zaalslotenlijst van het kind
+            zaalslotenKind.extend(vrijeZaalslotenKind)
 
-            # activiteitenKind = []
-            # zaalslotenKind = []
-            # legeZaalslotenOuder1 = []
-            # legeZaalslotenId = []
-            #
-            # # zoek de juiste zaalsloten bij de activiteiten van ouder 1, voeg deze zaalsloten toe aan de zaalsloten kind
-            # for zaalslot in ouder1.zaalslotenLijst:
-            #     if zaalslot.activiteit == None:
-            #         legeZaalslotenOuder1.append(zaalslot)
-            #         legeZaalslotenId.append(zaalslot.zaalslotId)
-            #     elif zaalslot.activiteit.activiteitId in activiteitenIdsOuder1:
-            #         zaalslotenKind.append(zaalslot)
-            #         activiteitenKind.append(zaalslot.activiteit)
-            #     else:
-            #         legeZaalslotenId.append(zaalslot.zaalslotId)
-            #
-            # print(zaalslotenKind)
-            # print(legeZaalslotenId)
-            # print(activiteitenKind)
-            #
-            # # voeg activiteiten van ouder 2 toe aan de zaalsloten van het kind, als deze vrij zijn, ander bewaar ze
-            # inTeRoosteren = []
-            #
-            # for zaalslot in ouder2.zaalslotenLijst:
-            #     if zaalslot.activiteit == None:
-            #         continue
-            #     elif zaalslot.activiteit.activiteitId in activiteitenIdsOuder2 and zaalslot.zaalslotId not in legeZaalslotenId:
-            #         inTeRoosteren.append(activiteit)
-            #     elif zaalslot.activiteit.activiteitId in activiteitenIdsOuder2 and zaalslot.zaalslotId in legeZaalslotenId:
-            #         zaalslotenKind.append(zaalslot)
-            #         activiteitenKind.append(zaalslot.activiteit)
-            #         legeZaalslotenId.remove(zaalslot.zaalslotId)
-            #
-            # print(inTeRoosteren)
-            #
-            # for activiteit in inTeRoosteren:
-            #     for zaalslot in ouder1.zaalslotenLijst:
-            #         if zaalslot.zaalslotId in legeZaalslotenId:
-            #             zaalslot.voegToe(activiteit)
-            #             legeZaalslotenId.remove(zaalslot.zaalslotId)
-            #             zaalslotenKind.append(zaalslot)
-            #             activiteitenKind.append(activiteit)
+            # verzamel alle activiteiten en voeg ze toe aan een lijst voor het kinderen
+            activiteitenKind = []
+            for zaalslot in zaalslotenKind:
+                activiteitenKind.append(zaalslot.activiteit)
+
+            kind.activiteitenLijst = activiteitenKind
+            kind.zaalslotenLijst = zaalslotenKind
+
+            # muteer kind met 10% kans
+            een = 1
+            nummer = random.sample(range(10), een)
+            if een in nummer:
+                # wissel twee willekeurige zaalsloten
+                indexZaalslot = random.sample(range(len(kind.zaalslotenLijst)), 2)
+                randomZaalslot1 = kind.zaalslotenLijst[indexZaalslot[0]]
+                randomZaalslot2 = kind.zaalslotenLijst[indexZaalslot[1]]
+                randomZaalslot1.wissel(randomZaalslot2)
+
+            # voeg kind toe aan generatie van kinderen
+            kinderen.append([kind, kind.score()])
+
+        # sorteer totale populatie op scores
+        totalePopulatie = kinderen + populatie
+        populatieGesorteerd = sorted(totalePopulatie, key=itemgetter(1), reverse = True)
+
+        # selecteer beste 50 roosters uit de populatie
+        populatie = populatieGesorteerd[:groottePopulatie]
+
+    # selecteer beste rooster van laatste populatie
+    populatieGesorteerd = sorted(populatie, key=itemgetter(1))
+    besteScore = populatieGesorteerd[0]
+
+    return besteScore

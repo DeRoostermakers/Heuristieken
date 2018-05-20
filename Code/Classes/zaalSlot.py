@@ -27,47 +27,26 @@ class ZaalSlot(object):
 
     def wissel(self, zaalslot):
         """ Wissel twee activiteiten van tijdslot"""
-<<<<<<< HEAD
-        print("wissel : " + str(id(self.activiteit)))
-        print("dag eigenzaalslot : " + str(self.dag))
-=======
 
->>>>>>> 83a1bd74925769d8d2eb71fcdb133b30388a45ac
         # sla de eerste activiteit tijdelijk op
-        # tijdelijkActiviteit = self.activiteit
         tijdelijkDag = self.dag
         tijdelijkTijdslot = self.tijdslot
-        # tijdelijkInGebruik = self.inGebruik
-
-        # verwissel de eerste activiteit met de tweede
-        # self.activiteit = zaalslot.activiteit
-        self.dag = zaalslot.dag
-        self.tijdslot = zaalslot.tijdslot
-<<<<<<< HEAD
-        self.inGebruik = zaalslot.inGebruik
-        print("dag eigenzaalslot na wissel : " + str(self.dag))
-=======
-        # self.inGebruik = zaalslot.inGebruik
-
->>>>>>> 83a1bd74925769d8d2eb71fcdb133b30388a45ac
-        if self.activiteit:
-            self.activiteit.dag = zaalslot.dag
-            self.activiteit.tijdslot = zaalslot.tijdslot
-            print("wissel2 : " + str(id(self.activiteit)))
-
-        print("wiseel 3 : " + str(id(zaalslot.activiteit)))
-        # verwissel de tweede activiteit met de eerste
-        # zaalslot.activiteit = tijdelijkActiviteit
-        zaalslot.dag = tijdelijkDag
-        zaalslot.tijdslot = tijdelijkTijdslot
-        # zaalslot.inGebruik = tijdelijkInGebruik
 
 
-        if zaalslot.activiteit:
-            zaalslot.activiteit.dag = tijdelijkDag
-            zaalslot.activiteit.tijdslot = tijdelijkTijdslot
-        print("wiseel 4 : " + str(zaalslot.activiteit))
-        print("dag anderzaalslot na wissel : " + str(zaalslot.activiteit.dag))
+        # sla de twee activiteit informatie op
+        self.activiteit.dag = zaalslot.dag
+        self.activiteit.tijdslot = zaalslot.tijdslot
+
+        zaalslot.activiteit.dag = tijdelijkDag
+        zaalslot.activiteit.tijdslot = tijdelijkTijdslot
+
+        tijdelijkActiviteit = self.activiteit
+
+        self.activiteit = zaalslot.activiteit
+        zaalslot.activiteit = tijdelijkActiviteit
+
+
+
     def voegToe(self, activiteit):
         """ Voeg een activiteit aan een zaalslot toe."""
 

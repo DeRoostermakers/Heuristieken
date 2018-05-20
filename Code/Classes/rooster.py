@@ -72,12 +72,12 @@ class Rooster(object):
             malusPunten = vakSpreidingPunten + zaalgrootteConflictPunten + roosterConflictenPunten + extraTijdslotPunten
 
             scorepunten = 1000 - malusPunten + bonusPunten
-            # print("vakspreiding: " + str(vakSpreidingPunten))
-            # print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
-            # print("roosterConflicten: " + str(roosterConflictenPunten))
-            # print("extra tijdslot: " + str(extraTijdslotPunten))
-            # print("bonuspunten: " + str(bonusPunten))
-            # print("score: " + str(scorepunten))
+            print("vakspreiding: " + str(vakSpreidingPunten))
+            print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
+            print("roosterConflicten: " + str(roosterConflictenPunten))
+            print("extra tijdslot: " + str(extraTijdslotPunten))
+            print("bonuspunten: " + str(bonusPunten))
+            print("score: " + str(scorepunten))
             return scorepunten
 
         else:
@@ -186,7 +186,7 @@ class Rooster(object):
 
         # kijkt of zaal in tijdslot 5 (17.00-19.00) wordt gebruikt
         for zaal in self.zaalslotenLijst:
-            if zaal.tijdslot == 5 and zaal.inGebruik == 1:
+            if zaal.tijdslot == 5 and zaal.activiteit.nrStud != 0:
                 malusPunten += 50
 
         return malusPunten
