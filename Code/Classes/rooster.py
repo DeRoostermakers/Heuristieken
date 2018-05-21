@@ -38,7 +38,7 @@ class Rooster(object):
     def vulActiviteitenLijstAan(self):
         verschil = len(self.zaalslotenLijst) - len(self.activiteitenLijst)
         if verschil > 0:
-            for leegZaalslot in range(verschil):
+            for i in range(verschil):
                 self.activiteitenLijst.append(ActiviteitKlasse.Activiteit(None, None, None, None, 0, []))
 
     def vulRandom(self):
@@ -72,11 +72,11 @@ class Rooster(object):
             malusPunten = vakSpreidingPunten + zaalgrootteConflictPunten + roosterConflictenPunten + extraTijdslotPunten
 
             scorepunten = 1000 - malusPunten + bonusPunten
-            print("vakspreiding: " + str(vakSpreidingPunten))
-            print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
-            print("roosterConflicten: " + str(roosterConflictenPunten))
-            print("extra tijdslot: " + str(extraTijdslotPunten))
-            print("bonuspunten: " + str(bonusPunten))
+            # print("vakspreiding: " + str(vakSpreidingPunten))
+            # print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
+            # print("roosterConflicten: " + str(roosterConflictenPunten))
+            # print("extra tijdslot: " + str(extraTijdslotPunten))
+            # print("bonuspunten: " + str(bonusPunten))
             print("score: " + str(scorepunten))
             return scorepunten
 

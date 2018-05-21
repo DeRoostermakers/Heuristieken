@@ -32,10 +32,10 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # score = roosterEnScore[1]
 
 #sequential(dagen, tijdsloten)
-#hillClimbing(dagen, tijdsloten)
+# hillClimbing(dagen, tijdsloten)
 
-groottePopulatie = 40
-aantalGeneraties = 10
+groottePopulatie = 50
+aantalGeneraties = 8
 geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties)
 
 # vul het rooster met vakken
