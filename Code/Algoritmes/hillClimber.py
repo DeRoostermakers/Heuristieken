@@ -44,5 +44,6 @@ def hillClimbing(rooster):
     for i in range(minIteraties):
         aantalIteraties.append(i)
 
+    visualiseer(tijdsloten, dagen, rooster, score2)
     print(hillClimberRooster)
     return rooster

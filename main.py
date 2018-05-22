@@ -21,17 +21,19 @@ from geneticAlgorithm import geneticAlgorithm
 import rooster as Rooster
 # from visualiseer import visualiseer
 
-
-
 # Dagen en tijdsloten welke geldig zijn voor het rooster
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
 tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-19.00"]
 
+# roosterEnScore = hillClimbing(dagen, tijdsloten)
+# rooster = roosterEnScore[0]
+# score = roosterEnScore[1]
+minIteraties = 1000
 rooster = Rooster.Rooster(dagen, tijdsloten)
 rooster.vulRandom()
-# hoi = sequential(rooster)
-# einde = hillClimbing(hoi)
-# einde.scoreOnderverdeeld()
+simulatedAnnealing(rooster, minIteraties)
+
+#sequential(dagen, tijdsloten)
 
 groottePopulatie = 10
 aantalGeneraties = 5

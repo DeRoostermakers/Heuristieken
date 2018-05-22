@@ -23,8 +23,7 @@ def visualiseer(tijdsloten, weekdagen, rooster, score):
                 if vanDagNaarID[dag] == zaalslot.dag:
                     if vanTijdslotNaarID[tijdslot] == zaalslot.tijdslot:
                         if zaalslot.activiteit != None:
-                            # gesorteerdeActiviteiten.append((str(rooster.vanIdNaarVak[zaalslot.activiteit.vakId]) + str(zaalslot.activiteit.groepnr)))
-                            gesorteerdeActiviteiten.append((str(zaalslot.activiteit.vakId)))
+                            gesorteerdeActiviteiten.append((str(rooster.vanIdNaarVak[zaalslot.activiteit.vakId]) + str(zaalslot.activiteit.groepnr)))
                         else:
                             gesorteerdeActiviteiten.append(None)
 
