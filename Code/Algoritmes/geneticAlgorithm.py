@@ -14,13 +14,15 @@ import copy
 # op welke manier worden de laatste nog in te roosteren activiteiten ingeroosterd
 # kijken of het nog mooier geschreven kan worden
 
-def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
+def geneticAlgorithm(rooster, dagen, tijdsloten, groottePopulatie, aantalGeneraties):
 
     # creëer populatie bestaande uit willekeurige roosters
     populatie = []
 
+    populatie.append([rooster, rooster.score()])
+
     # maak een populatie zo groot als voorgeschreven
-    for i in range(groottePopulatie):
+    for i in range(groottePopulatie - 1):
         burger = Rooster.Rooster(dagen, tijdsloten)
         burger.vulRandom()
         populatie.append([burger, burger.score()])
@@ -39,14 +41,16 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
 
             kind = Rooster.Rooster(dagen, tijdsloten)
 
-            ######################### RECOMBINATIE
+
             # recombineer ouders door van ieder willekeurige, halve aantal activiteiten te gebruiken
             aantalActiviteiten = len(ouder1.activiteitenLijst)
 
             print(len(ouder1.activiteitenLijst))
             print(len(ouder2.activiteitenLijst))
+
+
             # kies de indeces helft van de activiteiten van ouder 1
-            indexActiviteiten = random.sample(range(aantalActiviteiten), round(aantalActiviteiten/2))
+            indexActiviteiten = random.sample(range(aantalActiviteiten), random.randint(0,aantalActiviteiten))
 
             activiteitenOuder1 = []
             activiteitenIdsOuder1 = []
@@ -170,4 +174,4 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
     populatieGesorteerd = sorted(populatie, key=itemgetter(1))
     besteScore = populatieGesorteerd[0]
     print(besteScore[1])
-    return besteScore
+    return besteScore[0]
