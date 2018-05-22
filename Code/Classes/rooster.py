@@ -38,7 +38,7 @@ class Rooster(object):
     def vulActiviteitenLijstAan(self):
         verschil = len(self.zaalslotenLijst) - len(self.activiteitenLijst)
         if verschil > 0:
-            for leegZaalslot in range(verschil):
+            for i in range(verschil):
                 self.activiteitenLijst.append(ActiviteitKlasse.Activiteit(None, None, None, None, 0, []))
 
     def vulRandom(self):
@@ -83,6 +83,32 @@ class Rooster(object):
         else:
             return "niet alle vakken zijn ingeroosterd, geen score"
 
+    def scoreOnderverdeeld(self):
+        "deze functie berekent de score van een rooster"
+
+        # maakt een rooster structuur van de activiteitenlijst
+        perGroep = self.weekIndeling()
+
+        # berekent de malus- en bonuspunten per onderdeel
+        if self.vakkenIngeroosterd():
+            bonusPunten = self.bonus(perGroep)
+            vakSpreidingPunten = self.vakSpreiding(perGroep)
+            zaalgrootteConflictPunten = self.zaalgrootteConflict()
+            roosterConflictenPunten = self.roosterConflicten()
+            extraTijdslotPunten = self.extraTijdslot()
+            malusPunten = vakSpreidingPunten + zaalgrootteConflictPunten + roosterConflictenPunten + extraTijdslotPunten
+
+            scorepunten = 1000 - malusPunten + bonusPunten
+            print("vakspreiding: " + str(vakSpreidingPunten))
+            print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
+            print("roosterConflicten: " + str(roosterConflictenPunten))
+            print("extra tijdslot: " + str(extraTijdslotPunten))
+            print("bonuspunten: " + str(bonusPunten))
+            print("score: " + str(scorepunten))
+            return scorepunten
+
+        else:
+            return "niet alle vakken zijn ingeroosterd, geen score"
     def zetIdOmNaarTijdslot(self, tijdsloten):
         "Maakt een dict om een id om te zetten naar een tijdslot."
         for i in range(1, len(tijdsloten) + 1):
@@ -186,7 +212,7 @@ class Rooster(object):
 
         # kijkt of zaal in tijdslot 5 (17.00-19.00) wordt gebruikt
         for zaal in self.zaalslotenLijst:
-            if zaal.tijdslot == 5 and zaal.inGebruik == 1:
+            if zaal.tijdslot == 5 and zaal.activiteit.nrStud != 0:
                 malusPunten += 50
 
         return malusPunten

@@ -3,6 +3,7 @@ import rooster as Rooster
 import math
 
 def sequential(dagen, tijdsloten):
+    legeVakken = []
 
     rooster = Rooster.Rooster(dagen, tijdsloten)
 
@@ -18,37 +19,50 @@ def sequential(dagen, tijdsloten):
     # sorteer de zaalsloten op het aantal studenten per capaciteit
     rooster.zaalslotenLijst.sort(key = lambda x: x.capaciteit, reverse = True)
 
+    print(len(rooster.activiteitenLijst))
+
     j = 0
     # voeg de activiteiten toe aan de zaalsloten, sla de zaalsloten van 17.00-19.00 over
     for i in range(len(rooster.activiteitenLijst)):
+        if(rooster.activiteitenLijst[i].nrStud == 0):
+            legeVakken.append(rooster.activiteitenLijst[i])
+            continue
+
         while(rooster.zaalslotenLijst[j].tijdslot == 5):
             j += 1
 
         rooster.zaalslotenLijst[j].voegToe(rooster.activiteitenLijst[i])
         j += 1
 
-    zalen = [[]  for i in range(len(rooster.zaalNaarID))]
+    k = 0
     for zaalslot in rooster.zaalslotenLijst:
-        zalen[rooster.zaalNaarID[zaalslot.naam]].append(zaalslot)
+        if zaalslot.inGebruik == 0:
+            zaalslot.voegToe(legeVakken[k])
+            k += 1
 
-    print(zalen)
+    print(legeVakken)
+
     print("score na sequential stap 1: " + str(rooster.score()))
 
-    for zaal in zalen:
-        scoreOud = rooster.score()
-        for i in range(50):
-            # wissel twee willekeurige zaalsloten
-            indexZaalslot = random.sample(range(len(zaal)), 2)
-            randomZaalslot1 = zaal[indexZaalslot[0]]
-            randomZaalslot2 = zaal[indexZaalslot[1]]
-            randomZaalslot1.wissel(randomZaalslot2)
-            scoreNieuw = rooster.score()
-            if scoreNieuw > scoreOud:
-                scoreOud = scoreNieuw
-            else:
-                randomZaalslot2.wissel(randomZaalslot1)
+    # zalen = [[]  for i in range(len(rooster.zaalNaarID))]
+    # for zaalslot in rooster.zaalslotenLijst:
+    #     zalen[rooster.zaalNaarID[zaalslot.naam]].append(zaalslot)
 
-    return [rooster, rooster.score()]
+    # for zaal in zalen:
+    #     scoreOud = rooster.score()
+    #     for i in range(50):
+    #         # wissel twee willekeurige zaalsloten
+    #         indexZaalslot = random.sample(range(len(zaal)), 2)
+    #         randomZaalslot1 = zaal[indexZaalslot[0]]
+    #         randomZaalslot2 = zaal[indexZaalslot[1]]
+    #         randomZaalslot1.wissel(randomZaalslot2)
+    #         scoreNieuw = rooster.score()
+    #         if scoreNieuw > scoreOud:
+    #             scoreOud = scoreNieuw
+    #         else:
+    #             randomZaalslot2.wissel(randomZaalslot1)
+    #
+    # return [rooster, rooster.score()]
 
 def sequentialDos(dagen, tijdsloten):
     rooster = Rooster.Rooster(dagen, tijdsloten)

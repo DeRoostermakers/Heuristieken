@@ -13,13 +13,15 @@ from visualiseer import visualiseer
 def hillClimbing(dagen, tijdsloten):
     # maak een rooster object aan
     rooster = Rooster.Rooster(dagen, tijdsloten)
-    minIteraties = 2000
-    rooster.vulRandom()
-    score = rooster.score()
 
+    minIteraties = 1000
     mutaties = 0
     lijstScore = []
     hillClimberRooster = []
+
+    rooster.vulRandom()
+    score = rooster.scoreOnderverdeeld()
+
     for i in range(minIteraties):
 
         # wissel twee willekeurige zaalsloten
@@ -27,13 +29,12 @@ def hillClimbing(dagen, tijdsloten):
         indexZaalslot = random.sample(range(len(rooster.zaalslotenLijst)), 2)
         randomZaalslot1 = rooster.zaalslotenLijst[indexZaalslot[0]]
         randomZaalslot2 = rooster.zaalslotenLijst[indexZaalslot[1]]
-        randomZaalslot1.wissel(randomZaalslot2)
 
+        randomZaalslot1.wissel(randomZaalslot2)
         score2 = rooster.score()
         lijstScore.append(score)
         visualiseer(tijdsloten, dagen, rooster, score2)
         input()
-
 
         if score2 > score:
             score = score2
@@ -42,16 +43,11 @@ def hillClimbing(dagen, tijdsloten):
         else:
             randomZaalslot2.wissel(randomZaalslot1)
 
-    hillClimberRooster.extend([rooster, score])
+    hillClimberRooster.append([rooster, score])
 
     aantalIteraties = []
     for i in range(minIteraties):
         aantalIteraties.append(i)
 
-    # print(lijstScore)
-
-
-    # print(aantalIteraties)
-    print(lijstScore)
-    # print(hillClimberRooster)
+    print(hillClimberRooster)
     return hillClimberRooster

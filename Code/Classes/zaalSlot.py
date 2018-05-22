@@ -29,33 +29,22 @@ class ZaalSlot(object):
         """ Wissel twee activiteiten van tijdslot"""
 
         # sla de eerste activiteit tijdelijk op
-        # tijdelijkActiviteit = self.activiteit
         tijdelijkDag = self.dag
         tijdelijkTijdslot = self.tijdslot
-        # tijdelijkInGebruik = self.inGebruik
-        tijdelijkIdNaarDag = self.idNaarDag
 
-        # verwissel de eerste activiteit met de tweede
-        # self.activiteit = zaalslot.activiteit
-        self.dag = zaalslot.dag
-        self.tijdslot = zaalslot.tijdslot
-        # self.inGebruik = zaalslot.inGebruik
-        self.idNaarDag = zaalslot.idNaarDag
 
-        if self.activiteit:
-            self.activiteit.dag = zaalslot.dag
-            self.activiteit.tijdslot = zaalslot.tijdslot
+        # sla de twee activiteit informatie op
+        self.activiteit.dag = zaalslot.dag
+        self.activiteit.tijdslot = zaalslot.tijdslot
 
-        # verwissel de tweede activiteit met de eerste
-        # zaalslot.activiteit = tijdelijkActiviteit
-        zaalslot.dag = tijdelijkDag
-        zaalslot.tijdslot = tijdelijkTijdslot
-        # zaalslot.inGebruik = tijdelijkInGebruik
-        zaalslot.idNaarDag = tijdelijkIdNaarDag
+        zaalslot.activiteit.dag = tijdelijkDag
+        zaalslot.activiteit.tijdslot = tijdelijkTijdslot
 
-        if zaalslot.activiteit:
-            zaalslot.activiteit.dag = tijdelijkDag
-            zaalslot.activiteit.tijdslot = tijdelijkTijdslot
+        tijdelijkActiviteit = self.activiteit
+
+        self.activiteit = zaalslot.activiteit
+        zaalslot.activiteit = tijdelijkActiviteit
+
 
 
     def voegToe(self, activiteit):
