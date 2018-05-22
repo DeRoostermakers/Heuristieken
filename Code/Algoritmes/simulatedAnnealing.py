@@ -6,20 +6,16 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 
 import random
 import math
-import rooster as Rooster
 import zaalSlot as ZaalSlot
 
+def simulatedAnnealing(rooster, minIteraties):
 
-def simulatedAnnealing(dagen, tijdsloten):
-    # maak een rooster object aan
-    rooster = Rooster.Rooster(dagen, tijdsloten)
-    minIteraties = 2000
-    rooster.vulRandom()
-    score = rooster.score()
-
+    # definieer temperaturen
     beginTemperatuur = 100
     eindTemperatuur = 0
 
+    # initialiseer variabelen
+    score = rooster.score()
     mutaties = 0
     lijstScore = []
     simulatedAnnealingRooster = []
@@ -33,24 +29,28 @@ def simulatedAnnealing(dagen, tijdsloten):
         score2 = rooster.score()
         lijstScore.append(score)
 
-        if score2 > score:
+        # bereken temperatuur en acceptatiekans
+        temperatuur = beginTemperatuur-i*(beginTemperatuur-eindTemperatuur)/minIteraties
+        verkorting = score2 - score
+        acceptatieKans = math.exp(verkorting/temperatuur)
+
+        # accepteer verandering als score verbeterd
+        if acceptatieKans >= 1:
             score = score2
             mutaties += 1
 
-        else:
-            # nog steeds geaccepteerd toegestaan
-            temperatuur = beginTemperatuur-i*(beginTemperatuur-eindTemperatuur)/minIteraties
-            verkorting = score2 - score
-            acceptatieKans = math.exp(verkorting/temperatuur)
-            # print(acceptatieKans)
+        # accepteer slechtere score afhankelijk van acceptatiekans
+        elif acceptatieKans < 1:
 
+            # nog steeds geaccepteerd toegestaan
             nummer = random.random()
             if acceptatieKans > nummer:
                 score = score2
                 mutaties += 1
 
             # niet geaccepteerd
-            randomZaalslot2.wissel(randomZaalslot1)
+            else:
+                randomZaalslot2.wissel(randomZaalslot1)
 
     simulatedAnnealingRooster.append([rooster, score])
 
@@ -60,5 +60,4 @@ def simulatedAnnealing(dagen, tijdsloten):
 
     # print(aantalIteraties)
     print(lijstScore)
-    print(simulatedAnnealingRooster)
     return rooster

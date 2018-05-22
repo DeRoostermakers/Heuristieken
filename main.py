@@ -18,10 +18,8 @@ from hillClimber2 import hillClimbing2
 from simulatedAnnealing import simulatedAnnealing
 from sequential import sequential, sequentialDos, sequentialTres
 from geneticAlgorithm import geneticAlgorithm
-#import rooster as Rooster
+import rooster as Rooster
 from visualiseer import visualiseer
-
-
 
 # Dagen en tijdsloten welke geldig zijn voor het rooster
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
@@ -30,9 +28,12 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # roosterEnScore = hillClimbing(dagen, tijdsloten)
 # rooster = roosterEnScore[0]
 # score = roosterEnScore[1]
+minIteraties = 1000
+rooster = Rooster.Rooster(dagen, tijdsloten)
+rooster.vulRandom()
+simulatedAnnealing(rooster, minIteraties)
 
 #sequential(dagen, tijdsloten)
-hillClimbing(dagen, tijdsloten)
 
 # groottePopulatie = 50
 # aantalGeneraties = 8
@@ -40,7 +41,7 @@ hillClimbing(dagen, tijdsloten)
 
 # vul het rooster met vakken
 # rooster.vulRandom()
-hillClimbing(dagen, tijdsloten)
+# hillClimbing(dagen, tijdsloten)
 # rooster = roosterEnScore[0]
 # score = roosterEnScore[1]
 # visualiseer(tijdsloten, dagen, rooster, score)
