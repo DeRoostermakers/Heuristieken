@@ -19,7 +19,7 @@ def hillClimbing(dagen, tijdsloten):
     hillClimberRooster = []
 
     rooster.vulRandom()
-    score = rooster.score()
+    score = rooster.scoreOnderverdeeld()
 
     for i in range(minIteraties):
 
@@ -45,7 +45,5 @@ def hillClimbing(dagen, tijdsloten):
     for i in range(minIteraties):
         aantalIteraties.append(i)
 
-
-    print(lijstScore)
     print(hillClimberRooster)
     return hillClimberRooster

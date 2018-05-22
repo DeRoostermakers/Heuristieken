@@ -77,12 +77,38 @@ class Rooster(object):
             # print("roosterConflicten: " + str(roosterConflictenPunten))
             # print("extra tijdslot: " + str(extraTijdslotPunten))
             # print("bonuspunten: " + str(bonusPunten))
-            print("score: " + str(scorepunten))
+            # print("score: " + str(scorepunten))
             return scorepunten
 
         else:
             return "niet alle vakken zijn ingeroosterd, geen score"
 
+    def scoreOnderverdeeld(self):
+        "deze functie berekent de score van een rooster"
+
+        # maakt een rooster structuur van de activiteitenlijst
+        perGroep = self.weekIndeling()
+
+        # berekent de malus- en bonuspunten per onderdeel
+        if self.vakkenIngeroosterd():
+            bonusPunten = self.bonus(perGroep)
+            vakSpreidingPunten = self.vakSpreiding(perGroep)
+            zaalgrootteConflictPunten = self.zaalgrootteConflict()
+            roosterConflictenPunten = self.roosterConflicten()
+            extraTijdslotPunten = self.extraTijdslot()
+            malusPunten = vakSpreidingPunten + zaalgrootteConflictPunten + roosterConflictenPunten + extraTijdslotPunten
+
+            scorepunten = 1000 - malusPunten + bonusPunten
+            print("vakspreiding: " + str(vakSpreidingPunten))
+            print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
+            print("roosterConflicten: " + str(roosterConflictenPunten))
+            print("extra tijdslot: " + str(extraTijdslotPunten))
+            print("bonuspunten: " + str(bonusPunten))
+            print("score: " + str(scorepunten))
+            return scorepunten
+
+        else:
+            return "niet alle vakken zijn ingeroosterd, geen score"
     def zetIdOmNaarTijdslot(self, tijdsloten):
         "Maakt een dict om een id om te zetten naar een tijdslot."
         for i in range(1, len(tijdsloten) + 1):
