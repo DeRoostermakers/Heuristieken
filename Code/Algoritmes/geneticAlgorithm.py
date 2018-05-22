@@ -54,7 +54,6 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
             # selecter de gekozen eerste helft van activiteiten van ouder 1
             for i in range(len(indexActiviteiten)):
                 activiteit = ouder1.activiteitenLijst[indexActiviteiten[i]]
-
                 if activiteit.nrStud == 0:
                     continue
                 else:
@@ -124,6 +123,12 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
                 if zaalslot.zaalslotId not in zaalslotenKindIds:
                     vrijeZaalslotenKind.append(copy.deepcopy(zaalslot))
 
+            # sorteer de activiteiten op het aantal studenten per activiteit
+            NogInTeRoosteren.sort(key = lambda x: x.nrStud, reverse = True)
+
+            # sorteer de zaalsloten op het aantal studenten per capaciteit
+            vrijeZaalslotenKind.sort(key = lambda x: x.capaciteit, reverse = True)
+
             # voeg vrije activiteien toe aan vrij zaalsloten, nu nog random!
             for i in range(len(NogInTeRoosteren)):
                 vrijeZaalslotenKind[i].voegToe(NogInTeRoosteren[i])
@@ -164,5 +169,5 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
     # selecteer beste rooster van laatste populatie
     populatieGesorteerd = sorted(populatie, key=itemgetter(1))
     besteScore = populatieGesorteerd[0]
-
+    print(besteScore[1])
     return besteScore
