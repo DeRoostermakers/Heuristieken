@@ -8,15 +8,11 @@ import random
 import rooster as Rooster
 import zaalSlot as ZaalSlot
 
-
-
 def hillClimbing(rooster):
 
     minIteraties = 2000
     mutaties = 0
     lijstScore = []
-    hillClimberRooster = []
-
 
     score = rooster.score()
 
@@ -38,12 +34,8 @@ def hillClimbing(rooster):
         else:
             randomZaalslot2.wissel(randomZaalslot1)
 
-    hillClimberRooster.append([rooster, score])
-
     aantalIteraties = []
     for i in range(minIteraties):
         aantalIteraties.append(i)
 
-    visualiseer(tijdsloten, dagen, rooster, score2)
-    print(hillClimberRooster)
-    return rooster
+    return [rooster, lijstScore]

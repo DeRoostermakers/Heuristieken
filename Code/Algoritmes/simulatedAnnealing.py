@@ -54,10 +54,6 @@ def simulatedAnnealing(rooster, minIteraties):
 
     simulatedAnnealingRooster.append([rooster, score])
 
-    aantalIteraties = []
-    for i in range(minIteraties):
-        aantalIteraties.append(i)
-
     # print(aantalIteraties)
     print(lijstScore)
     return rooster

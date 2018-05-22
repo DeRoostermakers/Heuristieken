@@ -170,8 +170,4 @@ def geneticAlgorithm(rooster, dagen, tijdsloten, groottePopulatie, aantalGenerat
         # selecteer beste 50 roosters uit de populatie
         populatie = populatieGesorteerd[:groottePopulatie]
 
-    # selecteer beste rooster van laatste populatie
-    populatieGesorteerd = sorted(populatie, key=itemgetter(1))
-    besteScore = populatieGesorteerd[0]
-    print(besteScore[1])
-    return besteScore[0]
+    return populatieGesorteerd[0][0]

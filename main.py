@@ -19,6 +19,8 @@ from simulatedAnnealing import simulatedAnnealing
 from sequential import sequential
 from geneticAlgorithm import geneticAlgorithm
 import rooster as Rooster
+from frequentieHistogram import frequentieHistogram
+from iteratieVisualisatie import iteratieVisualisatie
 # from visualiseer import visualiseer
 
 # Dagen en tijdsloten welke geldig zijn voor het rooster
@@ -31,13 +33,19 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 minIteraties = 1000
 rooster = Rooster.Rooster(dagen, tijdsloten)
 rooster.vulRandom()
-simulatedAnnealing(rooster, minIteraties)
+# simulatedAnnealing(rooster, minIteraties)
+
+output = hillClimbing(rooster)
+iteratieVisualisatie(output[1])
+frequentieHistogram(output[1])
 
 #sequential(dagen, tijdsloten)
 
-groottePopulatie = 10
-aantalGeneraties = 5
-hoi = geneticAlgorithm(rooster, dagen, tijdsloten, groottePopulatie, aantalGeneraties)
+# groottePopulatie = 10
+# aantalGeneraties = 5
+# hoi = geneticAlgorithm(rooster, dagen, tijdsloten, groottePopulatie, aantalGeneraties)
+#
+# hoi.scoreOnderverdeeld()
 
 # vul het rooster met vakken
 # rooster.vulRandom()

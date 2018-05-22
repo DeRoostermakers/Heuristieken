@@ -9,8 +9,8 @@ from operator import itemgetter
 import rooster as Rooster
 import zaalSlot as ZaalSlot
 
-
 def hillClimbing2(dagen, tijdsloten):
+
     # maak een rooster object aan
     rooster = Rooster.Rooster(dagen, tijdsloten)
     minIteraties = 200
@@ -19,7 +19,6 @@ def hillClimbing2(dagen, tijdsloten):
 
     mutaties = 0
     lijstScore = []
-    hillClimber2Rooster = []
     stop = 0
     for i in range(minIteraties):
         if stop > 50:
@@ -48,16 +47,6 @@ def hillClimbing2(dagen, tijdsloten):
             randomZaalslot2.wissel(randomZaalslot1)
             stop += 1
 
-    hillClimber2Rooster.extend([rooster, score])
-
-    aantalIteraties = []
-    for i in range(minIteraties):
-        aantalIteraties.append(i)
-
     print(lijstScore)
 
-
-    # print(aantalIteraties)
-    # print(lijstScore)
-    # print(hillClimberRooster2)
-    return hillClimber2Rooster
+    return rooster
