@@ -7,21 +7,18 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 import random
 import rooster as Rooster
 import zaalSlot as ZaalSlot
-from visualiseer import visualiseer
 
 
-def hillClimbing(dagen, tijdsloten):
-    # maak een rooster object aan
-    rooster = Rooster.Rooster(dagen, tijdsloten)
 
-    minIteraties = 1000
+def hillClimbing(rooster):
+
+    minIteraties = 2000
     mutaties = 0
     lijstScore = []
     hillClimberRooster = []
 
-    rooster.vulRandom()
-    score = rooster.scoreOnderverdeeld()
-    visualiseer(tijdsloten, dagen, rooster, score)
+
+    score = rooster.score()
 
     for i in range(minIteraties):
 
@@ -49,4 +46,4 @@ def hillClimbing(dagen, tijdsloten):
 
     visualiseer(tijdsloten, dagen, rooster, score2)
     print(hillClimberRooster)
-    return hillClimberRooster
+    return rooster
