@@ -14,13 +14,15 @@ import copy
 # op welke manier worden de laatste nog in te roosteren activiteiten ingeroosterd
 # kijken of het nog mooier geschreven kan worden
 
-def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
+def geneticAlgorithm(rooster, dagen, tijdsloten, groottePopulatie, aantalGeneraties):
 
     # creëer populatie bestaande uit willekeurige roosters
     populatie = []
 
+    populatie.append([rooster, rooster.score()])
+
     # maak een populatie zo groot als voorgeschreven
-    for i in range(groottePopulatie):
+    for i in range(groottePopulatie - 1):
         burger = Rooster.Rooster(dagen, tijdsloten)
         burger.vulRandom()
         populatie.append([burger, burger.score()])
@@ -39,14 +41,16 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
 
             kind = Rooster.Rooster(dagen, tijdsloten)
 
-            ######################### RECOMBINATIE
+
             # recombineer ouders door van ieder willekeurige, halve aantal activiteiten te gebruiken
             aantalActiviteiten = len(ouder1.activiteitenLijst)
 
             print(len(ouder1.activiteitenLijst))
             print(len(ouder2.activiteitenLijst))
+
+
             # kies de indeces helft van de activiteiten van ouder 1
-            indexActiviteiten = random.sample(range(aantalActiviteiten), round(aantalActiviteiten/2))
+            indexActiviteiten = random.sample(range(aantalActiviteiten), random.randint(0,aantalActiviteiten))
 
             activiteitenOuder1 = []
             activiteitenIdsOuder1 = []
@@ -54,7 +58,6 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
             # selecter de gekozen eerste helft van activiteiten van ouder 1
             for i in range(len(indexActiviteiten)):
                 activiteit = ouder1.activiteitenLijst[indexActiviteiten[i]]
-
                 if activiteit.nrStud == 0:
                     continue
                 else:
@@ -124,6 +127,12 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
                 if zaalslot.zaalslotId not in zaalslotenKindIds:
                     vrijeZaalslotenKind.append(copy.deepcopy(zaalslot))
 
+            # sorteer de activiteiten op het aantal studenten per activiteit
+            NogInTeRoosteren.sort(key = lambda x: x.nrStud, reverse = True)
+
+            # sorteer de zaalsloten op het aantal studenten per capaciteit
+            vrijeZaalslotenKind.sort(key = lambda x: x.capaciteit, reverse = True)
+
             # voeg vrije activiteien toe aan vrij zaalsloten, nu nog random!
             for i in range(len(NogInTeRoosteren)):
                 vrijeZaalslotenKind[i].voegToe(NogInTeRoosteren[i])
@@ -164,5 +173,5 @@ def geneticAlgorithm(dagen, tijdsloten, groottePopulatie, aantalGeneraties):
     # selecteer beste rooster van laatste populatie
     populatieGesorteerd = sorted(populatie, key=itemgetter(1))
     besteScore = populatieGesorteerd[0]
-
-    return besteScore
+    print(besteScore[1])
+    return besteScore[0]
