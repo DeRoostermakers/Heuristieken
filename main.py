@@ -21,35 +21,18 @@ from geneticAlgorithm import geneticAlgorithm
 import rooster as Rooster
 from frequentieHistogram import frequentieHistogram
 from iteratieVisualisatie import iteratieVisualisatie
+from randomSteekproef import randomSteekproef
 # from visualiseer import visualiseer
 
 # Dagen en tijdsloten welke geldig zijn voor het rooster
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
 tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-19.00"]
 
-# roosterEnScore = hillClimber(dagen, tijdsloten)
-# rooster = roosterEnScore[0]
-# score = roosterEnScore[1]
-# minIteraties = 1000
-# rooster = Rooster.Rooster(dagen, tijdsloten)
-# rooster.vulRandom()
-# simulatedAnnealing(rooster, minIteraties)
-#
-# rooster, scoreLijst = simulatedAnnealing(rooster, minIteraties)
-# iteratieVisualisatie(scoreLijst)
-#
-scoreLijst = []
-iteraties = 100
-for i in range(iteraties):
-    rooster = Rooster.Rooster(dagen, tijdsloten)
-    rooster.vulRandom()
-    nieuwRooster = simulatedAnnealing(rooster, 1500)
-    scoreLijst.append(nieuwRooster.score())
-    print(i)
 
-frequentieHistogram(scoreLijst)
+rooster = Rooster.Rooster(dagen, tijdsloten)
+rooster.vulRandom()
+print(rooster.score())
 
-#sequential(dagen, tijdsloten)
 
 # groottePopulatie = 10
 # aantalGeneraties = 5
@@ -57,43 +40,45 @@ frequentieHistogram(scoreLijst)
 #
 # hoi.scoreOnderverdeeld()
 
-# vul het rooster met vakken
-# rooster.vulRandom()
-# hillClimbing(dagen, tijdsloten)
+
 # rooster = roosterEnScore[0]
 # score = roosterEnScore[1]
 # visualiseer(tijdsloten, dagen, rooster, score)
 
-
-#rooster.vulRandom()
-
-# rooster.vulRandom()
-
-# simulatedAnnealing(dagen, tijdsloten)
-
 # maak een random steekproef aan van x iteraties
 # iteraties = 51
-# randomSteekproef(rooster, iteraties)
-# print("WELKOM BIJ HET INPLANNEN VAN DE LESROOSTERS")
-# def uitvoer():
-#     algoritme = input("Welke algoritme wil je uitproberen? \nJe kunt kiezen uit hillClimber, hillClimber2, simulatedAnnealing, sequential of geneticAlgorithm\n")
-#     aantalUivoeren = input("Hoeveel keer wil je dit dit algoritme uitvoeren?\n")
-#     print("Cool, laten we " + algoritme + " " + aantalUivoeren +" keer uitvoeren!")
+# randomSteekproef(rooster, 20000)
+
+print("WELKOM BIJ HET INPLANNEN VAN DE LESROOSTERS")
+def uitvoer():
+    algoritme = input("Welke algoritme wil je uitproberen? \nJe kunt kiezen uit hillClimber, hillClimber2, simulatedAnnealing, sequential of geneticAlgorithm\n")
+    aantalIteraties = input("Met hoeveel iteraties wil je dit algoritme uitvoeren?\n")
+    print("Cool, laten we " + algoritme + " met " + aantalIteraties +" iteraties uitvoeren!")
+
+    if algoritme == "hillClimber":
+        roosterNieuw, scoreNieuw = hillClimber(rooster, int(aantalIteraties))
+        print(roosterNieuw, scoreNieuw)
+    if algoritme == "hillClimber2":
+        roosterNieuw, scoreNieuw = hillClimber2(rooster, int(aantalIteraties))
+        print(roosterNieuw, scoreNieuw)
+    if algoritme == "simulatedAnnealing":
+        roosterNieuw = (simulatedAnnealing(dagen, tijdsloten))[0]
+        scoreNieuw = (simulatedAnnealing(dagen, tijdsloten))[1]
+
+    nogEenKeer = input("Wil je nog een algoritme op dit rooster uitproberen? (j/n)\n")
+    if nogEenKeer == "j":
+        return uitvoer()
+    else:
+        print("Bedankt! Hopelijk ben je tevreden met je rooster.")
+uitvoer()
+
+# scoreLijst = []
+# iteraties = 100
+# for i in range(iteraties):
+#     rooster = Rooster.Rooster(dagen, tijdsloten)
+#     rooster.vulRandom()
+#     nieuwRooster = simulatedAnnealing(rooster, 1500)
+#     scoreLijst.append(nieuwRooster.score())
+#     print(i)
 #
-#     if algoritme == "hillClimber":
-#         rooster = (hillClimbing(dagen, tijdsloten))[0]
-#         score = (hillClimbing(dagen, tijdsloten))[1]
-#         print(rooster, score)
-#     if algoritme == "hillClimber2":
-#         rooster = (hillClimbing2(dagen, tijdsloten))[0]
-#         score = (hillClimbing2(dagen, tijdsloten))[1]
-#     if algoritme == "simulatedAnnealing":
-#         rooster = (simulatedAnnealing(dagen, tijdsloten))[0]
-#         score = (simulatedAnnealing(dagen, tijdsloten))[1]
-#
-#     nogEenKeer = input("Wil je nog een algoritme op dit rooster uitproberen? (j/n)\n")
-#     if nogEenKeer == "j":
-#         return uitvoer()
-#     else:
-#         print("Bedankt! Hopelijk ben je tevreden met je rooster.")
-# uitvoer()
+# frequentieHistogram(scoreLijst)

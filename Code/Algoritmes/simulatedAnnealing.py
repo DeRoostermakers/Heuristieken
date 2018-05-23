@@ -12,7 +12,7 @@ from willekeurigeWissel import willekeurigeWissel
 def simulatedAnnealing(rooster, minIteraties):
 
     # definieer temperaturen
-    beginTemperatuur = 1000
+    beginTemperatuur = 100
     eindTemperatuur = 1
 
     # initialiseer variabelen
