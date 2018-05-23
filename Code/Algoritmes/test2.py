@@ -10,8 +10,12 @@ import copy
 from operator import itemgetter
 from willekeurigeWissel import willekeurigeWissel
 
-def geneticAlgorithm(rooster, dagen, tijdsloten, groottePopulatie, aantalGeneraties, mutatieKans):
-    " Genereert nieuwe roosters aan de hand van een genetisch algoritme"
+# hoeveel activiteiten van rooster 1, hoeveel activiteiten van ouder 2
+# op welke manier worden de laatste nog in te roosteren activiteiten ingeroosterd
+# kijken of het nog mooier geschreven kan worden
+
+def test2(rooster, dagen, tijdsloten, groottePopulatie, aantalGeneraties, mutatieKans):
+
     scoreLijst = []
     # creëer populatie bestaande uit willekeurige roosters
     populatie = maakPopulatie(rooster, dagen, tijdsloten, groottePopulatie)
@@ -30,7 +34,7 @@ def geneticAlgorithm(rooster, dagen, tijdsloten, groottePopulatie, aantalGenerat
             recombinatie(ouder1, ouder2, kind)
 
             # muteer kind rooster met een mogelijke kans
-            # mutatie(kind.zaalslotenLijst, mutatieKans)
+            mutatie(kind.zaalslotenLijst, mutatieKans)
 
             # voeg kind toe aan generatie van kinderen
             kinderen.append([kind, kind.score()])
@@ -47,7 +51,6 @@ def geneticAlgorithm(rooster, dagen, tijdsloten, groottePopulatie, aantalGenerat
     return [populatieGesorteerd[0][0], scoreLijst]
 
 def kiesOuders(populatie, groottePopulatie):
-    " Kies twee ouders om een kind rooster aan te maken"
     # selecteer willekeurig twee ouders uit de populatie
     oudersIndex = random.sample(range(groottePopulatie), 2)
     ouder1 = (populatie[oudersIndex[0]])[0]
@@ -57,7 +60,6 @@ def kiesOuders(populatie, groottePopulatie):
 
 
 def maakPopulatie(rooster, dagen, tijdsloten, groottePopulatie):
-    " Maak een populatie zo groot als de aangegeven grootte"
     # creëer populatie bestaande uit willekeurige roosters
     populatie = []
 
@@ -73,7 +75,6 @@ def maakPopulatie(rooster, dagen, tijdsloten, groottePopulatie):
     return populatie
 
 def recombinatie(ouder1, ouder2, kind):
-    " Maak een nieuw rooster door twee roosters te combineren"
     # recombineer ouders door van iedere ouder willekeurig aantal activiteiten te nemen
     aantalActiviteiten = len(ouder1.activiteitenLijst)
 
@@ -165,11 +166,10 @@ def recombinatie(ouder1, ouder2, kind):
     kind.zaalslotenLijst = zaalslotenKind
 
 def mutatie(zaalslotenLijst, mutatieKans):
-    " Muteer een rooster met een bepaalde kans"
-    # muteer kind met een mutatiekans
-    een = 1
-    nummer = random.sample(range(int(1/mutatieKans)), een)
-    if een in nummer:
-        # wissel twee willekeurige zaalsloten
-        randomZaalslot1, randomZaalslot2 = willekeurigeWissel(zaalslotenLijst)
-        randomZaalslot1.wissel(randomZaalslot2)
+        # muteer kind met een mutatiekans
+        een = 1
+        nummer = random.sample(range(int(1/mutatieKans)), een)
+        if een in nummer:
+            # wissel twee willekeurige zaalsloten
+            randomZaalslot1, randomZaalslot2 = willekeurigeWissel(zaalslotenLijst)
+            randomZaalslot1.wissel(randomZaalslot2)

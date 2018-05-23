@@ -5,7 +5,7 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 
 import os, sys
-
+import csv
 directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "Code"))
 sys.path.append(os.path.join(directory, "Code", "Classes"))
@@ -16,6 +16,7 @@ sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 from hillClimber import hillClimber
 from hillClimber2 import hillClimber2
 from simulatedAnnealing import simulatedAnnealing
+from test2 import test2
 from sequential import sequential
 from geneticAlgorithm import geneticAlgorithm
 import rooster as Rooster
@@ -39,15 +40,19 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # iteratieVisualisatie(scoreLijst)
 
 scoreLijst = []
-interaties = 3
-for i in range(interaties):
+iteraties = 1
+for i in range(iteraties):
     rooster = Rooster.Rooster(dagen, tijdsloten)
     rooster.vulRandom()
-    nieuwRooster = hillClimber(rooster, 1000)
+    nieuwRooster = geneticAlgorithm(rooster, dagen, tijdsloten, 50, 100, 0.75)
     scoreLijst.append(nieuwRooster[0].score())
+    print("we zijn bij interatie: " + str(i))
 
-frequentieHistogram(scoreLijst)
-
+#Assuming res is a flat list
+with open("resultaat.csv", "w") as output:
+    writer = csv.writer(output, lineterminator='\n')
+    for val in nieuwRooster[1]:
+        writer.writerow([val])
 #sequential(dagen, tijdsloten)
 
 # groottePopulatie = 10

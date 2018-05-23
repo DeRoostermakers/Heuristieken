@@ -4,19 +4,20 @@ Functie om de verdeling van scores in te zien.
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 
-import plotly.plotly as py
+import plotly as py
 import plotly.graph_objs as go
 import numpy as np
+from plotly import tools
 py.tools.set_credentials_file(username='DeRoostermakers', api_key='kMZnofKi6pSyYy6Ih1bI')
 
 def frequentieHistogram(scoreLijst):
-
+    
     # plot de bargrafiek
-    ontwerp = go.Histogram(x=scoreLijst, xbins=dict(start=np.min(scoreLijst), size=10,
+    ontwerp = go.Histogram(x=scoreLijst, xbins=dict(start=np.min(scoreLijst), size=20,
                            end=np.max(scoreLijst)), marker=dict(color='rgb(74, 102, 118)'))
     layout = go.Layout(title="Histogram met scorefrequentie")
     figuur = go.Figure(data=go.Data([ontwerp]), layout=layout)
-    py.plot(figuur, filename='histogram-frequentie')
+    py.plotly.plot(figuur, filename='histogram-frequentie')
 
     # statistieken bekijken
     gemiddelde = np.mean(scoreLijst)

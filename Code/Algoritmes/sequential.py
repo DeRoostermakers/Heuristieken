@@ -10,6 +10,7 @@ import rooster as Rooster
 import math
 
 def sequential(rooster):
+    scoreLijst = []
     legeActiviteiten = []
 
     # maak een random volgorde van de zaalslotenlijst
@@ -44,7 +45,8 @@ def sequential(rooster):
             zaalslot.voegToe(legeActiviteiten[k])
             k += 1
 
-    return rooster
+    scoreLijst.append(rooster.score())
+    return [rooster, scoreLijst]
     # zalen = [[]  for i in range(len(rooster.zaalNaarID))]
     # for zaalslot in rooster.zaalslotenLijst:
     #     zalen[rooster.zaalNaarID[zaalslot.naam]].append(zaalslot)
