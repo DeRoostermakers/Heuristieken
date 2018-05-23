@@ -15,21 +15,21 @@ def randomSteekproef(rooster, iteraties):
     for simulatie in range(1, iteraties + 1):
         rooster.vulRandom()
         scores.append(rooster.score())
-    
+
     # plot de bargrafiek
-    ontwerp = go.Histogram(x=scores, xbins=dict(start=np.min(scores), size=10, 
+    ontwerp = go.Histogram(x=scores, xbins=dict(start=np.min(scores), size=20,
                            end=np.max(scores)), marker=dict(color='rgb(74, 102, 118)'))
     layout = go.Layout(title="Histogram met scorefrequentie")
     figuur = go.Figure(data=go.Data([ontwerp]), layout=layout)
     py.plot(figuur, filename='histogram-frequentie')
-    
+
     # statistieken bekijken
     gemiddelde = np.mean(scores)
     afwijking = np.std(scores)
     mediaan = np.median(scores)
     maximum = np.max(scores)
     minimum = np.min(scores)
-    
+
     print("Het gemiddelde is " + str(gemiddelde))
     print("De standaardafwijking is " + str(afwijking))
     print("De mediaan is " + str(mediaan))

@@ -15,13 +15,14 @@ sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 from hillClimber import hillClimber
 from hillClimber2 import hillClimber2
-from simulatedAnnealing import simulatedAnnealing
+from simulatedAnnealing import simulatedAnnealing, lineairFunctie, exponentieelFunctie, sigmoidalFunctie
 from sequential import sequential
 from geneticAlgorithm import geneticAlgorithm
 import rooster as Rooster
 from frequentieHistogram import frequentieHistogram
 from iteratieVisualisatie import iteratieVisualisatie
-# from visualiseer import visualiseer
+from visualiseer import visualiseer
+from randomSteekproef import randomSteekproef
 
 # Dagen en tijdsloten welke geldig zijn voor het rooster
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
@@ -30,23 +31,28 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # roosterEnScore = hillClimber(dagen, tijdsloten)
 # rooster = roosterEnScore[0]
 # score = roosterEnScore[1]
-# minIteraties = 1000
-# rooster = Rooster.Rooster(dagen, tijdsloten)
-# rooster.vulRandom()
-# # simulatedAnnealing(rooster, minIteraties)
+minIteraties = 100
+rooster = Rooster.Rooster(dagen, tijdsloten)
+rooster.vulRandom()
+
+#randomSteekproef(rooster, 20000)
+
+simulatedAnnealing(rooster, minIteraties, 100, 1, sigmoidalFunctie)
+
 #
 # rooster, scoreLijst = hillClimber2(rooster, minIteraties)
 # iteratieVisualisatie(scoreLijst)
 
-scoreLijst = []
-interaties = 3
-for i in range(interaties):
-    rooster = Rooster.Rooster(dagen, tijdsloten)
-    rooster.vulRandom()
-    nieuwRooster = hillClimber(rooster, 1000)
-    scoreLijst.append(nieuwRooster[0].score())
-
-frequentieHistogram(scoreLijst)
+# scoreLijst = []
+# iteraties = 100
+# for i in range(iteraties):
+#     rooster = Rooster.Rooster(dagen, tijdsloten)
+#     rooster.vulRandom()
+#     nieuwRooster= hillClimber(rooster, 5000)
+#     scoreLijst.append(nieuwRooster.score())
+#     print(i)
+#
+# frequentieHistogram(scoreLijst)
 
 #sequential(dagen, tijdsloten)
 
@@ -61,7 +67,7 @@ frequentieHistogram(scoreLijst)
 # hillClimbing(dagen, tijdsloten)
 # rooster = roosterEnScore[0]
 # score = roosterEnScore[1]
-# visualiseer(tijdsloten, dagen, rooster, score)
+# visualiseer(tijdsloten, dagen, rooster)
 
 
 #rooster.vulRandom()

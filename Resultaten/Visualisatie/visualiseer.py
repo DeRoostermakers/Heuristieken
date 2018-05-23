@@ -9,11 +9,14 @@ import plotly.figure_factory as ff
 from plotly import tools
 py.tools.set_credentials_file(username='DeRoostermakers', api_key='kMZnofKi6pSyYy6Ih1bI')
 
-def visualiseer(tijdsloten, weekdagen, rooster, score):
+def visualiseer(tijdsloten, weekdagen, rooster):
 
+    # initialiseer benodigde gegevens
     vanDagNaarID = {"maandag" : 1, "dinsdag" : 2, "woensdag" : 3, "donderdag" : 4, "vrijdag" : 5}
-    vanTijdslotNaarID = {"9.00-11.00" : 1, "11.00-13.00" : 2, "13.00-15.00" : 3, "15.00-17.00" : 4, "17.00-19.00" : 5}
+    vanTijdslotNaarID = {"9.00-11.00" : 1, "11.00-13.00" : 2, "13.00-15.00" : 3,
+                        "15.00-17.00" : 4, "17.00-19.00" : 5}
     zalen = ["A1.04", "A1.06", "A1.08", "A1.10", "B0.201", "C0.110", "C0.112"]
+    score = rooster.score()
 
     # sorteer activiteiten op dag, tijd en zaal
     gesorteerdeActiviteiten = []
@@ -22,10 +25,23 @@ def visualiseer(tijdsloten, weekdagen, rooster, score):
             for zaalslot in rooster.zaalslotenLijst:
                 if vanDagNaarID[dag] == zaalslot.dag:
                     if vanTijdslotNaarID[tijdslot] == zaalslot.tijdslot:
-                        if zaalslot.activiteit != None:
-                            gesorteerdeActiviteiten.append((str(rooster.vanIdNaarVak[zaalslot.activiteit.vakId]) + str(zaalslot.activiteit.groepnr)))
+                        if zaalslot.activiteit.vakId != None:
+
+                            # label hoorcolleges, werkcolleges en practica
+                            if zaalslot.activiteit.soort == 0:
+                                gesorteerdeActiviteiten.append(
+                                    str(rooster.vanIdNaarVak[zaalslot.activiteit.vakId]
+                                    + ", HC"))
+                            elif zaalslot.activiteit.soort == 1:
+                                gesorteerdeActiviteiten.append(
+                                    str(rooster.vanIdNaarVak[zaalslot.activiteit.vakId]
+                                    + ", WC " + str(zaalslot.activiteit.groepnr)))
+                            else:
+                                gesorteerdeActiviteiten.append(
+                                    str(rooster.vanIdNaarVak[zaalslot.activiteit.vakId])
+                                    + ", Prac " + str(zaalslot.activiteit.groepnr))
                         else:
-                            gesorteerdeActiviteiten.append(None)
+                            gesorteerdeActiviteiten.append(" ")
 
     # zet de data in de juiste weekstructuur
     week = []
@@ -89,13 +105,13 @@ def visualiseer(tijdsloten, weekdagen, rooster, score):
             tabel4["layout"]["annotations"][k].update(xref="x4", yref="y4")
     for k in range(len(tabel5["layout"]["annotations"])):
             tabel5["layout"]["annotations"][k].update(xref="x5", yref="y5")
-
     figuur["layout"]["annotations"].extend(tabel1["layout"]["annotations"]+tabel2["layout"]["annotations"]
                                             +tabel3["layout"]["annotations"]+tabel4["layout"]["annotations"]
                                             +tabel5["layout"]["annotations"])
 
     # update de layout instellingen van figuur
-    figuur["layout"].update(width=2250, height=800, margin=dict(t=50, l=50, r=50, b=50), title = "Rooster met score " + str(score))
+    figuur["layout"].update(width=2250, height=800, margin=dict(t=50, l=50, r=50, b=50),
+                            title = "Rooster met score " + str(score))
 
-    # plot de tabellen
+    # plot de tabellen in een figuur
     py.plotly.plot(figuur, validate = False, filename='Weekrooster')

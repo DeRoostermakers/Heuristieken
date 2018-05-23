@@ -26,4 +26,4 @@ def hillClimber(rooster, minIteraties):
         else:
             randomZaalslot2.wissel(randomZaalslot1)
 
-    return rooster, scoreLijst
+    return rooster

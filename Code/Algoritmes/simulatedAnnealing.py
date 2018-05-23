@@ -9,11 +9,7 @@ import math
 import zaalSlot as ZaalSlot
 from willekeurigeWissel import willekeurigeWissel
 
-def simulatedAnnealing(rooster, minIteraties):
-
-    # definieer temperaturen
-    beginTemperatuur = 100
-    eindTemperatuur = 1
+def simulatedAnnealing(rooster, minIteraties, beginTemperatuur, eindTemperatuur, temperatuurFunctie):
 
     # initialiseer variabelen
     score = rooster.score()
@@ -27,13 +23,7 @@ def simulatedAnnealing(rooster, minIteraties):
         scoreLijst.append(score)
 
         # bereken temperatuur en acceptatiekans
-        # lineair
-        temperatuur = beginTemperatuur - i * (beginTemperatuur - eindTemperatuur) / minIteraties
-        # # exponentieel
-        # temperatuur = beginTemperatuur * (eindTemperatuur / beginTemperatuur)^(i / minIteraties)
-        # # sigmoidal
-        # temperatuur = eindTemperatuur + (beginTemperatuur - eindTemperatuur) / (1 + math.exp(0.3 * (i - minIteraties / 2)))
-
+        temperatuur = temperatuurFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i)
         verkorting = score2 - score
         acceptatieKans = math.exp(verkorting/temperatuur)
 
@@ -55,3 +45,18 @@ def simulatedAnnealing(rooster, minIteraties):
 
     # print(aantalIteraties)
     return rooster, scoreLijst
+
+def lineairFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):
+    "Berekent temperatuur aan de hand van lineaire formule"
+    temperatuur = beginTemperatuur - i * (beginTemperatuur - eindTemperatuur) / minIteraties
+    return temperatuur
+
+def exponentieelFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):
+    "Berekent temperatuur aan de hand van exponentiële formule"
+    temperatuur = beginTemperatuur * (eindTemperatuur / beginTemperatuur)^(i / minIteraties)
+    return temperatuur
+
+def sigmoidalFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):
+    "Berekent temperatuur aan de hand van sigmoidale formule"
+    temperatuur = eindTemperatuur + (beginTemperatuur - eindTemperatuur) / (1 + math.exp(0.3 * (i - minIteraties / 2)))
+    return temperatuur
