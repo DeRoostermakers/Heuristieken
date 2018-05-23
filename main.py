@@ -30,14 +30,23 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # roosterEnScore = hillClimber(dagen, tijdsloten)
 # rooster = roosterEnScore[0]
 # score = roosterEnScore[1]
-minIteraties = 1000
-rooster = Rooster.Rooster(dagen, tijdsloten)
-rooster.vulRandom()
-# simulatedAnnealing(rooster, minIteraties)
+# minIteraties = 1000
+# rooster = Rooster.Rooster(dagen, tijdsloten)
+# rooster.vulRandom()
+# # simulatedAnnealing(rooster, minIteraties)
+#
+# rooster, scoreLijst = hillClimber2(rooster, minIteraties)
+# iteratieVisualisatie(scoreLijst)
 
-rooster, scoreLijst = hillClimber2(rooster, minIteraties)
-iteratieVisualisatie(scoreLijst)
-# frequentieHistogram(output[1])
+scoreLijst = []
+interaties = 3
+for i in range(interaties):
+    rooster = Rooster.Rooster(dagen, tijdsloten)
+    rooster.vulRandom()
+    nieuwRooster = hillClimber(rooster, 1000)
+    scoreLijst.append(nieuwRooster[0].score())
+
+frequentieHistogram(scoreLijst)
 
 #sequential(dagen, tijdsloten)
 

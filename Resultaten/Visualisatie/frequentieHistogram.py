@@ -7,6 +7,7 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 import plotly.plotly as py
 import plotly.graph_objs as go
 import numpy as np
+py.tools.set_credentials_file(username='DeRoostermakers', api_key='kMZnofKi6pSyYy6Ih1bI')
 
 def frequentieHistogram(scoreLijst):
 
