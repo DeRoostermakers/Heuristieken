@@ -12,7 +12,7 @@ def simulatedAnnealing(rooster, minIteraties):
 
     # definieer temperaturen
     beginTemperatuur = 100
-    eindTemperatuur = 0
+    eindTemperatuur = 1
 
     # initialiseer variabelen
     score = rooster.score()
@@ -30,7 +30,13 @@ def simulatedAnnealing(rooster, minIteraties):
         lijstScore.append(score)
 
         # bereken temperatuur en acceptatiekans
-        temperatuur = beginTemperatuur-i*(beginTemperatuur-eindTemperatuur)/minIteraties
+        # lineair
+        temperatuur = beginTemperatuur - i * (beginTemperatuur - eindTemperatuur) / minIteraties
+        # # exponentieel
+        # temperatuur = beginTemperatuur * (eindTemperatuur / beginTemperatuur)^(i / minIteraties)
+        # # sigmoidal
+        # temperatuur = eindTemperatuur + (beginTemperatuur - eindTemperatuur) / (1 + math.exp(0.3 * (i - minIteraties / 2)))
+
         verkorting = score2 - score
         acceptatieKans = math.exp(verkorting/temperatuur)
 
