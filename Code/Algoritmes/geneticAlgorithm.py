@@ -8,6 +8,7 @@ import random
 import rooster as Rooster
 from operator import itemgetter
 import copy
+from willekeurigeWissel import willekeurigeWissel
 
 
 # hoeveel activiteiten van rooster 1, hoeveel activiteiten van ouder 2
@@ -154,10 +155,9 @@ def geneticAlgorithm(rooster, dagen, tijdsloten, groottePopulatie, aantalGenerat
             een = 1
             nummer = random.sample(range(10), een)
             if een in nummer:
+
                 # wissel twee willekeurige zaalsloten
-                indexZaalslot = random.sample(range(len(kind.zaalslotenLijst)), 2)
-                randomZaalslot1 = kind.zaalslotenLijst[indexZaalslot[0]]
-                randomZaalslot2 = kind.zaalslotenLijst[indexZaalslot[1]]
+                randomZaalslot1, randomZaalslot2 = willekeurigeWissel(kind.zaalslotenLijst)
                 randomZaalslot1.wissel(randomZaalslot2)
 
             # voeg kind toe aan generatie van kinderen

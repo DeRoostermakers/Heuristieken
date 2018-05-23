@@ -7,6 +7,7 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 import random
 import math
 import zaalSlot as ZaalSlot
+from willekeurigeWissel import willekeurigeWissel
 
 def simulatedAnnealing(rooster, minIteraties):
 
@@ -16,18 +17,14 @@ def simulatedAnnealing(rooster, minIteraties):
 
     # initialiseer variabelen
     score = rooster.score()
-    mutaties = 0
-    lijstScore = []
-    simulatedAnnealingRooster = []
+    scoreLijst = []
     for i in range(minIteraties):
 
         # wissel twee willekeurige zaalsloten
-        indexZaalslot = random.sample(range(len(rooster.zaalslotenLijst)), 2)
-        randomZaalslot1 = rooster.zaalslotenLijst[indexZaalslot[0]]
-        randomZaalslot2 = rooster.zaalslotenLijst[indexZaalslot[1]]
+        randomZaalslot1, randomZaalslot2 = willekeurigeWissel(rooster.zaalslotenLijst)
         randomZaalslot1.wissel(randomZaalslot2)
         score2 = rooster.score()
-        lijstScore.append(score)
+        scoreLijst.append(score)
 
         # bereken temperatuur en acceptatiekans
         # lineair
@@ -43,7 +40,6 @@ def simulatedAnnealing(rooster, minIteraties):
         # accepteer verandering als score verbeterd
         if acceptatieKans >= 1:
             score = score2
-            mutaties += 1
 
         # accepteer slechtere score afhankelijk van acceptatiekans
         elif acceptatieKans < 1:
@@ -52,14 +48,10 @@ def simulatedAnnealing(rooster, minIteraties):
             nummer = random.random()
             if acceptatieKans > nummer:
                 score = score2
-                mutaties += 1
 
             # niet geaccepteerd
             else:
                 randomZaalslot2.wissel(randomZaalslot1)
 
-    simulatedAnnealingRooster.append([rooster, score])
-
     # print(aantalIteraties)
-    print(lijstScore)
-    return rooster
+    return rooster, scoreLijst

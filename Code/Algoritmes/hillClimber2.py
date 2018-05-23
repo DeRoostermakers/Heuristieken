@@ -6,24 +6,20 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 
 import random
 from operator import itemgetter
-import rooster as Rooster
 import zaalSlot as ZaalSlot
 
-def hillClimbing2(dagen, tijdsloten):
+def hillClimber2(rooster, minIteraties):
 
     # maak een rooster object aan
-    rooster = Rooster.Rooster(dagen, tijdsloten)
-    minIteraties = 200
-    rooster.vulRandom()
     score = rooster.score()
 
-    mutaties = 0
-    lijstScore = []
+    scoreLijst = []
     stop = 0
     for i in range(minIteraties):
         if stop > 50:
             break
         scoreAlleWissels = []
+
         # wissel twee willekeurige zaalsloten
         indexZaalslot = random.sample(range(len(rooster.zaalslotenLijst)), 1)
         for j in range(len(rooster.zaalslotenLijst)):
@@ -36,17 +32,14 @@ def hillClimbing2(dagen, tijdsloten):
         scoreGesorteerd = sorted(scoreAlleWissels, key=itemgetter(1), reverse=True)
         score2 = scoreGesorteerd[0][1]
 
-        lijstScore.append(score)
+        scoreLijst.append(score)
 
         if score2 > score:
             score = score2
-            mutaties += 1
             stop = 0
 
         else:
             randomZaalslot2.wissel(randomZaalslot1)
             stop += 1
 
-    print(lijstScore)
-
-    return rooster
+    return rooster, scoreLijst

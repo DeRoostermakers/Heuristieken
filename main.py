@@ -13,8 +13,8 @@ sys.path.append(os.path.join(directory, "Resultaten", "Visualisatie"))
 sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
 
 
-from hillClimber import hillClimbing
-from hillClimber2 import hillClimbing2
+from hillClimber import hillClimber
+from hillClimber2 import hillClimber2
 from simulatedAnnealing import simulatedAnnealing
 from sequential import sequential
 from geneticAlgorithm import geneticAlgorithm
@@ -27,7 +27,7 @@ from iteratieVisualisatie import iteratieVisualisatie
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
 tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-19.00"]
 
-# roosterEnScore = hillClimbing(dagen, tijdsloten)
+# roosterEnScore = hillClimber(dagen, tijdsloten)
 # rooster = roosterEnScore[0]
 # score = roosterEnScore[1]
 minIteraties = 1000
@@ -35,9 +35,9 @@ rooster = Rooster.Rooster(dagen, tijdsloten)
 rooster.vulRandom()
 # simulatedAnnealing(rooster, minIteraties)
 
-output = hillClimbing(rooster)
-iteratieVisualisatie(output[1])
-frequentieHistogram(output[1])
+rooster, scoreLijst = hillClimber2(rooster, minIteraties)
+iteratieVisualisatie(scoreLijst)
+# frequentieHistogram(output[1])
 
 #sequential(dagen, tijdsloten)
 
