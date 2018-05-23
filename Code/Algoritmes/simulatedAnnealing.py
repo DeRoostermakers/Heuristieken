@@ -12,7 +12,7 @@ from willekeurigeWissel import willekeurigeWissel
 def simulatedAnnealing(rooster, minIteraties):
 
     # definieer temperaturen
-    beginTemperatuur = 100
+    beginTemperatuur = 1000
     eindTemperatuur = 1
 
     # initialiseer variabelen
@@ -28,11 +28,11 @@ def simulatedAnnealing(rooster, minIteraties):
 
         # bereken temperatuur en acceptatiekans
         # lineair
-        temperatuur = beginTemperatuur - i * (beginTemperatuur - eindTemperatuur) / minIteraties
+        # temperatuur = beginTemperatuur - i * (beginTemperatuur - eindTemperatuur) / minIteraties
         # # exponentieel
         # temperatuur = beginTemperatuur * (eindTemperatuur / beginTemperatuur)^(i / minIteraties)
         # # sigmoidal
-        # temperatuur = eindTemperatuur + (beginTemperatuur - eindTemperatuur) / (1 + math.exp(0.3 * (i - minIteraties / 2)))
+        temperatuur = eindTemperatuur + (beginTemperatuur - eindTemperatuur) / (1 + math.exp(0.3 * (i - minIteraties / 2)))
 
         verkorting = score2 - score
         acceptatieKans = math.exp(verkorting/temperatuur)
@@ -54,4 +54,4 @@ def simulatedAnnealing(rooster, minIteraties):
                 randomZaalslot2.wissel(randomZaalslot1)
 
     # print(aantalIteraties)
-    return rooster, scoreLijst
+    return rooster
