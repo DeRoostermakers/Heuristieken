@@ -11,19 +11,20 @@ def hillClimber(rooster, minIteraties):
 
     scoreLijst = []
     score = rooster.score()
-
+    scoreLijst.append(score)
     for i in range(minIteraties):
 
         # wissel twee willekeurige zaalsloten
         randomZaalslot1, randomZaalslot2 = willekeurigeWissel(rooster.zaalslotenLijst)
         randomZaalslot1.wissel(randomZaalslot2)
         score2 = rooster.score()
-        scoreLijst.append(score)
 
         if score2 > score:
             score = score2
 
         else:
             randomZaalslot2.wissel(randomZaalslot1)
+
+        scoreLijst.append(score)
 
     return rooster, scoreLijst

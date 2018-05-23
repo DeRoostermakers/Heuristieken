@@ -1,5 +1,5 @@
 """
-Functie om de verdeling van scores in te zien.
+Functie om de frequentieverdeling van scores in te zien.
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
@@ -19,13 +19,14 @@ def frequentieHistogram(scoreLijst):
     figuur = go.Figure(data=go.Data([ontwerp]), layout=layout)
     py.plotly.plot(figuur, filename='histogram-frequentie')
 
-    # statistieken bekijken
+    # statistieken berekenen
     gemiddelde = np.mean(scoreLijst)
     afwijking = np.std(scoreLijst)
     mediaan = np.median(scoreLijst)
     maximum = np.max(scoreLijst)
     minimum = np.min(scoreLijst)
 
+    # geef statistieken weer
     print("Het gemiddelde is " + str(gemiddelde))
     print("De standaardafwijking is " + str(afwijking))
     print("De mediaan is " + str(mediaan))
