@@ -17,6 +17,7 @@ from willekeurigeWissel import willekeurigeWissel
 
 def geneticAlgorithm(rooster, dagen, tijdsloten, groottePopulatie, aantalGeneraties):
 
+    scoreLijst = []
     # creëer populatie bestaande uit willekeurige roosters
     populatie = []
 
