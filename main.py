@@ -48,11 +48,11 @@ for i in range(iteraties):
     scoreLijst.append(nieuwRooster[0].score())
     print("we zijn bij interatie: " + str(i))
 
-#Assuming res is a flat list
-with open("resultaat.csv", "w") as output:
-    writer = csv.writer(output, lineterminator='\n')
-    for val in nieuwRooster[1]:
-        writer.writerow([val])
+# #Assuming res is a flat list
+# with open("resultaat.csv", "w") as output:
+#     writer = csv.writer(output, lineterminator='\n')
+#     for val in nieuwRooster[1]:
+#         writer.writerow([val])
 #sequential(dagen, tijdsloten)
 
 # groottePopulatie = 10
