@@ -9,11 +9,13 @@ import math
 import zaalSlot as ZaalSlot
 from willekeurigeWissel import willekeurigeWissel
 
-def simulatedAnnealing(rooster, minIteraties, beginTemperatuur, eindTemperatuur, temperatuurFunctie):
+def simulatedAnnealing(rooster, minIteraties):
 
     # initialiseer variabelen
     score = rooster.score()
     scoreLijst = []
+    beginTemperatuur = 100
+    eindTemperatuur = 1
     for i in range(minIteraties):
 
         # wissel twee willekeurige zaalsloten
@@ -23,7 +25,7 @@ def simulatedAnnealing(rooster, minIteraties, beginTemperatuur, eindTemperatuur,
         scoreLijst.append(score)
 
         # bereken temperatuur en acceptatiekans
-        temperatuur = temperatuurFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i)
+        temperatuur = beginTemperatuur * math.pow((eindTemperatuur / beginTemperatuur),(i / minIteraties))
         verkorting = score2 - score
         acceptatieKans = math.exp(verkorting/temperatuur)
 
@@ -53,7 +55,7 @@ def lineairFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):
 
 def exponentieelFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):
     "Berekent temperatuur aan de hand van exponentiële formule"
-    temperatuur = beginTemperatuur * (eindTemperatuur / beginTemperatuur)^(i / minIteraties)
+    temperatuur = beginTemperatuur * math.pow((eindTemperatuur / beginTemperatuur),(i / minIteraties))
     return temperatuur
 
 def sigmoidalFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):

@@ -24,7 +24,7 @@ import rooster as Rooster
 from frequentieHistogram import frequentieHistogram
 from iteratieVisualisatie import iteratieVisualisatie
 from randomSteekproef import randomSteekproef
-# from visualiseer import visualiseer
+from visualiseer import visualiseer
 
 # Dagen en tijdsloten welke geldig zijn voor het rooster
 dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
@@ -39,7 +39,7 @@ rooster.vulRandom()
 
 #randomSteekproef(rooster, 20000)
 
-# simulatedAnnealing(rooster, minIteraties, 100, 1, sigmoidalFunctie)
+# simulatedAnnealing(rooster, minIteraties)
 
 #
 # rooster, scoreLijst = hillClimber2(rooster, minIteraties)
@@ -77,15 +77,8 @@ def uitvoer(rooster):
         aantalGeneraties = input("Hoeveel generaties moeten er gemaakt worden?\n")
         mutatieKans = input("Welke mutatiekans moet worden toegepast (getal tussen 0 en 1)?\n")
 
-    elif algoritme == "simulatedAnnealing":
-        beginTemperatuur = input("begin temperatuur:")
-        eindTemperatuur = input("eind temperatuur:")
-        temperatuurFunctie = input("Wil je gebruik maken van een linear, exponentieel of sigmkml koelschema?\n")
+    elif algoritme != sequential:
         aantalIteraties = input("Met hoeveel iteraties wil je dit algoritme uitvoeren?\n")
-
-    else:
-        aantalIteraties = input("Met hoeveel iteraties wil je dit algoritme uitvoeren?\n")
-
 
     print("Cool, laten we " + algoritme + " uitvoeren! (Het kan even duren)")
 
@@ -96,7 +89,7 @@ def uitvoer(rooster):
         roosterNieuw, scoreNieuw = hillClimber2(rooster, int(aantalIteraties))
         print(roosterNieuw, scoreNieuw)
     elif algoritme == "simulatedAnnealing":
-        roosterNieuw, scoreNieuw = simulatedAnnealing(rooster, int(minIteraties), int(beginTemperatuur), int(eindTemperatuur), temperatuurFunctie)
+        roosterNieuw, scoreNieuw = simulatedAnnealing(rooster, int(minIteraties))
         print(roosterNieuw, scoreNieuw)
     elif algoritme == "sequential":
         roosterNieuw, scoreNieuw = sequential(rooster)
@@ -109,16 +102,19 @@ def uitvoer(rooster):
     if nogEenKeer == "j":
         return uitvoer(roosterNieuw)
     else:
-        print("Bedankt! Hopelijk ben je tevreden met je rooster.")
+        print("Bedankt! Hopelijk ben je tevreden met een rooster van " + str(scoreNieuw[len(scoreNieuw)-1]) + " punten. Het rooster wordt voor je geprint.")
+        visualiseer(tijdsloten, dagen, roosterNieuw)
 uitvoer(rooster)
 
 # scoreLijst = []
+# nieuwRooster = []
 # iteraties = 100
 # for i in range(iteraties):
 #     rooster = Rooster.Rooster(dagen, tijdsloten)
 #     rooster.vulRandom()
-#     nieuwRooster = simulatedAnnealing(rooster, 1500)
-#     scoreLijst.append(nieuwRooster.score())
+#     nieuwRooster = hillClimber(rooster, 5000)
+#     nieuwRooster2 = simulatedAnnealing(nieuwRooster, 2000)
+#     scoreLijst.append(nieuwRooster2.score())
 #     print(i)
 #
 # frequentieHistogram(scoreLijst)
