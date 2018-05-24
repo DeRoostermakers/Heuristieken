@@ -31,6 +31,7 @@ def hillClimber2(rooster, minIteraties):
                 randomZaalslot2.wissel(randomZaalslot1)
         scoreGesorteerd = sorted(scoreAlleWissels, key=itemgetter(1), reverse=True)
         score2 = scoreGesorteerd[0][1]
+        rooster = scoreGesorteerd[0][0]
 
         scoreLijst.append(score)
 
