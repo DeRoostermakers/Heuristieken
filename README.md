@@ -26,6 +26,7 @@ Om de code te draaien met de standaardconfiguratie gebruik de instructie:
 ```
 python main.py
 ```
+Hierna volgt een keuzemenu met algoritmes die op een rooster kunnen worden uitgeprobeerd. Wanneer er verschillende keuzemogelijkheden worden gegeven dient de keuze exact over worden getypt. Klaar met testen? Dan wordt het rooster met de score geprint.
 
 ## Auteurs
 
