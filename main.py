@@ -36,7 +36,7 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 minIteraties = 100
 rooster = Rooster.Rooster(dagen, tijdsloten)
 rooster.vulRandom()
-visualiseer(tijdsloten, dagen, rooster)
+# visualiseer(tijdsloten, dagen, rooster)
 #randomSteekproef(rooster, 20000)
 
 # simulatedAnnealing(rooster, minIteraties, 100, 1, lineairFunctie)
@@ -44,7 +44,7 @@ visualiseer(tijdsloten, dagen, rooster)
 #
 rooster, score = hillClimberSteepestAscent(rooster, minIteraties)
 # iteratieVisualisatie(scoreLijst)
-visualiseer(tijdsloten, dagen, rooster)
+# visualiseer(tijdsloten, dagen, roosterNieuw)
 
 # #Assuming res is a flat list
 # with open("resultaat.csv", "w") as output:

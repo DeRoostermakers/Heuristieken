@@ -27,19 +27,24 @@ def hillClimberSteepestAscent(rooster, minIteraties):
                 randomZaalslot1 = rooster.zaalslotenLijst[indexZaalslot[0]]
                 randomZaalslot2 = rooster.zaalslotenLijst[j]
                 randomZaalslot1.wissel(randomZaalslot2)
-                scoreAlleWissels.append([rooster, rooster.score()])
-                randomZaalslot2.wissel(randomZaalslot1)
-        scoreGesorteerd = sorted(scoreAlleWissels, key=itemgetter(1), reverse=True)
-        score2 = scoreGesorteerd[0][1]
+                score2 = rooster.score()
+                if score2 > score:
+                    score = score2
+                else:
+                    randomZaalslot2.wissel(randomZaalslot1)
+                print(score)
 
-        if score2 > score:
-            score = score2
-            stop = 0
+        # scoreGesorteerd = sorted(scoreAlleWissels, key=itemgetter(1), reverse=True)
+        # score2 = scoreGesorteerd[0][1]
 
-        else:
-            randomZaalslot2.wissel(randomZaalslot1)
-            stop += 1
+        # if score2 > score:
+        #     score = score2
+        #     stop = 0
+        #
+        # else:
+        #     stop += 1
 
         scoreLijst.append(score)
+
     print(scoreLijst)
     return rooster, scoreLijst
