@@ -9,23 +9,22 @@ import math
 import zaalSlot as ZaalSlot
 from willekeurigeWissel import willekeurigeWissel
 
-def simulatedAnnealing(rooster, minIteraties):
+def simulatedAnnealing(rooster, minIteraties, beginTemperatuur, eindTemperatuur, temperatuurFunctie):
 
     # initialiseer variabelen
     score = rooster.score()
     scoreLijst = []
-    beginTemperatuur = 100
-    eindTemperatuur = 1
+    scoreLijst.append(score)
+
     for i in range(minIteraties):
 
         # wissel twee willekeurige zaalsloten
         randomZaalslot1, randomZaalslot2 = willekeurigeWissel(rooster.zaalslotenLijst)
         randomZaalslot1.wissel(randomZaalslot2)
         score2 = rooster.score()
-        scoreLijst.append(score)
 
         # bereken temperatuur en acceptatiekans
-        temperatuur = beginTemperatuur * math.pow((eindTemperatuur / beginTemperatuur),(i / minIteraties))
+        temperatuur = temperatuurFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i)
         verkorting = score2 - score
         acceptatieKans = math.exp(verkorting/temperatuur)
 
@@ -45,7 +44,8 @@ def simulatedAnnealing(rooster, minIteraties):
             else:
                 randomZaalslot2.wissel(randomZaalslot1)
 
-    # print(aantalIteraties)
+        scoreLijst.append(score)
+
     return rooster, scoreLijst
 
 def lineairFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):

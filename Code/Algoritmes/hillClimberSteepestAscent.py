@@ -8,12 +8,12 @@ import random
 from operator import itemgetter
 import zaalSlot as ZaalSlot
 
-def hillClimber2(rooster, minIteraties):
+def hillClimberSteepestAscent(rooster, minIteraties):
 
     # maak een rooster object aan
     score = rooster.score()
-
     scoreLijst = []
+    scoreLijst.append(score)
     stop = 0
     for i in range(minIteraties):
         if stop > 50:
@@ -32,8 +32,6 @@ def hillClimber2(rooster, minIteraties):
         scoreGesorteerd = sorted(scoreAlleWissels, key=itemgetter(1), reverse=True)
         score2 = scoreGesorteerd[0][1]
 
-        scoreLijst.append(score)
-
         if score2 > score:
             score = score2
             stop = 0
@@ -42,4 +40,6 @@ def hillClimber2(rooster, minIteraties):
             randomZaalslot2.wissel(randomZaalslot1)
             stop += 1
 
+        scoreLijst.append(score)
+    print(scoreLijst)
     return rooster, scoreLijst
