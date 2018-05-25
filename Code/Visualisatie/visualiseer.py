@@ -1,5 +1,5 @@
 """
-Functie om het rooster te visualiseren.
+Functie om een rooster te visualiseren
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
@@ -7,7 +7,7 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 import plotly as py
 import plotly.figure_factory as ff
 from plotly import tools
-py.tools.set_credentials_file(username='DeRoostermakers', api_key='kMZnofKi6pSyYy6Ih1bI')
+py.tools.set_credentials_file(username = "DeRoostermakers", api_key = "kMZnofKi6pSyYy6Ih1bI")
 
 def visualiseer(tijdsloten, weekdagen, rooster):
 
@@ -31,15 +31,15 @@ def visualiseer(tijdsloten, weekdagen, rooster):
                             if zaalslot.activiteit.soort == 0:
                                 gesorteerdeActiviteiten.append(
                                     str(rooster.vanIdNaarVak[zaalslot.activiteit.vakId]
-                                    + ", HC"))
+                                        + ", HC"))
                             elif zaalslot.activiteit.soort == 1:
                                 gesorteerdeActiviteiten.append(
                                     str(rooster.vanIdNaarVak[zaalslot.activiteit.vakId]
-                                    + ", WC " + str(zaalslot.activiteit.groepnr)))
+                                        + ", WC " + str(zaalslot.activiteit.groepnr)))
                             else:
                                 gesorteerdeActiviteiten.append(
                                     str(rooster.vanIdNaarVak[zaalslot.activiteit.vakId])
-                                    + ", Prac " + str(zaalslot.activiteit.groepnr))
+                                        + ", Prac " + str(zaalslot.activiteit.groepnr))
                         else:
                             gesorteerdeActiviteiten.append(" ")
 
@@ -74,8 +74,7 @@ def visualiseer(tijdsloten, weekdagen, rooster):
     tabel5 = ff.create_table(week[24:30])
 
     # definieer de vijf subplots
-    figuur = tools.make_subplots(rows = 5, cols = 1, print_grid = False,
-                                 vertical_spacing = 0.025)
+    figuur = tools.make_subplots(rows = 5, cols = 1, print_grid = False, vertical_spacing = 0.025)
 
     # voeg de tabellen tot de juiste subplot toe
     figuur.append_trace(tabel1["data"][0], 1, 1)
@@ -98,20 +97,20 @@ def visualiseer(tijdsloten, weekdagen, rooster):
 
     # update de assen wanneer deze niet bij de eerste tabel horen
     for k in range(len(tabel2["layout"]["annotations"])):
-            tabel2["layout"]["annotations"][k].update(xref="x2", yref="y2")
+            tabel2["layout"]["annotations"][k].update(xref = "x2", yref = "y2")
     for k in range(len(tabel3["layout"]["annotations"])):
-            tabel3["layout"]["annotations"][k].update(xref="x3", yref="y3")
+            tabel3["layout"]["annotations"][k].update(xref = "x3", yref = "y3")
     for k in range(len(tabel4["layout"]["annotations"])):
-            tabel4["layout"]["annotations"][k].update(xref="x4", yref="y4")
+            tabel4["layout"]["annotations"][k].update(xref = "x4", yref = "y4")
     for k in range(len(tabel5["layout"]["annotations"])):
-            tabel5["layout"]["annotations"][k].update(xref="x5", yref="y5")
-    figuur["layout"]["annotations"].extend(tabel1["layout"]["annotations"]+tabel2["layout"]["annotations"]
-                                            +tabel3["layout"]["annotations"]+tabel4["layout"]["annotations"]
-                                            +tabel5["layout"]["annotations"])
+            tabel5["layout"]["annotations"][k].update(xref = "x5", yref = "y5")
+    figuur["layout"]["annotations"].extend(tabel1["layout"]["annotations"] + tabel2["layout"]["annotations"]
+                                            + tabel3["layout"]["annotations"] + tabel4["layout"]["annotations"]
+                                            + tabel5["layout"]["annotations"])
 
     # update de layout instellingen van figuur
-    figuur["layout"].update(width=2250, height=800, margin=dict(t=50, l=50, r=50, b=50),
+    figuur["layout"].update(width = 2250, height = 800, margin = dict(t = 50, l = 50, r = 50, b = 50),
                             title = "Rooster met score " + str(score))
 
     # plot de tabellen in een figuur
-    py.plotly.plot(figuur, validate = False, filename='Weekrooster')
+    py.plotly.plot(figuur, validate = False, filename = "Weekrooster")
