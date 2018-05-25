@@ -1,5 +1,5 @@
 """
-Hoofd bestand om een rooster object aan te maken en algoritmes te testen.
+Hoofd bestand om een rooster object aan te maken en algoritmes te testen
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
@@ -40,8 +40,9 @@ def main():
 
 def uitvoer(rooster):
     algoritme = input("Welke algoritme wil je uitproberen?" +
-    "\nJe kunt kiezen uit hillClimberStochastisch, hillClimberSteepestAscent, simulatedAnnealing, " +
-    "sequentialEenvoudigeMinimalisatie, \nsequentialTweevoudigeMinimalisatie of geneticAlgorithm\n")
+                      "\nJe kunt kiezen uit hillClimberStochastisch, hillClimberSteepestAscent," +
+                      "simulatedAnnealing, sequentialEenvoudigeMinimalisatie, " +
+                      "\nsequentialTweevoudigeMinimalisatie of geneticAlgorithm\n")
 
     if algoritme == "geneticAlgorithm":
         groottePopulatie = input("Hoe groot moet de populatie zijn?\n")
@@ -49,14 +50,15 @@ def uitvoer(rooster):
         mutatieKans = input("Welke mutatiekans moet worden toegepast (getal tussen 0 en 1)?\n")
 
     if (algoritme != "sequentialEenvoudigeMinimalisatie"
-    and algoritme != "sequentialTweevoudigeMinimalisatie"
-    and algoritme != "geneticAlgorithm"):
+        and algoritme != "sequentialTweevoudigeMinimalisatie"
+        and algoritme != "geneticAlgorithm"):
         aantalIteraties = input("Met hoeveel iteraties wil je dit algoritme uitvoeren?\n")
 
     if algoritme == "simulatedAnnealing":
         beginTemperatuur = input("begin temperatuur: ")
         eindTemperatuur = input("eind temperatuur: ")
-        temperatuurFunctie = input("Wil je gebruik maken van een lineairFunctie, exponentieelFunctie of sigmoidalFunctie koelschema?\n")
+        temperatuurFunctie = input("Wil je gebruik maken van een lineairFunctie, " +
+                                   "exponentieelFunctie of sigmoidalFunctie koelschema?\n")
 
     print("Cool, laten we " + algoritme + " uitvoeren! (Het kan even duren)")
 
@@ -66,24 +68,37 @@ def uitvoer(rooster):
         roosterNieuw, scoreNieuw = hillClimberSteepestAscent(rooster, int(aantalIteraties))
     elif algoritme == "simulatedAnnealing":
         if temperatuurFunctie == "lineairFunctie":
-            roosterNieuw, scoreNieuw = simulatedAnnealing(rooster, int(aantalIteraties), int(beginTemperatuur), int(eindTemperatuur), lineairFunctie)
+            roosterNieuw, scoreNieuw = simulatedAnnealing(rooster, int(aantalIteraties),
+                                                          int(beginTemperatuur),
+                                                          int(eindTemperatuur),
+                                                          lineairFunctie)
         elif temperatuurFunctie == "exponentieelFunctie":
-            roosterNieuw, scoreNieuw = simulatedAnnealing(rooster, int(aantalIteraties), int(beginTemperatuur), int(eindTemperatuur), exponentieelFunctie)
+            roosterNieuw, scoreNieuw = simulatedAnnealing(rooster, int(aantalIteraties),
+                                                          int(beginTemperatuur),
+                                                          int(eindTemperatuur),
+                                                          exponentieelFunctie)
         elif temperatuurFunctie == "sigmoidalFunctie":
-            roosterNieuw, scoreNieuw = simulatedAnnealing(rooster, int(aantalIteraties), int(beginTemperatuur), int(eindTemperatuur), sigmoidaFunctie)
+            roosterNieuw, scoreNieuw = simulatedAnnealing(rooster, int(aantalIteraties),
+                                                          int(beginTemperatuur),
+                                                          int(eindTemperatuur),
+                                                          sigmoidaFunctie)
     elif algoritme == "sequentialEenvoudigeMinimalisatie":
         roosterNieuw, scoreNieuw = sequentialEenvoudigeMinimalisatie(rooster)
     elif algoritme == "sequentialTweevoudigeMinimalisatie":
         roosterNieuw, scoreNieuw = sequentialTweevoudigeMinimalisatie(rooster)
     elif algoritme == "geneticAlgorithm":
-        roosterNieuw, scoreNieuw = geneticAlgorithm(rooster, dagen, tijdsloten, int(groottePopulatie), int(aantalGeneraties), int(float(mutatieKans)))
+        roosterNieuw, scoreNieuw = geneticAlgorithm(rooster, dagen, tijdsloten,
+                                                    int(groottePopulatie),
+                                                    int(aantalGeneraties),
+                                                    int(float(mutatieKans)))
 
     print("Rooster: " + str(roosterNieuw) + "\nDit rooster heeft een score van " + str(scoreNieuw[len(scoreNieuw)-1]))
     nogEenKeer = input("Wil je nog een algoritme op dit rooster uitproberen? (j/n)\n")
     if nogEenKeer == "j":
         return uitvoer(roosterNieuw)
     else:
-        print("Bedankt! Hopelijk ben je tevreden met een rooster van " + str(scoreNieuw[len(scoreNieuw)-1]) + " punten. Het rooster wordt voor je geprint.")
+        print("Bedankt! Hopelijk ben je tevreden met een rooster van " + str(scoreNieuw[len(scoreNieuw)-1]) + " punten. " +
+        "Het rooster wordt voor je geprint.")
         visualiseer(tijdsloten, dagen, roosterNieuw)
 
 if __name__ == "__main__":
