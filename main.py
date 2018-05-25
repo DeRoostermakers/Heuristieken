@@ -47,18 +47,18 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # print(scoreLijst)
 # scoreLijst = hillClimberSteepestAscent(rooster, 500)
 # iteratieVisualisatie(scoreLijst)
+#
+# rooster = Rooster.Rooster(dagen, tijdsloten)
+# sequentialTweevoudigeMinimalisatie(rooster, 10, 5)
 
-rooster = Rooster.Rooster(dagen, tijdsloten)
-sequentialTweevoudigeMinimalisatie(rooster, 100, 5)
-
-# scoreLijst = []
-# iteraties = 20
-# for i in range(iteraties):
-#     rooster = Rooster.Rooster(dagen, tijdsloten)
-#     rooster.vulRandom()
-#     nieuwRooster = geneticAlgorithm(rooster, dagen, tijdsloten, 50, 250, 0.25)
-#     scoreLijst.append(nieuwRooster[0].score())
-#     print("we zijn bij interatie: " + str(i))
+scoreLijst = []
+iteraties = 1
+for i in range(iteraties):
+    rooster = Rooster.Rooster(dagen, tijdsloten)
+    rooster.vulRandom()
+    nieuwRooster = geneticAlgorithm(rooster, dagen, tijdsloten, 10, 10, 0.25)
+    scoreLijst.append(nieuwRooster[0].score())
+    print("we zijn bij interatie: " + str(i))
 #
 # frequentieHistogram(scoreLijst)
 
