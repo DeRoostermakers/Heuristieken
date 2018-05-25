@@ -34,15 +34,6 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # roosterEnScore = hillClimber(dagen, tijdsloten)
 # rooster = roosterEnScore[0]
 # score = roosterEnScore[1]
-<<<<<<< HEAD
-# minIteraties = 100
-# rooster = Rooster.Rooster(dagen, tijdsloten)
-# rooster.vulRandom()
-
-#randomSteekproef(rooster, 20000)
-#
-# simulatedAnnealing(rooster, minIteraties, 100, 1, sigmoidalFunctie)
-=======
 minIteraties = 1000
 rooster = Rooster.Rooster(dagen, tijdsloten)
 rooster.vulRandom()
@@ -50,7 +41,6 @@ rooster.vulRandom()
 #randomSteekproef(rooster, 20000)
 
 #simulatedAnnealing(rooster, minIteraties, 100, 1, sigmoidalFunctie)
->>>>>>> cbc0cdb0dd76232192d8c6126590813ff29bf6f5
 
 #
 # rooster, scoreLijst = sequential(rooster)
@@ -59,7 +49,6 @@ rooster.vulRandom()
 # scoreLijst = hillClimberSteepestAscent(rooster, 500)
 # iteratieVisualisatie(scoreLijst)
 
-<<<<<<< HEAD
 rooster = Rooster.Rooster(dagen, tijdsloten)
 tweevoudigeMinimalisatie(rooster, 100, 5)
 
@@ -73,21 +62,6 @@ tweevoudigeMinimalisatie(rooster, 100, 5)
 #     print("we zijn bij interatie: " + str(i))
 #
 # frequentieHistogram(scoreLijst)
-=======
-scoreLijst = []
-iteraties = 20
-for i in range(iteraties):
-    rooster = Rooster.Rooster(dagen, tijdsloten)
-    rooster.vulRandom()
-    nieuwRooster = sequential(rooster)
-    nieuwRooster1 = simulatedAnnealing(nieuwRooster, 200, 100, 1, exponentieelFunctie)
-    nieuwRooster2 = hillClimberSteepestAscent(nieuwRooster1, 200)
-    scoreLijst.append(nieuwRooster2.score())
-    print("we zijn bij iteratie: " + str(i))
-
-frequentieHistogram(scoreLijst)
-
->>>>>>> cbc0cdb0dd76232192d8c6126590813ff29bf6f5
 
 # #Assuming res is a flat list
 # with open("resultaat.csv", "w") as output:
@@ -112,39 +86,6 @@ frequentieHistogram(scoreLijst)
 # iteraties = 51
 # randomSteekproef(rooster, 20000)
 
-<<<<<<< HEAD
-# print("WELKOM BIJ HET INPLANNEN VAN DE LESROOSTERS")
-# def uitvoer():
-#     algoritme = input("Welke algoritme wil je uitproberen? \nJe kunt kiezen uit hillClimber, hillClimber2, simulatedAnnealing, sequential of geneticAlgorithm\n")
-#     aantalIteraties = input("Met hoeveel iteraties wil je dit algoritme uitvoeren?\n")
-#     print("Cool, laten we " + algoritme + " met " + aantalIteraties +" iteraties uitvoeren!")
-#
-#     if algoritme == "hillClimber":
-#         roosterNieuw, scoreNieuw = hillClimber(rooster, int(aantalIteraties))
-#         print(roosterNieuw, scoreNieuw)
-#     if algoritme == "hillClimber2":
-#         roosterNieuw, scoreNieuw = hillClimber2(rooster, int(aantalIteraties))
-#         print(roosterNieuw, scoreNieuw)
-#     if algoritme == "simulatedAnnealing":
-#         roosterNieuw = (simulatedAnnealing(dagen, tijdsloten))[0]
-#         scoreNieuw = (simulatedAnnealing(dagen, tijdsloten))[1]
-#
-#     nogEenKeer = input("Wil je nog een algoritme op dit rooster uitproberen? (j/n)\n")
-#     if nogEenKeer == "j":
-#         return uitvoer()
-#     else:
-#         print("Bedankt! Hopelijk ben je tevreden met je rooster.")
-# uitvoer()
-
-# scoreLijst = []
-# iteraties = 100
-# for i in range(iteraties):
-#     rooster = Rooster.Rooster(dagen, tijdsloten)
-#     rooster.vulRandom()
-#     nieuwRooster = simulatedAnnealing(rooster, 1500)
-#     scoreLijst.append(nieuwRooster.score())
-#     print(i)
-=======
 # print("\nWELKOM BIJ HET INPLANNEN VAN DE LESROOSTERS\n")
 # def uitvoer(rooster):
 #     algoritme = input("Welke algoritme wil je uitproberen? \nJe kunt kiezen uit hillClimberStochastisch, hillClimberSteepestAscent, simulatedAnnealing, sequential of geneticAlgorithm\n")
@@ -161,7 +102,6 @@ frequentieHistogram(scoreLijst)
 #         beginTemperatuur = input("begin temperatuur: ")
 #         eindTemperatuur = input("eind temperatuur: ")
 #         temperatuurFunctie = input("Wil je gebruik maken van een lineairFunctie, exponentieelFunctie of sigmoidalFunctie koelschema?\n")
->>>>>>> cbc0cdb0dd76232192d8c6126590813ff29bf6f5
 #
 #     print("Cool, laten we " + algoritme + " uitvoeren! (Het kan even duren)")
 #
