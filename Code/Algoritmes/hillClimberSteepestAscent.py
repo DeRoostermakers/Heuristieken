@@ -45,4 +45,5 @@ def hillClimberSteepestAscent(rooster, minIteraties):
 
         scoreLijst.append(score)
 
+
     return rooster

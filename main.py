@@ -33,7 +33,7 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # roosterEnScore = hillClimber(dagen, tijdsloten)
 # rooster = roosterEnScore[0]
 # score = roosterEnScore[1]
-minIteraties = 20000
+minIteraties = 1000
 rooster = Rooster.Rooster(dagen, tijdsloten)
 rooster.vulRandom()
 # visualiseer(tijdsloten, dagen, rooster)
@@ -99,7 +99,7 @@ frequentieHistogram(scoreLijst)
 #     if algoritme == "simulatedAnnealing":
 #         beginTemperatuur = input("begin temperatuur: ")
 #         eindTemperatuur = input("eind temperatuur: ")
-#         # temperatuurFunctie = input("Wil je gebruik maken van een lineairFunctie, exponentieelFunctie of sigmoidalFunctie koelschema?\n")
+#         temperatuurFunctie = input("Wil je gebruik maken van een lineairFunctie, exponentieelFunctie of sigmoidalFunctie koelschema?\n")
 #
 #     print("Cool, laten we " + algoritme + " uitvoeren! (Het kan even duren)")
 #
@@ -108,7 +108,12 @@ frequentieHistogram(scoreLijst)
 #     elif algoritme == "hillClimberSteepestAscent":
 #         roosterNieuw, scoreNieuw = hillClimberSteepestAscent(rooster, int(aantalIteraties))
 #     elif algoritme == "simulatedAnnealing":
-#         roosterNieuw, scoreNieuw = simulatedAnnealing(rooster, int(aantalIteraties), int(beginTemperatuur), int(eindTemperatuur), exponentieelFunctie)
+#         if temperatuurFunctie == "lineairFunctie":
+#             roosterNieuw, scoreNieuw = simulatedAnnealing(rooster, int(aantalIteraties), int(beginTemperatuur), int(eindTemperatuur), lineairFunctie)
+#         elif temperatuurFunctie == "exponentieelFunctie":
+#             roosterNieuw, scoreNieuw = simulatedAnnealing(rooster, int(aantalIteraties), int(beginTemperatuur), int(eindTemperatuur), exponentieelFunctie)
+#         elif temperatuurFunctie == "sigmoidalFunctie":
+#             roosterNieuw, scoreNieuw = simulatedAnnealing(rooster, int(aantalIteraties), int(beginTemperatuur), int(eindTemperatuur), sigmoidaFunctie)
 #     elif algoritme == "sequential":
 #         roosterNieuw, scoreNieuw = sequential(rooster)
 #     elif algoritme == "geneticAlgorithm":
@@ -123,16 +128,15 @@ frequentieHistogram(scoreLijst)
 #         visualiseer(tijdsloten, dagen, roosterNieuw)
 # uitvoer(rooster)
 
-# scoreLijst = []
-# nieuwRooster = []
-# iteraties = 100
-# for i in range(iteraties):
-#     rooster = Rooster.Rooster(dagen, tijdsloten)
-#     rooster.vulRandom()
-#     nieuwRooster = hillClimber(rooster, 3000)
-#     nieuwRooster2 = simulatedAnnealing(nieuwRooster, 1500)
-#     nieuwRooster3 = hillClimber(nieuwRooster2, 3000)
-#     scoreLijst.append(nieuwRooster3.score())
-#     print(i)
-#
-# frequentieHistogram(scoreLijst)
+scoreLijst = []
+nieuwRooster = []
+iteraties = 50
+for i in range(iteraties):
+    rooster = Rooster.Rooster(dagen, tijdsloten)
+    rooster.vulRandom()
+    nieuwRooster = hillClimberStochastisch(rooster, 4000)
+    nieuwRooster2 = hillClimberSteepestAscent(rooster, 100)
+    scoreLijst.append(nieuwRooster2.score())
+    print(i)
+
+frequentieHistogram(scoreLijst)

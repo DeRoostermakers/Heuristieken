@@ -27,4 +27,4 @@ def hillClimberStochastisch(rooster, minIteraties):
 
         scoreLijst.append(score)
 
-    return rooster, scoreLijst
+    return rooster
