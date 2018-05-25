@@ -1,5 +1,5 @@
 """
-Algoritme dat een rooster zoekt door allen wissels toe te staan die voor verbetering zorgen.
+Algoritme dat een rooster zoekt door alle wissels toe te staan die voor verbetering zorgen.
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
