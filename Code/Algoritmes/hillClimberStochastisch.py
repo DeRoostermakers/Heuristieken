@@ -7,7 +7,7 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 import zaalSlot as ZaalSlot
 from willekeurigeWissel import willekeurigeWissel
 
-def hillClimber(rooster, minIteraties):
+def hillClimberStochastisch(rooster, minIteraties):
 
     scoreLijst = []
     score = rooster.score()
@@ -27,4 +27,4 @@ def hillClimber(rooster, minIteraties):
 
         scoreLijst.append(score)
 
-    return rooster, scoreLijst
+    return rooster

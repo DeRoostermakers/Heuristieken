@@ -14,13 +14,14 @@ def simulatedAnnealing(rooster, minIteraties, beginTemperatuur, eindTemperatuur,
     # initialiseer variabelen
     score = rooster.score()
     scoreLijst = []
+    scoreLijst.append(score)
+
     for i in range(minIteraties):
 
         # wissel twee willekeurige zaalsloten
         randomZaalslot1, randomZaalslot2 = willekeurigeWissel(rooster.zaalslotenLijst)
         randomZaalslot1.wissel(randomZaalslot2)
         score2 = rooster.score()
-        scoreLijst.append(score)
 
         # bereken temperatuur en acceptatiekans
         temperatuur = temperatuurFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i)
@@ -43,8 +44,9 @@ def simulatedAnnealing(rooster, minIteraties, beginTemperatuur, eindTemperatuur,
             else:
                 randomZaalslot2.wissel(randomZaalslot1)
 
-    # print(aantalIteraties)
-    return rooster, scoreLijst
+        scoreLijst.append(score)
+
+    return rooster
 
 def lineairFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):
     "Berekent temperatuur aan de hand van lineaire formule"
@@ -53,7 +55,7 @@ def lineairFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):
 
 def exponentieelFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):
     "Berekent temperatuur aan de hand van exponentiële formule"
-    temperatuur = beginTemperatuur * (eindTemperatuur / beginTemperatuur)^(i / minIteraties)
+    temperatuur = beginTemperatuur * math.pow((eindTemperatuur / beginTemperatuur),(i / minIteraties))
     return temperatuur
 
 def sigmoidalFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):
