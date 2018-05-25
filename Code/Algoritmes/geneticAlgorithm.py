@@ -30,7 +30,7 @@ def geneticAlgorithm(rooster, dagen, tijdsloten, groottePopulatie, aantalGenerat
             recombinatie(ouder1, ouder2, kind)
 
             # muteer kind rooster met een mogelijke kans
-            # mutatie(kind.zaalslotenLijst, mutatieKans)
+            mutatie(kind.zaalslotenLijst, mutatieKans)
 
             # voeg kind toe aan generatie van kinderen
             kinderen.append([kind, kind.score()])
