@@ -1,5 +1,6 @@
 """
 Algoritme dat een leeg rooster invult aan de hand van de zaalgroottes.
+Op deze manier worden de zaalgrotteconflicten geminimaliseerd.
 LET OP: dit algoritme kan alleen op een leeg rooster worden gebruikt
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
@@ -11,7 +12,9 @@ import math
 from willekeurigeWissel import willekeurigeWissel
 from iteratieVisualisatie import iteratieVisualisatie
 
-def eenvoudigeMinimalisatie(rooster):
+def sequentialEenvoudigeMinimalisatie(rooster):
+    " Minimaliseert de zaalgrootteconflicten "
+
     scoreLijst = []
     legeActiviteiten = []
 

@@ -10,12 +10,12 @@ import rooster as Rooster
 import math
 from willekeurigeWissel import willekeurigeWissel
 from iteratieVisualisatie import iteratieVisualisatie
-from eenvoudigeMinimalisatie import eenvoudigeMinimalisatie
+from sequentialEenvoudigeMinimalisatie import sequentialEenvoudigeMinimalisatie
 
-def tweevoudigeMinimalisatie(rooster, minIteraties, verschil):
+def sequentialTweevoudigeMinimalisatie(rooster, minIteraties, verschil):
 
     # deel het rooster in via zaalgrootte
-    sequentialRooster = eenvoudigeMinimalisatie(rooster)[0]
+    sequentialRooster = sequentialEenvoudigeMinimalisatie(rooster)[0]
 
     print("score na sequential: " + str(sequentialRooster.score()))
 

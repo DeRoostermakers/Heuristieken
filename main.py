@@ -17,8 +17,8 @@ from hillClimberStochastisch import hillClimberStochastisch
 from hillClimberSteepestAscent import hillClimberSteepestAscent
 from simulatedAnnealing import simulatedAnnealing
 from simulatedAnnealing import simulatedAnnealing, lineairFunctie, exponentieelFunctie, sigmoidalFunctie
-from eenvoudigeMinimalisatie import eenvoudigeMinimalisatie
-from tweevoudigeMinimalisatie import tweevoudigeMinimalisatie
+from sequentialEenvoudigeMinimalisatie import sequentialEenvoudigeMinimalisatie
+from sequentialTweevoudigeMinimalisatie import sequentialTweevoudigeMinimalisatie
 from geneticAlgorithm import geneticAlgorithm
 import rooster as Rooster
 from frequentieHistogram import frequentieHistogram
@@ -49,7 +49,7 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # iteratieVisualisatie(scoreLijst)
 
 rooster = Rooster.Rooster(dagen, tijdsloten)
-tweevoudigeMinimalisatie(rooster, 100, 5)
+sequentialTweevoudigeMinimalisatie(rooster, 100, 5)
 
 # scoreLijst = []
 # iteraties = 20
