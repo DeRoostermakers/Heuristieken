@@ -32,7 +32,6 @@ def hillClimberSteepestAscent(rooster, minIteraties):
                     score = score2
                 else:
                     randomZaalslot2.wissel(randomZaalslot1)
-                print(score)
 
         # scoreGesorteerd = sorted(scoreAlleWissels, key=itemgetter(1), reverse=True)
         # score2 = scoreGesorteerd[0][1]
@@ -46,5 +45,4 @@ def hillClimberSteepestAscent(rooster, minIteraties):
 
         scoreLijst.append(score)
 
-    print(scoreLijst)
-    return rooster, scoreLijst
+    return rooster

@@ -18,7 +18,7 @@ from hillClimberSteepestAscent import hillClimberSteepestAscent
 from simulatedAnnealing import simulatedAnnealing
 from test2 import test2
 from simulatedAnnealing import simulatedAnnealing, lineairFunctie, exponentieelFunctie, sigmoidalFunctie
-from sequential import sequential, sequentialTres
+from sequential import sequential
 from geneticAlgorithm import geneticAlgorithm
 import rooster as Rooster
 from frequentieHistogram import frequentieHistogram
@@ -45,16 +45,19 @@ rooster.vulRandom()
 # rooster, scoreLijst = sequential(rooster)
 #
 # print(scoreLijst)
+# scoreLijst = hillClimberSteepestAscent(rooster, 500)
 # iteratieVisualisatie(scoreLijst)
 
 scoreLijst = []
-iteraties = 100
+iteraties = 20
 for i in range(iteraties):
     rooster = Rooster.Rooster(dagen, tijdsloten)
     rooster.vulRandom()
-    nieuwRooster = sequentialTres(dagen, tijdsloten)
-    scoreLijst.append(nieuwRooster[0].score())
-    print("we zijn bij interatie: " + str(i))
+    nieuwRooster = sequential(rooster)
+    nieuwRooster1 = simulatedAnnealing(nieuwRooster, 200, 100, 1, exponentieelFunctie)
+    nieuwRooster2 = hillClimberSteepestAscent(nieuwRooster1, 200)
+    scoreLijst.append(nieuwRooster2.score())
+    print("we zijn bij iteratie: " + str(i))
 
 frequentieHistogram(scoreLijst)
 

@@ -46,7 +46,7 @@ def simulatedAnnealing(rooster, minIteraties, beginTemperatuur, eindTemperatuur,
 
         scoreLijst.append(score)
 
-    return rooster, scoreLijst
+    return rooster
 
 def lineairFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):
     "Berekent temperatuur aan de hand van lineaire formule"
