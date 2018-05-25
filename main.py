@@ -9,14 +9,13 @@ import csv
 directory = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(directory, "Code"))
 sys.path.append(os.path.join(directory, "Code", "Classes"))
-sys.path.append(os.path.join(directory, "Resultaten", "Visualisatie"))
 sys.path.append(os.path.join(directory, "Code", "Algoritmes"))
-
+sys.path.append(os.path.join(directory, "Code", "Visualisatie"))
+sys.path.append(os.path.join(directory, "Code", "Functies"))
 
 from hillClimberStochastisch import hillClimberStochastisch
 from hillClimberSteepestAscent import hillClimberSteepestAscent
 from simulatedAnnealing import simulatedAnnealing
-from test2 import test2
 from simulatedAnnealing import simulatedAnnealing, lineairFunctie, exponentieelFunctie, sigmoidalFunctie
 from eenvoudigeMinimalisatie import eenvoudigeMinimalisatie
 from tweevoudigeMinimalisatie import tweevoudigeMinimalisatie
@@ -34,9 +33,9 @@ tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-
 # roosterEnScore = hillClimber(dagen, tijdsloten)
 # rooster = roosterEnScore[0]
 # score = roosterEnScore[1]
-minIteraties = 1000
-rooster = Rooster.Rooster(dagen, tijdsloten)
-rooster.vulRandom()
+# minIteraties = 1000
+# rooster = Rooster.Rooster(dagen, tijdsloten)
+# rooster.vulRandom()
 # visualiseer(tijdsloten, dagen, rooster)
 #randomSteekproef(rooster, 20000)
 
@@ -130,15 +129,15 @@ tweevoudigeMinimalisatie(rooster, 100, 5)
 #         visualiseer(tijdsloten, dagen, roosterNieuw)
 # uitvoer(rooster)
 
-scoreLijst = []
-nieuwRooster = []
-iteraties = 50
-for i in range(iteraties):
-    rooster = Rooster.Rooster(dagen, tijdsloten)
-    rooster.vulRandom()
-    nieuwRooster = hillClimberStochastisch(rooster, 4000)
-    nieuwRooster2 = hillClimberSteepestAscent(rooster, 100)
-    scoreLijst.append(nieuwRooster2.score())
-    print(i)
-
-frequentieHistogram(scoreLijst)
+# scoreLijst = []
+# nieuwRooster = []
+# iteraties = 50
+# for i in range(iteraties):
+#     rooster = Rooster.Rooster(dagen, tijdsloten)
+#     rooster.vulRandom()
+#     nieuwRooster = hillClimberStochastisch(rooster, 4000)
+#     nieuwRooster2 = hillClimberSteepestAscent(rooster, 100)
+#     scoreLijst.append(nieuwRooster2.score())
+#     print(i)
+#
+# frequentieHistogram(scoreLijst)

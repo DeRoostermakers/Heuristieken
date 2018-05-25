@@ -1,5 +1,5 @@
 """
-Bestand met Activiteit klasse en lijsten Heuristieken
+Bestand met Activiteit klasse
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
