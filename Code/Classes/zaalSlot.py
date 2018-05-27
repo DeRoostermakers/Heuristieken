@@ -1,13 +1,10 @@
 """
-Bestand met Zaal klasse en lijsten Heuristieken
+Zaalslot klasse
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 
 class ZaalSlot(object):
-    """
-    Klasse om een zaalslot te representeren
-    """
 
     def __init__(self, naam, capaciteit, dag, tijdslot, idNaarDag):
         self.naam = naam
@@ -26,7 +23,7 @@ class ZaalSlot(object):
         return self.naam + "." + self.idNaarDag[self.dag] + "." + str(self.tijdslot) + "." + str(self.activiteit)
 
     def wissel(self, zaalslot):
-        """ Wissel twee activiteiten van tijdslot"""
+        " Wissel twee activiteiten van tijdslot "
 
         # sla de eerste activiteit tijdelijk op
         tijdelijkDag = self.dag
@@ -48,7 +45,7 @@ class ZaalSlot(object):
 
 
     def voegToe(self, activiteit):
-        """ Voeg een activiteit aan een zaalslot toe."""
+        " Voeg een activiteit aan een zaalslot toe "
 
         # voeg activiteit aan het zaalslot toe
         self.activiteit = activiteit

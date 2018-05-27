@@ -1,13 +1,11 @@
 """
-Bestand met Student klasse en lijsten Heuristieken
+Student klasse
 
 Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 """
 
 class Student(object):
-    """
-    Klasse om een student te representeren
-    """
+
     def __init__(self, achternaam, voornaam, studentnummer, vakken):
         self.achternaam = achternaam
         self.voornaam = voornaam
@@ -19,5 +17,3 @@ class Student(object):
 
     def __repr__(self):
         return self.studentnummer
-
-

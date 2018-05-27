@@ -13,7 +13,6 @@ from willekeurigeWissel import willekeurigeWissel
 from iteratieVisualisatie import iteratieVisualisatie
 
 def sequentialEenvoudigeMinimalisatie(rooster):
-    " Minimaliseert de zaalgrootteconflicten "
 
     scoreLijst = []
     legeActiviteiten = []
@@ -31,7 +30,8 @@ def sequentialEenvoudigeMinimalisatie(rooster):
     rooster.zaalslotenLijst.sort(key = lambda x: x.capaciteit, reverse = True)
 
     j = 0
-    # voeg de activiteiten toe aan de zaalsloten, sla de zaalsloten van 17.00-19.00 en "lege activiteiten" over
+    # voeg de activiteiten toe aan de zaalsloten, sla de zaalsloten van 17.00-19.00
+    # en "lege activiteiten" over
     for activiteit in rooster.activiteitenLijst:
         if(activiteit.nrStud == 0):
             legeActiviteiten.append(activiteit)

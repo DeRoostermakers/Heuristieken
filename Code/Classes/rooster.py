@@ -6,15 +6,13 @@ Linsey Schaap (11036109), Kenneth Goei (11850701), Nadja van 't Hoff (11030720)
 
 import csv
 import random
-# import numpy
 import student as StudentKlasse
 import vak as VakKlasse
 import zaalSlot as ZaalSlotKlasse
 import activiteit as ActiviteitKlasse
 
-
 class Rooster(object):
-    """ Klasse om een rooster te representeren."""
+
     def __init__(self, lesdagen, tijdsloten):
         self.studentenLijst = []
         self.vakkenLijst = []
@@ -36,15 +34,23 @@ class Rooster(object):
         self.vulActiviteitenLijstAan()
 
     def vulActiviteitenLijstAan(self):
+        " Vult het verschil in activiteiten en zaalsloten aan met lege activiteiten "
+
+        # zoek naar verschil in zaalsloten en activiteiten
         verschil = len(self.zaalslotenLijst) - len(self.activiteitenLijst)
+
+        #Als verschil groter is dan nul, voeg lege activiteiten mee
         if verschil > 0:
             for i in range(verschil):
-                self.activiteitenLijst.append(ActiviteitKlasse.Activiteit(None, None, None, None, 0, []))
+                self.activiteitenLijst.append(ActiviteitKlasse.Activiteit(None,
+                                              None, None, None, 0, []))
 
     def vulRandom(self):
-        "Vult het rooster met activiteiten"
+        " Vult het rooster op een random manier met activiteiten "
         i = 0
         j = 0
+
+        # kies een random volgorde voor de activiteiten en zaalsloten
         randomIndexActiviteiten = random.sample(range(len(self.activiteitenLijst)),
                                     len(self.activiteitenLijst))
         randomIndexSloten = random.sample(range(len(self.zaalslotenLijst)),
@@ -52,12 +58,13 @@ class Rooster(object):
 
         # plaatst elk activiteit in het een willekeurig zaalslot
         for zaalslot in range(0, len(self.activiteitenLijst)):
-            self.zaalslotenLijst[randomIndexSloten[j]].voegToe(self.activiteitenLijst[randomIndexActiviteiten[i]])
+            self.zaalslotenLijst[randomIndexSloten[j]].voegToe(self.activiteitenLijst
+            [randomIndexActiviteiten[i]])
             i += 1
             j += 1
 
     def score(self):
-        "deze functie berekent de score van een rooster"
+        " Bereken de score van het rooster "
 
         # maakt een rooster structuur van de activiteitenlijst
         perGroep = self.weekIndeling()
@@ -69,60 +76,31 @@ class Rooster(object):
             zaalgrootteConflictPunten = self.zaalgrootteConflict()
             roosterConflictenPunten = self.roosterConflicten()
             extraTijdslotPunten = self.extraTijdslot()
-            malusPunten = vakSpreidingPunten + zaalgrootteConflictPunten + roosterConflictenPunten + extraTijdslotPunten
-
+            malusPunten = (vakSpreidingPunten + zaalgrootteConflictPunten +
+                           roosterConflictenPunten + extraTijdslotPunten)
             scorepunten = 1000 - malusPunten + bonusPunten
-            # print("vakspreiding: " + str(vakSpreidingPunten))
-            # print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
-            # print("roosterConflicten: " + str(roosterConflictenPunten))
-            # print("extra tijdslot: " + str(extraTijdslotPunten))
-            # print("bonuspunten: " + str(bonusPunten))
-            # print("score: " + str(scorepunten))
+
             return scorepunten
 
         else:
-            return "niet alle vakken zijn ingeroosterd, geen score"
+            return "Niet alle vakken zijn ingeroosterd, geen score"
 
-    def scoreOnderverdeeld(self):
-        "deze functie berekent de score van een rooster"
 
-        # maakt een rooster structuur van de activiteitenlijst
-        perGroep = self.weekIndeling()
-
-        # berekent de malus- en bonuspunten per onderdeel
-        if self.vakkenIngeroosterd():
-            bonusPunten = self.bonus(perGroep)
-            vakSpreidingPunten = self.vakSpreiding(perGroep)
-            zaalgrootteConflictPunten = self.zaalgrootteConflict()
-            roosterConflictenPunten = self.roosterConflicten()
-            extraTijdslotPunten = self.extraTijdslot()
-            malusPunten = vakSpreidingPunten + zaalgrootteConflictPunten + roosterConflictenPunten + extraTijdslotPunten
-
-            scorepunten = 1000 - malusPunten + bonusPunten
-            print("vakspreiding: " + str(vakSpreidingPunten))
-            print("zaalgrootteConflict: " + str(zaalgrootteConflictPunten))
-            print("roosterConflicten: " + str(roosterConflictenPunten))
-            print("extra tijdslot: " + str(extraTijdslotPunten))
-            print("bonuspunten: " + str(bonusPunten))
-            print("score: " + str(scorepunten))
-            return scorepunten
-
-        else:
-            return "niet alle vakken zijn ingeroosterd, geen score"
     def zetIdOmNaarTijdslot(self, tijdsloten):
-        "Maakt een dict om een id om te zetten naar een tijdslot."
+        " Maakt een dict om een id om te zetten naar een tijdslot "
+
         for i in range(1, len(tijdsloten) + 1):
             self.idNaarTijdslot[i] = tijdsloten[i - 1]
 
     def zetDagOmNaarId(self, lesdagen):
-        "Maakt een dict om dagen om te zetten naar een id."
+        " Maakt een dict om dagen om te zetten naar een id "
         for i in range(1, len(lesdagen) + 1):
             self.dagNaarId[lesdagen[i - 1]] = i
             self.idNaarDag[i] = lesdagen[i - 1]
 
     def maakVakken(self):
-        "Leest het csv bestand in en maakt een vakkenlijst."
-        # aanmaken van verschillende functies
+        " Leest het csv bestand in en maakt een vakkenlijst "
+
         teller = 0
 
         # inlezen van CSV bestand van vakken
@@ -137,13 +115,16 @@ class Rooster(object):
                 if rij[5] == "nvt":
                     rij[5] = 1000
 
-                self.vakkenLijst.append(VakKlasse.Vak(teller, rij[0], int(rij[1]), int(rij[2]), int(rij[3]), int(rij[4]), int(rij[5])))
+                # voeg vak toe aan de vakkenlijst
+                self.vakkenLijst.append(VakKlasse.Vak(teller, rij[0], int(rij[1]),
+                                        int(rij[2]), int(rij[3]), int(rij[4]), int(rij[5])))
                 self.vanVakNaarId[rij[0]] = teller
                 self.vanIdNaarVak[teller] = rij[0]
                 teller += 1
 
     def maakStudenten(self):
-        """ Leest het csv bestand in en maakt een studentenlijst."""
+        " Leest het csv bestand in en maakt een studentenlijst "
+
         # inlezen van CSV bestand van studenten
         with open("Data/studentenenvakken.csv", "r", encoding="latin-1") as csvBestand:
             leesCSV = csv.reader(csvBestand, delimiter=",")
@@ -155,7 +136,8 @@ class Rooster(object):
                 for vak in rij[3:]:
                     if vak != "":
                         studentVakken.append(vak)
-                self.studentenLijst.append(StudentKlasse.Student(rij[0], rij[1], int(rij[2]), studentVakken))
+                self.studentenLijst.append(StudentKlasse.Student(rij[0], rij[1],
+                                           int(rij[2]), studentVakken))
 
         # vakken in studentenlijst met id voorzien
         for student in self.studentenLijst:
@@ -172,7 +154,7 @@ class Rooster(object):
             vak.aantalStudenten = len(vak.studenten)
 
     def maakZaalsloten(self):
-        "Maakt een lijst met zaalsloten aan."
+        " Maakt een lijst met zaalsloten aan "
 
         j = 0
         # leest bestand en creert zaalsloten
@@ -185,28 +167,30 @@ class Rooster(object):
                 j += 1
                 for dag in self.lesdagen:
                     for i in range(1, len(self.idNaarTijdslot)):
-                        self.zaalslotenLijst.append(ZaalSlotKlasse.ZaalSlot(rij[0], int(rij[1]), self.dagNaarId[dag], i, self.idNaarDag))
+                                    self.zaalslotenLijst.append(ZaalSlotKlasse.ZaalSlot(rij[0],
+                                    int(rij[1]), self.dagNaarId[dag],i, self.idNaarDag))
 
             # voeg zaalsloten toe voor het laatste tijdslot 17.00-19.00
             for dag in self.lesdagen:
-                self.zaalslotenLijst.append(ZaalSlotKlasse.ZaalSlot("C0.110", 110, self.dagNaarId[dag], 5, self.idNaarDag))
+                self.zaalslotenLijst.append(ZaalSlotKlasse.ZaalSlot("C0.110", 110,
+                                            self.dagNaarId[dag], 5, self.idNaarDag))
 
     def maakActiviteiten(self):
-        "Zet de vakkenlijst om naar een activiteitenlijst."
+        " Zet de vakkenlijst om naar een activiteitenlijst "
         for vak in self.vakkenLijst:
             self.activiteitenLijst += vak.vanVakNaarActiviteit()
 
     def vakkenIngeroosterd(self):
-        """ Controleert of alle vakken zijn ingeroosterd."""
+        " Controleert of alle vakken zijn ingeroosterd "
 
-        # controleert of een activiteit nog niet is ingeroosterd aan de had van tijdslot 0
+        # controleert of een activiteit nog niet is ingeroosterd aan de hand van tijdslot 0
         for activiteit in self.activiteitenLijst:
             if activiteit.tijdslot == 0:
                 return False
         return True
 
     def extraTijdslot(self):
-        "deze functie berekent de punten bij het gebruik van het extra tijdslot"
+        " Bereken de maluspunten bij het gebruik van het extra tijdslot"
 
         malusPunten = 0
 
@@ -218,7 +202,8 @@ class Rooster(object):
         return malusPunten
 
     def vakSpreiding(self, perGroep):
-        "deze functie berekent de punten voor de spreiding van de activiteiten"
+        " Bereken de punten voor de spreiding van de activiteiten "
+
         malusPunten = 0
 
         # controleer per vakgroep de vakspreiding door de week
@@ -233,8 +218,8 @@ class Rooster(object):
         return malusPunten
 
     def zaalgrootteConflict(self):
-        "Deze functie berekent de maluspunten voor te kleine zalen"
-        # vraagt alle zaalsloten op welke worden gebruikt
+        " Bereken de maluspunten voor te kleine zalen "
+
         malusPunten = 0
 
         # kijkt of de capaciteit van de zaal te klein is voor het aantal studenten
@@ -247,7 +232,8 @@ class Rooster(object):
         return malusPunten
 
     def maakRooster(self):
-        "Maakt een rooster structuur met lijsten en voeg de zaalsloten toe"
+        " Maakt een rooster structuur met lijsten en voeg de zaalsloten toe "
+
         rooster = []
 
         # maak het aantal lijsten voor het aantal dagen, gebruik het id als index
@@ -267,7 +253,8 @@ class Rooster(object):
 
 
     def weekIndeling(self):
-        "Maakt per werkgroep een lijst aan met de activiteiten door de week"
+        " Maakt per werkgroep een lijst aan met de activiteiten door de week "
+
         perGroep = []
         # per vak kijken naar de spreiding
         for vak in self.vakkenLijst:
@@ -304,10 +291,10 @@ class Rooster(object):
         return perGroep
 
     def bonus(self, perGroep):
-        "Berekent de bonuspunten van de vakspreiding"
+        " Bereken de bonuspunten voor de vakspreiding"
         bonus = 0
 
-        # kijkt per werkgroep (vanuti student) of de verdeling van de activiteiten goed is
+        # kijkt per werkgroep (vanuit student) of de verdeling van de activiteiten goed is
         for groep in perGroep:
             groep.sort()
             # twee activiteiten: dan moeten er twee dagen tussen de activiteiten zitten
@@ -320,7 +307,8 @@ class Rooster(object):
                     bonus += 20
             # vier activiteiten: eerste twee, en laatste twee moet een dag tussen zitten
             if len(groep) == 4:
-                if groep[1] - groep[0] == 1 and groep[2] - groep[1] == 2 and groep[3] - groep[2] == 1:
+                if (groep[1] - groep[0] == 1 and groep[2] - groep[1] == 2
+                    and groep[3] - groep[2] == 1):
                     bonus += 20
 
         return bonus
@@ -328,10 +316,11 @@ class Rooster(object):
 
 
     def roosterConflicten(self):
-        "deze functie berekent de punten bij roosterconflicten per student"
+        " Bereken de punten bij roosterconflicten per student "
 
         malusPunten = 0
         rooster = self.maakRooster()
+
         # kijk voor elke dag naar een tijdslot
         for dag in rooster:
             # kijk voor elk tijdslot welke studenten een vak volgen
@@ -342,18 +331,20 @@ class Rooster(object):
                     if zaalslot.activiteit != None:
                         studentenTijdslot += zaalslot.activiteit.welkeStud
                 #  bereken de maluspunten voor de rooster conflicten
-                malusPunten += controleerDubbel(studentenTijdslot)
+                malusPunten += self.controleerDubbel(studentenTijdslot)
+
         return malusPunten
 
-def controleerDubbel(studentenTijdslot):
-    "Controleert hoeveel rooster conflicten een bepaald tijdslot heeft"
-    malusPunten = 0
-    aanwezig = []
+    def controleerDubbel(self, studentenTijdslot):
+        "  Controleer hoeveel rooster conflicten een bepaald tijdslot heeft "
 
-    # kijkt of een student al aanwezig was in het tijdslot
-    for student in studentenTijdslot:
-        if student in aanwezig:
-            malusPunten += 1
-        else:
-            aanwezig.append(student)
-    return malusPunten
+        malusPunten = 0
+        aanwezig = []
+
+        # kijkt of een student al aanwezig was in het tijdslot
+        for student in studentenTijdslot:
+            if student in aanwezig:
+                malusPunten += 1
+            else:
+                aanwezig.append(student)
+        return malusPunten

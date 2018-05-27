@@ -27,6 +27,7 @@ from randomSteekproef import randomSteekproef
 from visualiseer import visualiseer
 
 def main():
+
     # Dagen en tijdsloten welke geldig zijn voor het rooster
     dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
     tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-19.00"]
@@ -45,14 +46,15 @@ def main():
     frequentieHistogram(scoreLijst)
 
     print("\nWELKOM BIJ HET INPLANNEN VAN DE LESROOSTERS\n")
-    # uitvoer(rooster)
+    uitvoer(rooster, dagen, tijdsloten)
 
 
-def uitvoer(rooster):
+def uitvoer(rooster, dagen, tijdsloten):
+
     algoritme = input("Welke algoritme wil je uitproberen?" +
                       "\nJe kunt kiezen uit hillClimberStochastisch, hillClimberSteepestAscent," +
                       "simulatedAnnealing, sequentialEenvoudigeMinimalisatie, " +
-                      "\nsequentialTweevoudigeMinimalisatie of geneticAlgorithm\n")
+                      "sequentialTweevoudigeMinimalisatie of geneticAlgorithm\n")
 
     if algoritme == "geneticAlgorithm":
         groottePopulatie = input("Hoe groot moet de populatie zijn?\n")
@@ -60,7 +62,6 @@ def uitvoer(rooster):
         mutatieKans = input("Welke mutatiekans moet worden toegepast (getal tussen 0 en 1)?\n")
 
     if (algoritme != "sequentialEenvoudigeMinimalisatie"
-        and algoritme != "sequentialTweevoudigeMinimalisatie"
         and algoritme != "geneticAlgorithm"):
         aantalIteraties = input("Met hoeveel iteraties wil je dit algoritme uitvoeren?\n")
 
@@ -69,6 +70,9 @@ def uitvoer(rooster):
         eindTemperatuur = input("eind temperatuur: ")
         temperatuurFunctie = input("Wil je gebruik maken van een lineairFunctie, " +
                                    "exponentieelFunctie of sigmoidalFunctie koelschema?\n")
+
+    if algoritme == "sequentialTweevoudigeMinimalisatie":
+        verschilZaal = input("Welk verschil in capaciteit verschil je tussen zalen voor de indeling?\n")
 
     print("Cool, laten we " + algoritme + " uitvoeren! (Het kan even duren)")
 
@@ -95,17 +99,17 @@ def uitvoer(rooster):
     elif algoritme == "sequentialEenvoudigeMinimalisatie":
         roosterNieuw, scoreNieuw = sequentialEenvoudigeMinimalisatie(rooster)
     elif algoritme == "sequentialTweevoudigeMinimalisatie":
-        roosterNieuw, scoreNieuw = sequentialTweevoudigeMinimalisatie(rooster)
+        roosterNieuw, scoreNieuw = sequentialTweevoudigeMinimalisatie(rooster, int(aantalIteraties), int(verschilZaal))
     elif algoritme == "geneticAlgorithm":
         roosterNieuw, scoreNieuw = geneticAlgorithm(rooster, dagen, tijdsloten,
                                                     int(groottePopulatie),
                                                     int(aantalGeneraties),
-                                                    int(float(mutatieKans)))
+                                                    float(mutatieKans))
 
     print("Rooster: " + str(roosterNieuw) + "\nDit rooster heeft een score van " + str(scoreNieuw[len(scoreNieuw)-1]))
     nogEenKeer = input("Wil je nog een algoritme op dit rooster uitproberen? (j/n)\n")
     if nogEenKeer == "j":
-        return uitvoer(roosterNieuw)
+        return uitvoer(roosterNieuw, dagen, tijdsloten)
     else:
         print("Bedankt! Hopelijk ben je tevreden met een rooster van " + str(scoreNieuw[len(scoreNieuw)-1]) + " punten. " +
         "Het rooster wordt voor je geprint.")
