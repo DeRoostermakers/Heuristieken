@@ -34,8 +34,18 @@ def main():
     rooster = Rooster.Rooster(dagen, tijdsloten)
     rooster.vulRandom()
 
+    iteraties = 50
+    scoreLijst = []
+    for i in range(iteraties):
+        rooster.vulRandom()
+        nieuwRooster = hillClimberSteepestAscent(rooster, 200)
+        scoreLijst.append(nieuwRooster.score())
+        print("We zijn bij iteratie" + str(i))
+
+    frequentieHistogram(scoreLijst)
+
     print("\nWELKOM BIJ HET INPLANNEN VAN DE LESROOSTERS\n")
-    uitvoer(rooster)
+    # uitvoer(rooster)
 
 
 def uitvoer(rooster):

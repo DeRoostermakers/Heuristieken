@@ -61,6 +61,5 @@ def exponentieelFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):
 def sigmoidalFunctie(beginTemperatuur, eindTemperatuur, minIteraties, i):
     " Berekent temperatuur aan de hand van sigmoidale formule "
 
-    temperatuur = eindTemperatuur + (beginTemperatuur - eindTemperatuur)
-    / (1 + math.exp(0.3 * (i - minIteraties / 2)))
+    temperatuur = eindTemperatuur + (beginTemperatuur - eindTemperatuur) / (1 + math.exp(0.3 * (i - minIteraties / 2)))
     return temperatuur
