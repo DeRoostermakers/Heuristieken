@@ -25,32 +25,24 @@ from frequentieHistogram import frequentieHistogram
 from iteratieVisualisatie import iteratieVisualisatie
 from randomSteekproef import randomSteekproef
 from visualiseer import visualiseer
-
+import time
 def main():
+    print(time.time())
     # Dagen en tijdsloten welke geldig zijn voor het rooster
     dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
     tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-19.00"]
 
     scoreLijst = []
-    # for i in range(3):
-    #     rooster = Rooster.Rooster(dagen, tijdsloten)
-    #     nieuwRooster = sequentialTweevoudigeMinimalisatie(rooster, 4000, 5)
-    #     eind = hillClimberSteepestAscent(nieuwRooster[0], 200)
-    #     scoreLijst.append(eind.score())
-    #     print("iteteratie: " + str(i))
-    #
+    for i in range(1):
+        rooster = Rooster.Rooster(dagen, tijdsloten)
+        nieuwRooster = sequentialTweevoudigeMinimalisatie(rooster, 4000, 5)
+        eind = hillClimberSteepestAscent(nieuwRooster[0], 200)
+        scoreLijst.append(eind.score())
+
+    print("score: " + str(eind.score()))
+    print(time.time())
 
 
-
-
-
-
-    with open('conbinatie.csv', 'r') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            scoreLijst.append(int(row[0]))
-
-    frequentieHistogram(scoreLijst)
 
     # scoreLijst = []
     # for j in range(20):
