@@ -43,7 +43,6 @@ def sequentialTweevoudigeMinimalisatie(rooster, minIteraties, verschil):
     for zaal in zalen:
         score = rooster.score()
         for i in range(minIteraties):
-
             # wissel twee willekeurige zaalsloten
             randomZaalslot1, randomZaalslot2 = willekeurigeWissel(sequentialRooster.zaalslotenLijst)
             randomZaalslot1.wissel(randomZaalslot2)
@@ -55,5 +54,7 @@ def sequentialTweevoudigeMinimalisatie(rooster, minIteraties, verschil):
             else:
                 randomZaalslot2.wissel(randomZaalslot1)
             scoreLijst.append(sequentialRooster.score())
+
+
 
     return sequentialRooster, scoreLijst

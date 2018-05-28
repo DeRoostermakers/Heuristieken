@@ -15,8 +15,11 @@ def geneticAlgorithm(rooster, dagen, tijdsloten, groottePopulatie, aantalGenerat
 
     scoreLijst = []
 
-    # creëer populatie bestaande uit willekeurige roosters
-    populatie = maakPopulatie(rooster, dagen, tijdsloten, groottePopulatie)
+    # # creëer populatie bestaande uit willekeurige roosters
+    # populatie = maakPopulatie(rooster, dagen, tijdsloten, groottePopulatie)
+
+    # # creëer populatie bestaande uit willekeurige roosters
+    populatie = rooster
 
     # iteraar door bepaald aantal generaties
     for j in range(aantalGeneraties):
