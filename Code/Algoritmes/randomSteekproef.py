@@ -12,9 +12,9 @@ import numpy as np
 def randomSteekproef(rooster, iteraties):
 
     # trek iteraties keer een willekeurig rooster uit de toestandsruimte
-    scores = []
+    scoreLijst = []
     for simulatie in range(1, iteraties + 1):
         rooster.vulRandom()
-        scores.append(rooster.score())
+        scoreLijst.append(rooster.score())
 
     return rooster, scoreLijst

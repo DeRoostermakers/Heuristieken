@@ -31,7 +31,6 @@ def main():
     dagen = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
     tijdsloten = ["9.00-11.00", "11.00-13.00", "13.00-15.00", "15.00-17.00", "17.00-19.00"]
 
-
     scoreLijst = []
     # for i in range(3):
     #     rooster = Rooster.Rooster(dagen, tijdsloten)
