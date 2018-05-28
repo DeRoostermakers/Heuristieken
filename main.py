@@ -33,20 +33,25 @@ def main():
 
 
     scoreLijst = []
-    for i in range(3):
-        rooster = Rooster.Rooster(dagen, tijdsloten)
-        nieuwRooster = sequentialTweevoudigeMinimalisatie(rooster, 4, 5)
-        eind = hillClimberSteepestAscent(nieuwRooster[0], 2)
-        scoreLijst.append(eind.score())
+    # for i in range(3):
+    #     rooster = Rooster.Rooster(dagen, tijdsloten)
+    #     nieuwRooster = sequentialTweevoudigeMinimalisatie(rooster, 4000, 5)
+    #     eind = hillClimberSteepestAscent(nieuwRooster[0], 200)
+    #     scoreLijst.append(eind.score())
+    #     print("iteteratie: " + str(i))
+    #
 
 
 
-    with open("output.csv", "w") as output:
-        writer = csv.writer(output, lineterminator='\n')
-        for val in scoreLijst:
-            writer.writerow([val])
 
-    # frequentieHistogram(scoreLijst)
+
+
+    with open('conbinatie.csv', 'r') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            scoreLijst.append(int(row[0]))
+
+    frequentieHistogram(scoreLijst)
 
     # scoreLijst = []
     # for j in range(20):
